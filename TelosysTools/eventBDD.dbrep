@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Telosys Database Repository --><root>
+<tableList databaseId="0" databaseName="eventBDD" databaseProductName="Apache Derby" generation="2014-10-19 21:58:12">
+<table catalog="" databaseType="TABLE" javaBean="Eventbdd" name="EVENTBDD" schema="APP">
+<column dbDefaultValue="" dbName="ID" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="10" dbTypeName="INTEGER" inputType="number" javaName="id" javaType="java.lang.Integer" jdbcTypeCode="4" label="Id" notNull="true" selected="true"/>
+<column dbDefaultValue="" dbName="NAME" dbNotNull="false" dbPosition="2" dbSize="30" dbTypeName="VARCHAR" inputType="text" javaName="name" javaType="java.lang.String" jdbcTypeCode="12" label="Name" maxLength="30" notNull="false" selected="true"/>
+<column dateType="D" dbDefaultValue="" dbName="DATE" dbNotNull="false" dbPosition="3" dbSize="10" dbTypeName="DATE" inputType="date" javaName="date" javaType="java.util.Date" jdbcTypeCode="91" label="Date" notNull="false" selected="true"/>
+</table>
+<table catalog="" databaseType="TABLE" javaBean="Userbdd" name="USERBDD" schema="APP">
+<column dbDefaultValue="" dbName="ID" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="10" dbTypeName="INTEGER" inputType="number" javaName="id" javaType="java.lang.Integer" jdbcTypeCode="4" label="Id" notNull="true" selected="true"/>
+<column dbDefaultValue="" dbName="PASSWORD" dbNotNull="false" dbPosition="2" dbSize="30" dbTypeName="VARCHAR" inputType="text" javaName="password" javaType="java.lang.String" jdbcTypeCode="12" label="Password" maxLength="30" notNull="false" selected="true"/>
+</table>
+</tableList>
+</root>
