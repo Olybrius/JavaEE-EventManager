@@ -1,0 +1,20 @@
+<html>
+<head>
+	<link type="text/css" href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet">	
+	<link type="text/css" href="<c:url value="/css/eventmanager.css"/>" rel="stylesheet">	
+	<script type="text/javascript" src="<c:url value="/js/jquery-2.1.1.min.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/bootstrap.min.js"/>"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>${title}</title>
+</head>
+<body>
+
+<c:choose>
+	<c:when test="${content eq true}">
+		<%@ include file="/WEB-INF/jspf/NavAfterConnect.jspf" %>
+	</c:when>
+	<c:otherwise>
+		<%@ include file="/WEB-INF/jspf/NavBeforeConnect.jspf" %>
+	</c:otherwise>
+</c:choose>
