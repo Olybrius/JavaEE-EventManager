@@ -3,6 +3,9 @@
     
 	<persistence-unit name="persistence-unit1" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>emn.tp.bean.jpa.UsersEntity</class>
+		<class>emn.tp.bean.jpa.EventsEntity</class>
+		<class>emn.tp.bean.jpa.ParticipantEntity</class>
 		<properties>
 			<!-- Database configuration -->
 			<property name="hibernate.connection.driver_class"  value="org.apache.derby.jdbc.ClientDriver"/>
@@ -17,3 +20,4 @@
 	</persistence-unit>
     
 </persistence>
+

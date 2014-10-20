@@ -1,31 +1,14 @@
-Mon Oct 20 11:32:26 CEST 2014 : Apache Derby Network Server - 10.11.1.1 - (1616546) démarré et prêt à accepter les connexions sur le port 1527
+Mon Oct 20 20:12:25 CEST 2014 : Apache Derby Network Server - 10.11.1.1 - (1616546) démarré et prêt à accepter les connexions sur le port 1527
 ----------------------------------------------------------------
-Mon Oct 20 11:33:08 CEST 2014:
-Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546) : instance a816c00e-0149-2ce6-7709-00005f790688 
-dans le répertoire de base de données C:\Users\Killian\git\JavaEE-EventManager\bdd\bin\eventBDD avec le chargeur de classe sun.misc.Launcher$AppClassLoader@610455d6
-Chargé de file:/C:/Users/Killian/git/JavaEE-EventManager/bdd/lib/derby.jar
+Mon Oct 20 20:12:31 CEST 2014:
+Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546) : instance a816c00e-0149-2ec2-9779-0000653f9bc7 
+dans le répertoire de base de données C:\Users\Joris\git\JavaEE-EventManager\bdd\bin\eventBDD avec le chargeur de classe sun.misc.Launcher$AppClassLoader@610455d6
+Chargé de file:/C:/Users/Joris/git/JavaEE-EventManager/bdd/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_11-b12
-user.dir=C:\Users\Killian\git\JavaEE-EventManager\bdd\bin
-os.name=Windows 8.1
+java.runtime.version=1.8.0_20-b26
+user.dir=C:\Users\Joris\git\JavaEE-EventManager\bdd\bin
+os.name=Windows 7
 os.arch=amd64
-os.version=6.3
-derby.system.home=C:\Users\Killian\git\JavaEE-EventManager\bdd\bin
-Chargeur de classe de la base de données démarré - derby.database.classpath = ''
-----------------------------------------------------------------
-Mon Oct 20 11:33:08 CEST 2014:
-Fermeture de l'instance a816c00e-0149-2ce6-7709-00005f790688 sur le répertoire de base de données C:\Users\Killian\git\JavaEE-EventManager\bdd\bin\eventBDD avec le chargeur de classe sun.misc.Launcher$AppClassLoader@610455d6 
-Mon Oct 20 11:33:08 CEST 2014 Thread[DRDAConnThread_3,5,main] (DATABASE = eventBDD), (DRDAID = {2}), Arrêt de la base de données 'eventBDD'.
-----------------------------------------------------------------
-Mon Oct 20 11:33:11 CEST 2014:
-Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546) : instance 601a400f-0149-2ce6-7709-00005f790688 
-dans le répertoire de base de données C:\Users\Killian\git\JavaEE-EventManager\bdd\bin\eventBDD avec le chargeur de classe sun.misc.Launcher$AppClassLoader@610455d6
-Chargé de file:/C:/Users/Killian/git/JavaEE-EventManager/bdd/lib/derby.jar
-java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_11-b12
-user.dir=C:\Users\Killian\git\JavaEE-EventManager\bdd\bin
-os.name=Windows 8.1
-os.arch=amd64
-os.version=6.3
-derby.system.home=C:\Users\Killian\git\JavaEE-EventManager\bdd\bin
+os.version=6.1
+derby.system.home=C:\Users\Joris\git\JavaEE-EventManager\bdd\bin
 Chargeur de classe de la base de données démarré - derby.database.classpath = ''
