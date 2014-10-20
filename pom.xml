@@ -5,7 +5,8 @@
   <artifactId>TP-EventManager</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>TP-EventManager Maven Webapp</name>
+  <name>Event Manager</name>
+  <description>Project developed by Joris Pichard and Killian Saint cricq</description>
   <url>http://maven.apache.org</url>
   <dependencies>
 		<dependency>
