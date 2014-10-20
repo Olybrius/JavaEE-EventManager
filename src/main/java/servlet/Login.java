@@ -36,6 +36,13 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		String mail = request.getParameter("mail");
+		String password = request.getParameter("password");
+		if (mail.equals("test@test.fr") && password.equals("Test")){
+			response.sendRedirect("Events");
+		}else{
+			response.sendRedirect("Login");
+		}
 	}
 
 }
