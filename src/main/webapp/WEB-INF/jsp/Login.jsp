@@ -38,4 +38,14 @@ CONNECTION FORM
 	</div>
 </form>
 
+<script>
+
+	$(document).ready(
+		function(){
+			$('#mail').focus();
+		}
+	);
+	
+</script>
+	
 <%@ include file="/WEB-INF/jspf/Footer.jspf" %>

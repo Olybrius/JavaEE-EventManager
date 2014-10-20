@@ -13,13 +13,13 @@ CREATE EVENT FORM
 	<div class="form-group">
 		<label for="name" class="col-sm-3 control-label">Nom de l'évènement</label>
 		<div class="col-sm-4">
-			<input type="text" class="form-control" id="name" name="name" placeholder="Nom de l'évènement" required>
+			<input type="text" class="form-control" id="name" name="name" placeholder="Nom de l'évènement" value="" required>
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="address" class="col-sm-3 control-label">Adresse</label>
 		<div class="col-sm-4">
-			<input type="text" class="form-control" id="address" name="address" placeholder="Adresse" required>
+			<input type="text" class="form-control" id="address" name="address" placeholder="Adresse" value="" required>
 		</div>
 	</div>
 	<div class="form-group">
@@ -54,7 +54,7 @@ CREATE EVENT FORM
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-3 col-sm-10">
-			<button id="save" type="submit" class="btn btn-default" disabled="disabled">Enregister</button>
+			<button id="save" type="submit" class="btn btn-default">Enregister</button>
 		</div>
 	</div>
 </form>
@@ -63,23 +63,62 @@ CREATE EVENT FORM
 
 	$(document).ready(
 		function(){
-			$('#endDateHelp').show("slow") ;
+			// Initialize to current date
+			var now = new Date();
+			var day = ("0" + now.getDate()).slice(-2);
+			var month = ("0" + (now.getMonth() + 1)).slice(-2);
+			var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+			$('#startDate').val(today);
+			$('#endDate').val(today);
+			$('#startTime').val('00:00');
+			$('#endTime').val('23:59');
+			$('#name').focus();
 		}
 	);
-
+	
+	$('#address').change(trim);
+	$('#name').change(trim);
 	$('#startDate').change(validator);
 	$('#startTime').change(validator);
 	$('#endDate').change(validator);
 	$('#endTime').change(validator);
+
+	// Delete white spaces before and after inputs
+	function trim(){
+		$('#address').val($('#address').val().trim());
+		$('#name').val($('#name').val().trim());
+	}
 	
+	// Check if dates are OKs
 	function validator(){		
 		// Do we have to disable the save button ?
 		var disableButton = false ;
-	
+		// Test dates
+		var startDate = $('#startDate').val() ;
+		var endDate = $('#endDate').val() ;
+		var startTime = $('#startTime').val() ;
+		var endTime = $('#endTime').val() ;
+		// Bad format
+		if (startDate == '' || endDate == '' || startTime == '' || endTime == '') {
+			disableButton = true ;
+		// Good format
+		}else{
+			// The event has to finish after it begins
+			if (startDate > endDate) {
+				disableButton = true ;
+			}else if (startDate == endDate) {
+				disableButton = startTime > endTime ;
+			}
+		}
 		// Disable the save button
-		if (disableButton) $('#save').attr('disabled', 'disabled') ; 
+		if (disableButton) {
+			$('#save').attr('disabled', 'disabled') ; 
+			$('#endDateHelp').show("slow") ;
 		// Enable the save button
-		else $('#save').removeAttr('disabled') ;
+		}else{
+			$('#save').removeAttr('disabled') ;
+			$('#endDateHelp').hide("slow") ;
+		}
 	}
 	
 </script>

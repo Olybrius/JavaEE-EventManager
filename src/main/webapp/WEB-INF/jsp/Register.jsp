@@ -13,18 +13,18 @@ REGISTER FORM
 	<div class="form-group">
 		<label for="mail" class="col-sm-3 control-label">Adresse mail</label>
 		<div class="col-sm-4">
-			<input type="text" class="form-control" name="mail" id="mail" placeholder="Adresse mail" required>
+			<input type="text" class="form-control" name="mail" id="mail" placeholder="Adresse mail" value="" required>
 		</div>
-		<div id="mailHelp" class="col-sm-offset-3 col-sm-10 help" hidden="true">
+		<div id="mailHelp" class="col-sm-offset-3 col-sm-10 help">
 			*Le mail doit être formé selon le pattern mail@domaine.ex.
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="password" class="col-sm-3 control-label">Mot de passe</label>
 		<div class="col-sm-4">
-			<input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe" required>
+			<input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe" value="" required>
 		</div>
-		<div id="passwordHelp" class="col-sm-offset-3 col-sm-10 help" hidden="true">
+		<div id="passwordHelp" class="col-sm-offset-3 col-sm-10 help">
 			*Le mot de passe ne doit contenir que des chiffres et des lettres.
 		</div>
 	</div>
@@ -33,7 +33,7 @@ REGISTER FORM
 		<div class="col-sm-4">
 			<input type="password" class="form-control" name="passwordConfirmation" id="passwordConfirmation" placeholder="Confirmation du mot de passe" required>
 		</div>
-		<div id="passwordConfirmationHelp" class="col-sm-offset-3 col-sm-10 help" hidden="true">
+		<div id="passwordConfirmationHelp" class="col-sm-offset-3 col-sm-10 help">
 			*Les deux mots de passent doivent être identiques.
 		</div>
 	</div>
@@ -50,9 +50,7 @@ REGISTER FORM
 	
 	$(document).ready(
 		function(){
-			$('#mailHelp').show("slow") ;
-			$('#passwordHelp').show("slow") ;
-			$('#passwordConfirmationHelp').show("slow") ;
+			$('#mail').focus();
 		}
 	);
 
