@@ -39,6 +39,7 @@ public class Login extends HttpServlet {
 		String mail = request.getParameter("mail");
 		String password = request.getParameter("password");
 		if (mail.equals("test@test.fr") && password.equals("Test")){
+			request.getSession().setAttribute("user","ok");
 			response.sendRedirect("Events");
 		}else{
 			response.sendRedirect("Login");
