@@ -1,14 +1,31 @@
-Mon Oct 20 20:12:25 CEST 2014 : Apache Derby Network Server - 10.11.1.1 - (1616546) démarré et prêt à accepter les connexions sur le port 1527
+Tue Oct 21 08:06:40 CEST 2014 : Apache Derby Network Server - 10.11.1.1 - (1616546) démarré et prêt à accepter les connexions sur le port 1527
 ----------------------------------------------------------------
-Mon Oct 20 20:12:31 CEST 2014:
-Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546) : instance a816c00e-0149-2ec2-9779-0000653f9bc7 
+Tue Oct 21 08:06:46 CEST 2014:
+Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546) : instance a816c00e-0149-3150-82ea-0000653f9bc7 
 dans le répertoire de base de données C:\Users\Joris\git\JavaEE-EventManager\bdd\bin\eventBDD avec le chargeur de classe sun.misc.Launcher$AppClassLoader@610455d6
 Chargé de file:/C:/Users/Joris/git/JavaEE-EventManager/bdd/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_20-b26
 user.dir=C:\Users\Joris\git\JavaEE-EventManager\bdd\bin
-os.name=Windows 7
+os.name=Windows 8.1
 os.arch=amd64
-os.version=6.1
+os.version=6.3
+derby.system.home=C:\Users\Joris\git\JavaEE-EventManager\bdd\bin
+Chargeur de classe de la base de données démarré - derby.database.classpath = ''
+----------------------------------------------------------------
+Tue Oct 21 08:49:41 CEST 2014:
+Fermeture de l'instance a816c00e-0149-3150-82ea-0000653f9bc7 sur le répertoire de base de données C:\Users\Joris\git\JavaEE-EventManager\bdd\bin\eventBDD avec le chargeur de classe sun.misc.Launcher$AppClassLoader@610455d6 
+Tue Oct 21 08:49:41 CEST 2014 Thread[DRDAConnThread_3,5,main] (DATABASE = eventBDD), (DRDAID = {2}), Arrêt de la base de données 'eventBDD'.
+----------------------------------------------------------------
+Tue Oct 21 08:50:31 CEST 2014:
+Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546) : instance 6ebdc076-0149-3150-82ea-0000653f9bc7 
+dans le répertoire de base de données C:\Users\Joris\git\JavaEE-EventManager\bdd\bin\eventBDD avec le chargeur de classe sun.misc.Launcher$AppClassLoader@610455d6
+Chargé de file:/C:/Users/Joris/git/JavaEE-EventManager/bdd/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_20-b26
+user.dir=C:\Users\Joris\git\JavaEE-EventManager\bdd\bin
+os.name=Windows 8.1
+os.arch=amd64
+os.version=6.3
 derby.system.home=C:\Users\Joris\git\JavaEE-EventManager\bdd\bin
 Chargeur de classe de la base de données démarré - derby.database.classpath = ''

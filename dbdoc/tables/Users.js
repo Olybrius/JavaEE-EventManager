@@ -43,7 +43,7 @@ paper.on('cell:pointerup', function(cellView , evt) {
 /*define positionning of different beans around central bean*/
 
 var uml = joint.shapes.uml;
-									
+											
    var classes = {  
 USERS: new uml.BDDTable({
 		id:'USERS',
@@ -51,27 +51,28 @@ USERS: new uml.BDDTable({
         size: { width: 180, height: 94 },
         name: 'USERS',
         attributes: [
-										'MAIL: VARCHAR(30)',
-																															],
+																	'USERID: INTEGER',
+																								],
         methods: [
-																	'EVENTID: INTEGER',
-														'NAME: VARCHAR(30)',
+										'MAIL: VARCHAR(30)',
+																					'NAME: VARCHAR(30)',
 														'PASSWORD: VARCHAR(30)',
 											]
     }),
 
-	
-		
-						EVENTS: new uml.BDDTable({
+	  
+						
+								EVENTS: new uml.BDDTable({
 		id:'EVENTS',
         position: { x:810.0  , y: 350.0 },
-        size: { width: 220, height: 137 },
+        size: { width: 220, height: 148 },
         name: 'EVENTS',
         attributes: [
-										'URL: VARCHAR(30)',
+																	'EVENTID: INTEGER',
 																																																				],
         methods: [
-																	'EVENTID: INTEGER',
+										'URL: VARCHAR(30)',
+																					'USERID: INTEGER',
 														'NAME: VARCHAR(30)',
 														'STARTDATE: TIMESTAMP',
 														'ENDDATE: TIMESTAMP',
@@ -79,8 +80,7 @@ USERS: new uml.BDDTable({
 														'PUBLISHED: SMALLINT',
 									]
     }),
-	  
-									};
+								};
 
 _.each(classes, function(c) { graph.addCell(c); });
 
@@ -90,20 +90,20 @@ _.each(classes, function(c) { graph.addCell(c); });
 
 
 var relations = [
-	new joint.dia.Link({
-	source: { id: classes.USERS.id },
-	target: { id: classes.EVENTS.id },
+ 
+						new joint.dia.Link({
+	source: { id: classes.EVENTS.id },
+	target: { id: classes.USERS.id },
 	vertices: [],
 	smooth: false,
 	attrs: {
 	'.marker-target': { d: 'M 20 0 L 0 5 L 20 10 z' }
 	},
 	labels: [
-	{ position: 60, attrs: { text: { text: 'SQL141020210617500' } }}
+	{ position: 60, attrs: { text: { text: 'SQL141021084756452' } }}
 	]
 }),	
-	 
-									];
+								];
 
 _.each(relations, function(r) { graph.addCell(r); });
 _.each(relations, function(r) { r.toBack(); });

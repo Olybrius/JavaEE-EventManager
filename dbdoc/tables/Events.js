@@ -43,18 +43,19 @@ paper.on('cell:pointerup', function(cellView , evt) {
 /*define positionning of different beans around central bean*/
 
 var uml = joint.shapes.uml;
-													
+											
    var classes = {  
 EVENTS: new uml.BDDTable({
 		id:'EVENTS',
         position: { x:450  , y: 350 },
-        size: { width: 180, height: 127 },
+        size: { width: 180, height: 138 },
         name: 'EVENTS',
         attributes: [
-										'URL: VARCHAR(30)',
+																	'EVENTID: INTEGER',
 																																																				],
         methods: [
-																	'EVENTID: INTEGER',
+										'URL: VARCHAR(30)',
+																					'USERID: INTEGER',
 														'NAME: VARCHAR(30)',
 														'STARTDATE: TIMESTAMP',
 														'ENDDATE: TIMESTAMP',
@@ -63,11 +64,27 @@ EVENTS: new uml.BDDTable({
 											]
     }),
 
+	
+		
+						USERS: new uml.BDDTable({
+		id:'USERS',
+        position: { x:810.0  , y: 350.0 },
+        size: { width: 220, height: 104 },
+        name: 'USERS',
+        attributes: [
+																	'USERID: INTEGER',
+																								],
+        methods: [
+										'MAIL: VARCHAR(30)',
+																					'NAME: VARCHAR(30)',
+														'PASSWORD: VARCHAR(30)',
+									]
+    }),
 	  
-							
+										
 								PARTICIPANT: new uml.BDDTable({
 		id:'PARTICIPANT',
-        position: { x:810.0  , y: 350.0 },
+        position: { x:90.0  , y: 349.99999999999994 },
         size: { width: 220, height: 115 },
         name: 'PARTICIPANT',
         attributes: [
@@ -80,22 +97,7 @@ EVENTS: new uml.BDDTable({
 														'COMPANY: VARCHAR(30)',
 									]
     }),
-									
-								USERS: new uml.BDDTable({
-		id:'USERS',
-        position: { x:90.0  , y: 349.99999999999994 },
-        size: { width: 220, height: 104 },
-        name: 'USERS',
-        attributes: [
-										'MAIL: VARCHAR(30)',
-																															],
-        methods: [
-																	'EVENTID: INTEGER',
-														'NAME: VARCHAR(30)',
-														'PASSWORD: VARCHAR(30)',
-									]
-    }),
-			};
+				};
 
 _.each(classes, function(c) { graph.addCell(c); });
 
@@ -105,8 +107,20 @@ _.each(classes, function(c) { graph.addCell(c); });
 
 
 var relations = [
- 
-							new joint.dia.Link({
+	new joint.dia.Link({
+	source: { id: classes.EVENTS.id },
+	target: { id: classes.USERS.id },
+	vertices: [],
+	smooth: false,
+	attrs: {
+	'.marker-target': { d: 'M 20 0 L 0 5 L 20 10 z' }
+	},
+	labels: [
+	{ position: 60, attrs: { text: { text: 'SQL141021084756452' } }}
+	]
+}),	
+	 
+										new joint.dia.Link({
 	source: { id: classes.PARTICIPANT.id },
 	target: { id: classes.EVENTS.id },
 	vertices: [],
@@ -115,22 +129,10 @@ var relations = [
 	'.marker-target': { d: 'M 20 0 L 0 5 L 20 10 z' }
 	},
 	labels: [
-	{ position: 60, attrs: { text: { text: 'SQL141020210621090' } }}
+	{ position: 60, attrs: { text: { text: 'SQL141021084800141' } }}
 	]
 }),	
-									new joint.dia.Link({
-	source: { id: classes.USERS.id },
-	target: { id: classes.EVENTS.id },
-	vertices: [],
-	smooth: false,
-	attrs: {
-	'.marker-target': { d: 'M 20 0 L 0 5 L 20 10 z' }
-	},
-	labels: [
-	{ position: 60, attrs: { text: { text: 'SQL141020210617500' } }}
-	]
-}),	
-			];
+				];
 
 _.each(relations, function(r) { graph.addCell(r); });
 _.each(relations, function(r) { r.toBack(); });

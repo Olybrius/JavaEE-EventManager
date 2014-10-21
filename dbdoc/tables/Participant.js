@@ -66,13 +66,14 @@ PARTICIPANT: new uml.BDDTable({
 						EVENTS: new uml.BDDTable({
 		id:'EVENTS',
         position: { x:810.0  , y: 350.0 },
-        size: { width: 220, height: 137 },
+        size: { width: 220, height: 148 },
         name: 'EVENTS',
         attributes: [
-										'URL: VARCHAR(30)',
+																	'EVENTID: INTEGER',
 																																																				],
         methods: [
-																	'EVENTID: INTEGER',
+										'URL: VARCHAR(30)',
+																					'USERID: INTEGER',
 														'NAME: VARCHAR(30)',
 														'STARTDATE: TIMESTAMP',
 														'ENDDATE: TIMESTAMP',
@@ -100,7 +101,7 @@ var relations = [
 	'.marker-target': { d: 'M 20 0 L 0 5 L 20 10 z' }
 	},
 	labels: [
-	{ position: 60, attrs: { text: { text: 'SQL141020210621090' } }}
+	{ position: 60, attrs: { text: { text: 'SQL141021084800141' } }}
 	]
 }),	
 	 
