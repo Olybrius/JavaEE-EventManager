@@ -1,4 +1,4 @@
-package servlet;
+package emn.tp.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

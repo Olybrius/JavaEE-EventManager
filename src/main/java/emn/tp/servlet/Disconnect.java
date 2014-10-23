@@ -1,4 +1,4 @@
-package servlet;
+package emn.tp.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Register
+ * Servlet implementation class Disconnect
  */
-@WebServlet({"/Register"})
-public class Register extends HttpServlet {
+@WebServlet("/Disconnect")
+public class Disconnect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Register() {
+    public Disconnect() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,8 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/jsp/Register.jsp").forward(request, response);
+		request.getSession().invalidate() ;
+		response.sendRedirect("Login") ;
 	}
 
 	/**
