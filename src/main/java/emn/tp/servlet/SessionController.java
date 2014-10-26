@@ -26,13 +26,13 @@ import emn.tp.bean.jpa.UsersEntity;
 				// Style, javascript & fonts
 				@WebInitParam(name="freeFiles", value="css,js,eot,svg,ttf,woff"),
 				// Non logged-in accessible servlets
-				@WebInitParam(name="freeServlets", value="Login,Register")
+				@WebInitParam(name="beforeConnection", value="Login,Register")
 		}
 )
 public class SessionController implements Filter {
 
 	private ArrayList<String> freeFiles ;
-	private ArrayList<String> freeServlets ;
+	private ArrayList<String> beforeConnection ;
 	
     /**
      * Default constructor. 
@@ -52,14 +52,32 @@ public class SessionController implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		
 		// Get the current url
 		System.out.println("SESSION CONTROLLER : Getting current URL...");
 		String url = ((HttpServletRequest)request).getRequestURI() ;
-		// If we try to load a "free file" or a "free servlet", we can chain
 		System.out.println("SESSION CONTROLLER : Testing current URL [" + url + "]...");
-		if (this.freeFile(url) || this.freeServlet(url)) {
-			System.out.println("SESSION CONTROLLER : Free file or servlet...");
+		
+		// If we try to load a "free file", we can chain
+		if (this.freeFile(url)) {	
+			System.out.println("SESSION CONTROLLER : Free file...");
 			chain.doFilter(request, response);
+			
+		// If we try to load a servlet accessible only before a connection
+		}else if (this.beforeConnection(url)){
+			// Get the current user session
+			System.out.println("SESSION CONTROLLER : Servlet accessible before connection, testing the existence of a session...");
+			UsersEntity user = (UsersEntity) ((HttpServletRequest)request).getSession().getAttribute("user");
+			// If it exists, we need to redirect to the events of the current user
+			if (user != null){
+				System.out.println("SESSION CONTROLLER : There is a session, redirecting to Events...");
+				request.getRequestDispatcher("/Events").forward(request, response);
+			// Otherwise, we can chain
+			}else{
+				System.out.println("SESSION CONTROLLER : There is no session, chain processing...");
+				chain.doFilter(request, response);
+			}
+			
 		// Otherwise
 		}else{
 			// Get the current user session
@@ -76,6 +94,7 @@ public class SessionController implements Filter {
 				request.getRequestDispatcher("/Login").forward(request, response);
 			}
 		}
+		
 	}
 
 	/**
@@ -84,21 +103,21 @@ public class SessionController implements Filter {
 	public void init(FilterConfig fConfig) throws ServletException {
 		// Init parameters
 		String files = fConfig.getInitParameter("freeFiles") ;
-		String servlets = fConfig.getInitParameter("freeServlets") ;
+		String servlets = fConfig.getInitParameter("beforeConnection") ;
 		StringTokenizer parseFiles = new StringTokenizer(files, ",");
 		StringTokenizer parseServlets = new StringTokenizer(servlets, ",");
 		this.freeFiles = new ArrayList<String>();
-		this.freeServlets = new ArrayList<String>();
+		this.beforeConnection = new ArrayList<String>();
 		// Type of files allowed (jsessionid is concat at the session creation)
 		while (parseFiles.hasMoreTokens()) {
 			freeFiles.add(".*\\." + parseFiles.nextToken() + "(;jsessionid.*){0,1}$");
 		}
 		// Servlets allowed
 		while (parseServlets.hasMoreTokens()) {
-			freeServlets.add(".*\\/" + parseServlets.nextToken() + "$");
+			beforeConnection.add(".*\\/" + parseServlets.nextToken() + "$");
 		}
 		// "/" is allowed too
-		freeServlets.add(".*" + fConfig.getServletContext().getContextPath() + "\\/$");
+		beforeConnection.add(".*" + fConfig.getServletContext().getContextPath() + "\\/$");
 	}
 
 	/**
@@ -107,8 +126,8 @@ public class SessionController implements Filter {
 	 */
 	private boolean freeFile(String url){
 		boolean isFree = false ;
-		for (String freeFile : this.freeFiles){
-			if (Pattern.matches(freeFile, url)) {
+		for (String currentFile : this.freeFiles){
+			if (Pattern.matches(currentFile, url)) {
 				isFree = true ;
 				break ;
 			}
@@ -120,15 +139,15 @@ public class SessionController implements Filter {
 	 * @param url
 	 * @return True if "url" finishes by one of the servlets in freeServlets, false otherwise.
 	 */
-	private boolean freeServlet(String url){
-		boolean isFree = false ;
-		for (String freeServlet : this.freeServlets){
-			if (Pattern.matches(freeServlet, url)) {
-				isFree = true ;
+	private boolean beforeConnection(String url){
+		boolean isBeforeConnection = false ;
+		for (String currentServlet : this.beforeConnection){
+			if (Pattern.matches(currentServlet, url)) {
+				isBeforeConnection = true ;
 				break ;
 			}
 		}
-		return isFree ;		
+		return isBeforeConnection ;		
 	}
 
 }
