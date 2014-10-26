@@ -8,8 +8,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import emn.tp.bean.jpa.UsersEntity;
-import emn.tp.persistence.PersistenceServiceProvider;
-import emn.tp.persistence.services.UsersPersistence;
 import emn.tp.services.interfaces.LoginServiceInterface;
 
 /**
@@ -29,6 +27,7 @@ public class LoginService implements LoginServiceInterface {
 		EntityManager em = emf.createEntityManager();
 		final String QUERY = "SELECT u.userid FROM UsersEntity u WHERE u.mail='"+email+"' AND u.password='"+password+"'";
 		Query query = em.createQuery(QUERY);
+		@SuppressWarnings("unchecked")
 		List<Integer> list = query.getResultList();
 		if(list.size() == 1)
 		{

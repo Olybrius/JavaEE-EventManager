@@ -1,11 +1,18 @@
 package emn.tp.servlet;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import emn.tp.bean.jpa.EventsEntity;
+import emn.tp.bean.jpa.UsersEntity;
+import emn.tp.services.implementation.EventsService;
+import emn.tp.services.interfaces.EventsServiceInterface;
 
 /**
  * Servlet implementation class Events
@@ -33,7 +40,19 @@ public class Events extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		EventsServiceInterface serviceEvents = new EventsService();	
+		UsersEntity user = (UsersEntity)request.getSession().getAttribute("user");	
+		List<EventsEntity> listeEvents = serviceEvents.getEventsFromBDD(user.getUserid());
+		
+		if(listeEvents != null){
+			//TODO : Afficher les événements
+		}
+		else
+		{
+			//TODO : Message aucun évènement
+		}
+		
 	}
 
 }

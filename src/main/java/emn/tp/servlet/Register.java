@@ -2,7 +2,6 @@ package emn.tp.servlet;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import emn.tp.bean.jpa.UsersEntity;
 import emn.tp.persistence.PersistenceServiceProvider;
 import emn.tp.persistence.services.UsersPersistence;
-import emn.tp.services.implementation.LoginService;
 import emn.tp.services.implementation.RegisterService;
-import emn.tp.services.interfaces.LoginServiceInterface;
 import emn.tp.services.interfaces.RegisterServiceInterface;
 
 /**
