@@ -8,8 +8,26 @@
 <!-- 
 CONNECTION FORM
 -->
-
+	
+	
 <form class="form-horizontal" role="form" method="post" action="Login">
+	<!-- SHOW OR HIDE ERROR -->
+	<c:choose>
+		<c:when test="${not empty loginError}">
+			<c:set var="hideError" value="false" scope="page"/>
+		</c:when>
+		<c:otherwise>
+			<c:set var="hideError" value="true" scope="page"/>
+		</c:otherwise>
+	</c:choose>
+	<div class="form-group" hidden="${hideError}">
+		<div class="col-sm-offset-3 col-sm-5">
+			<div class="alert alert-danger" role="alert">
+				${requestScope.loginError}
+			</div>
+		</div>
+	</div>
+	<!-- FROM -->
 	<div class="form-group">
 		<label for="mail" class="col-sm-3 control-label">Adresse mail</label>
 		<div class="col-sm-4">
