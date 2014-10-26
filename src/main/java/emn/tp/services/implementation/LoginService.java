@@ -23,11 +23,11 @@ public class LoginService implements LoginServiceInterface {
 	 * Récupère les informations de l'utilisateur.
 	 */
 	@Override
-	public UsersEntity getUsersData(String email, String passwd) {
+	public UsersEntity getUser(String email, String password) {
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
 		EntityManager em = emf.createEntityManager();
-		final String QUERY = "SELECT u.userid FROM UsersEntity u WHERE u.mail='"+email+"' AND u.password='"+passwd+"'";
+		final String QUERY = "SELECT u.userid FROM UsersEntity u WHERE u.mail='"+email+"' AND u.password='"+password+"'";
 		Query query = em.createQuery(QUERY);
 		List<Integer> list = query.getResultList();
 		if(list.size() == 1)
@@ -44,10 +44,7 @@ public class LoginService implements LoginServiceInterface {
 	 */
 	@Override
 	public boolean validateField(String email, String passwd) {
-		if((email != null && !email.isEmpty()) && passwd != null && !passwd.isEmpty())
-			return true;
-		else
-			return false;
+		return ((email != null && !email.isEmpty()) && passwd != null && !passwd.isEmpty()) ;
 	}
 	
 }

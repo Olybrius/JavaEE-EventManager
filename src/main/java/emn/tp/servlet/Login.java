@@ -40,46 +40,38 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(request, response);
+		request.getSession().removeAttribute("erreur");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LoginServiceInterface logService = new LoginService();
-		HttpSession session = request.getSession();
 
+		// Login service (database work)
+		LoginServiceInterface logService = new LoginService();
+		
+		// Get inputs
 		String email = request.getParameter("mail");
 		String password = request.getParameter("password");
 
+		// If inputs are filled
 		if(logService.validateField(email, password)){
-			UsersEntity user = logService.getUsersData(email, password);
-			if(user != null)
-			{
-				// Stockage du nom de l'utilisateur s'etant connecte
-				if (email.equals(user.getMail()) && password.equals(user.getPassword())){
-					session.setAttribute("UserName", user.getName());
-					response.sendRedirect("Events");
-				}
-				else{
-					request.setAttribute("erreur", "Identifiant et/ou mot de passe incorrect.");
-					response.sendRedirect("Login");
-				}
-			}
-			else
-			{
-				request.setAttribute("erreur", "Identifiant et/ou mot de passe incorrect.");
+			// Try to get a user by the mail and the password written
+			UsersEntity user = logService.getUser(email, password);
+			// If a user is found
+			if(user != null){
+				request.getSession().setAttribute("UserName", user.getName());
+				response.sendRedirect("Events");
+			// If no user is found
+			}else{
+				request.setAttribute("loginError", "Identifiant et/ou mot de passe incorrect(s).");
 				response.sendRedirect("Login");
 			}
-
+		}else{
+			request.setAttribute("loginError", "Vous devez renseignés les deux champs.");
+			response.sendRedirect("Login");
 		}
-		else
-			System.out.println("Identifiant et/ou mot de passe incorrect.");
-		/*user.setMail("test@test.fr");
-    	user.setPassword("Test");
-    	user.setName("Toto");
-
-    	service.insert(user);*/
 
 	}
 
