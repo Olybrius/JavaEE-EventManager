@@ -14,16 +14,16 @@ CONNECTION FORM
 	<!-- SHOW OR HIDE ERROR -->
 	<c:choose>
 		<c:when test="${not empty loginError}">
-			<c:set var="hideError" value="false" scope="page"/>
+			<c:set var="hideError" value="" scope="page"/>
 		</c:when>
 		<c:otherwise>
-			<c:set var="hideError" value="true" scope="page"/>
+			<c:set var="hideError" value="hidden=\"true\"" scope="page"/>
 		</c:otherwise>
 	</c:choose>
-	<div class="form-group" hidden="${hideError}">
+	<div class="form-group" ${hideError}>
 		<div class="col-sm-offset-3 col-sm-5">
 			<div class="alert alert-danger" role="alert">
-				${requestScope.loginError}
+				${loginError}
 			</div>
 		</div>
 	</div>

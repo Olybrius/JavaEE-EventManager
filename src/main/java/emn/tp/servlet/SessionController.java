@@ -1,4 +1,4 @@
-/*package emn.tp.servlet;
+package emn.tp.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,11 +14,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-*//**
+import emn.tp.bean.jpa.UsersEntity;
+
+/**
  * Servlet Filter implementation class Controller
- *//*
+ */
 @WebFilter(
 		urlPatterns = "/*",
 		initParams = {
@@ -33,46 +34,53 @@ public class SessionController implements Filter {
 	private ArrayList<String> freeFiles ;
 	private ArrayList<String> freeServlets ;
 	
-    *//**
+    /**
      * Default constructor. 
-     *//*
+     */
     public SessionController() {
         // TODO Auto-generated constructor stub
     }
 
-	*//**
+	/**
 	 * @see Filter#destroy()
-	 *//*
+	 */
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
 
-	*//**
+	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 *//*
+	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// Get the current url
+		System.out.println("SESSION CONTROLLER : Getting current URL...");
 		String url = ((HttpServletRequest)request).getRequestURI() ;
 		// If we try to load a "free file" or a "free servlet", we can chain
+		System.out.println("SESSION CONTROLLER : Testing current URL [" + url + "]...");
 		if (this.freeFile(url) || this.freeServlet(url)) {
+			System.out.println("SESSION CONTROLLER : Free file or servlet...");
 			chain.doFilter(request, response);
 		// Otherwise
 		}else{
 			// Get the current user session
-			String user = (String) ((HttpServletRequest)request).getSession().getAttribute("user");
+			System.out.println("SESSION CONTROLLER : Getting session variables...");
+			UsersEntity user = (UsersEntity) ((HttpServletRequest)request).getSession().getAttribute("user");
+			String loginError = (String) ((HttpServletRequest)request).getSession().getAttribute("loginError");
 			// If it exists, we can chain
-			if (user != null) {
+			if (user != null || loginError != null) {
+				System.out.println("SESSION CONTROLLER : Session variable exists, chain processing...");
 				chain.doFilter(request, response);
 			// Otherwise, we redirect on the "login" page
 			}else{
+				System.out.println("SESSION CONTROLLER : Session variable does not exist, redirecting to Login...");
 				request.getRequestDispatcher("/Login").forward(request, response);
 			}
 		}
 	}
 
-	*//**
+	/**
 	 * @see Filter#init(FilterConfig)
-	 *//*
+	 */
 	public void init(FilterConfig fConfig) throws ServletException {
 		// Init parameters
 		String files = fConfig.getInitParameter("freeFiles") ;
@@ -93,26 +101,25 @@ public class SessionController implements Filter {
 		freeServlets.add(".*" + fConfig.getServletContext().getContextPath() + "\\/$");
 	}
 
-	*//**
+	/**
 	 * @param url
 	 * @return True if "url" has the type of one of the file type in freeFiles, false otherwise.
-	 *//*
+	 */
 	private boolean freeFile(String url){
 		boolean isFree = false ;
 		for (String freeFile : this.freeFiles){
 			if (Pattern.matches(freeFile, url)) {
 				isFree = true ;
-				System.out.println("true" + url);
 				break ;
 			}
 		}
 		return isFree ;
 	}
 	
-	*//**
+	/**
 	 * @param url
 	 * @return True if "url" finishes by one of the servlets in freeServlets, false otherwise.
-	 *//*
+	 */
 	private boolean freeServlet(String url){
 		boolean isFree = false ;
 		for (String freeServlet : this.freeServlets){
@@ -125,4 +132,3 @@ public class SessionController implements Filter {
 	}
 
 }
-*/

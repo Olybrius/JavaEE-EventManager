@@ -9,11 +9,31 @@
 REGISTER FORM
 -->
 
-<form id="validateForm" class="form-horizontal" role="form" method="post" action="/Register">
-<div class="form-group">
+<form id="validateForm" class="form-horizontal" role="form" method="post" action="Register">
+	<!-- SHOW OR HIDE ERROR -->
+	<c:choose>
+		<c:when test="${not empty registerError}">
+			<c:set var="hideError" value="" scope="page"/>
+		</c:when>
+		<c:otherwise>
+			<c:set var="hideError" value="hidden=\"true\"" scope="page"/>
+		</c:otherwise>
+	</c:choose>
+	<div class="form-group" ${hideError}>
+		<div class="col-sm-offset-3 col-sm-5">
+			<div class="alert alert-danger" role="alert">
+				${registerError}
+			</div>
+		</div>
+	</div>
+	<!-- FROM -->
+	<div class="form-group">
 		<label class="col-sm-3 control-label">Pseudo</label>
 		<div class="col-sm-4">
 			<input type="text" class="form-control" name="pseudo" id="pseudo" placeholder="Pseudo" value="" required>
+		</div>
+		<div id="pseudoHelp" class="col-sm-offset-3 col-sm-10 help">
+			*Le pseudo doit contenir entre 4 et 16 lettres et chiffres.
 		</div>	
 	</div>
 	<div class="form-group">
@@ -31,7 +51,7 @@ REGISTER FORM
 			<input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe" value="" required>
 		</div>
 		<div id="passwordHelp" class="col-sm-offset-3 col-sm-10 help">
-			*Le mot de passe ne doit contenir que des chiffres et des lettres.
+			*Le mot de passe doit contenir entre 4 et 16 lettres et chiffres.
 		</div>
 	</div>
 	<div class="form-group">
@@ -56,10 +76,11 @@ REGISTER FORM
 	
 	$(document).ready(
 		function(){
-			$('#mail').focus();
+			$('#pseudo').focus();
 		}
 	);
 
+	$('#pseudo').change(validator);
 	$('#mail').change(validator);
 	$('#password').change(validator);
 	$('#passwordConfirmation').change(validator);
@@ -67,7 +88,17 @@ REGISTER FORM
 	function validator(){		
 		// Do we have to disable the register button ?
 		var disableButton = false ;
-		// Login test
+		// Pseudo test
+		var pseudo = $('#pseudo').val() ;
+		var pseudoPatt = new RegExp('^[a-zA-Z0-9]{4,16}$') ;
+		if (!pseudoPatt.test(pseudo)){
+			$('#pseudoHelp').show("slow") ;
+			disableButton = true ;
+		}else{
+			$('#pseudoHelp').hide("slow") ;
+			disableButton = disableButton || false ;			
+		}
+		// Mail test
 		var mail = $('#mail').val() ;
 		var mailPatt = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$') ;
 		if (!mailPatt.test(mail)){
