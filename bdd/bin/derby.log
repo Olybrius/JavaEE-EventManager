@@ -1,7 +1,7 @@
-Thu Oct 23 17:44:57 CEST 2014 : Apache Derby Network Server - 10.11.1.1 - (1616546) démarré et prêt à accepter les connexions sur le port 1527
+Sun Oct 26 13:19:14 CET 2014 : Apache Derby Network Server - 10.11.1.1 - (1616546) démarré et prêt à accepter les connexions sur le port 1527
 ----------------------------------------------------------------
-Thu Oct 23 17:45:03 CEST 2014:
-Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546) : instance a816c00e-0149-3dae-abc0-0000653f9bc7 
+Sun Oct 26 13:19:20 CET 2014:
+Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546) : instance a816c00e-0149-4c65-6850-0000653f9bc7 
 dans le répertoire de base de données C:\Users\Joris\git\JavaEE-EventManager\bdd\bin\eventBDD avec le chargeur de classe sun.misc.Launcher$AppClassLoader@610455d6
 Chargé de file:/C:/Users/Joris/git/JavaEE-EventManager/bdd/lib/derby.jar
 java.vendor=Oracle Corporation

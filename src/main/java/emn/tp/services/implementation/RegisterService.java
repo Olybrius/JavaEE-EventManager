@@ -8,7 +8,7 @@ public class RegisterService implements RegisterServiceInterface {
 	public boolean validateField(String name, String mail, String passwd,
 			String passwdConf) {
 
-		return (!name.isEmpty() && !mail.isEmpty() && !passwd.isEmpty() && !passwdConf.isEmpty());
+		return (!name.isEmpty() && (!mail.isEmpty() && mail.contains("@")) && !passwd.isEmpty() && !passwdConf.isEmpty());
 	}
 
 	@Override
