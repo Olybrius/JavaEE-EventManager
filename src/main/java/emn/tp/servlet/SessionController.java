@@ -1,4 +1,4 @@
-package emn.tp.servlet;
+/*package emn.tp.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,9 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import emn.tp.bean.jpa.UsersEntity;
 
-/**
+*//**
  * Servlet Filter implementation class Controller
- */
+ *//*
 @WebFilter(
 		urlPatterns = "/*",
 		initParams = {
@@ -34,23 +34,23 @@ public class SessionController implements Filter {
 	private ArrayList<String> freeFiles ;
 	private ArrayList<String> freeServlets ;
 	
-    /**
+    *//**
      * Default constructor. 
-     */
+     *//*
     public SessionController() {
         // TODO Auto-generated constructor stub
     }
 
-	/**
+	*//**
 	 * @see Filter#destroy()
-	 */
+	 *//*
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
 
-	/**
+	*//**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
+	 *//*
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// Get the current url
 		System.out.println("SESSION CONTROLLER : Getting current URL...");
@@ -78,9 +78,9 @@ public class SessionController implements Filter {
 		}
 	}
 
-	/**
+	*//**
 	 * @see Filter#init(FilterConfig)
-	 */
+	 *//*
 	public void init(FilterConfig fConfig) throws ServletException {
 		// Init parameters
 		String files = fConfig.getInitParameter("freeFiles") ;
@@ -101,10 +101,10 @@ public class SessionController implements Filter {
 		freeServlets.add(".*" + fConfig.getServletContext().getContextPath() + "\\/$");
 	}
 
-	/**
+	*//**
 	 * @param url
 	 * @return True if "url" has the type of one of the file type in freeFiles, false otherwise.
-	 */
+	 *//*
 	private boolean freeFile(String url){
 		boolean isFree = false ;
 		for (String freeFile : this.freeFiles){
@@ -116,10 +116,10 @@ public class SessionController implements Filter {
 		return isFree ;
 	}
 	
-	/**
+	*//**
 	 * @param url
 	 * @return True if "url" finishes by one of the servlets in freeServlets, false otherwise.
-	 */
+	 *//*
 	private boolean freeServlet(String url){
 		boolean isFree = false ;
 		for (String freeServlet : this.freeServlets){
@@ -132,3 +132,4 @@ public class SessionController implements Filter {
 	}
 
 }
+*/
