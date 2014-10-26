@@ -36,9 +36,9 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("LOGIN : Forwarding to Register JSP...");
+		System.out.println("REGISTER : Forwarding to Register JSP...");
 		request.getRequestDispatcher("/WEB-INF/jsp/Register.jsp").forward(request, response);
-		System.out.println("LOGIN : Removing registerError session variable...");
+		System.out.println("REGISTER : Removing registerError session variable...");
 		request.getSession().removeAttribute("registerError");
 	}
 
@@ -82,6 +82,7 @@ public class Register extends HttpServlet {
 			// Redirection
 			response.sendRedirect("Login");
 		}
+		
 	}
 
 }

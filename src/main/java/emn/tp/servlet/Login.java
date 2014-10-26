@@ -67,7 +67,7 @@ public class Login extends HttpServlet {
 			// If a user is found
 			if(user != null){
 				System.out.println("LOGIN : User found... redirecting...");
-				request.getSession().setAttribute("UserName", user.getName());
+				request.getSession().setAttribute("user", user);
 				response.sendRedirect("Events");
 			// If no user is found
 			}else{
