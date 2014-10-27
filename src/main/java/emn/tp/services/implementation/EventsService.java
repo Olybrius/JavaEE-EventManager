@@ -13,16 +13,14 @@ import emn.tp.services.interfaces.EventsServiceInterface;
 public class EventsService implements EventsServiceInterface {
 
 	@Override
-	public List<EventsEntity> getEventsFromBDD(int userID) {
-
+	public List<EventsEntity> getEventsByUser(int userID) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
 		EntityManager em = emf.createEntityManager();
-		final String QUERY = "SELECT * FROM EventsEntity e WHERE e.published='"+ 1 +"' and e.userid='"+ userID +"'";
+		final String QUERY = "SELECT e.name, e.startDate, e.endDate, e.address FROM EventsEntity e WHERE e.userid='"+ userID +"'";
 		Query query = em.createQuery(QUERY);
 		@SuppressWarnings("unchecked")
 		List<EventsEntity> listEvents = query.getResultList();
 		return listEvents;
-		
 	}
 
 }

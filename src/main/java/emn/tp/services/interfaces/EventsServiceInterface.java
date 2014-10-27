@@ -6,6 +6,6 @@ import emn.tp.bean.jpa.EventsEntity;
 
 public interface EventsServiceInterface {
 	
-	public List<EventsEntity> getEventsFromBDD(int userID);
+	public List<EventsEntity> getEventsByUser(int userID);
 
 }

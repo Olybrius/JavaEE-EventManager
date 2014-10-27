@@ -43,7 +43,7 @@ paper.on('cell:pointerup', function(cellView , evt) {
 /*define positionning of different beans around central bean*/
 
 var uml = joint.shapes.uml;
-											
+															
    var classes = {  
 USERS: new uml.BDDTable({
 		id:'USERS',
@@ -51,24 +51,24 @@ USERS: new uml.BDDTable({
         size: { width: 180, height: 94 },
         name: 'USERS',
         attributes: [
-																	'USERID: INTEGER',
+																	'ID: INTEGER',
 																								],
         methods: [
 										'MAIL: VARCHAR(30)',
-																					'NAME: VARCHAR(30)',
+																					'PSEUDO: VARCHAR(30)',
 														'PASSWORD: VARCHAR(30)',
 											]
     }),
 
 	  
-						
+													
 								EVENTS: new uml.BDDTable({
 		id:'EVENTS',
         position: { x:810.0  , y: 350.0 },
         size: { width: 220, height: 148 },
         name: 'EVENTS',
         attributes: [
-																	'EVENTID: INTEGER',
+																	'ID: INTEGER',
 																																																				],
         methods: [
 										'URL: VARCHAR(30)',
@@ -80,7 +80,7 @@ USERS: new uml.BDDTable({
 														'PUBLISHED: SMALLINT',
 									]
     }),
-								};
+					};
 
 _.each(classes, function(c) { graph.addCell(c); });
 
@@ -91,7 +91,7 @@ _.each(classes, function(c) { graph.addCell(c); });
 
 var relations = [
  
-						new joint.dia.Link({
+													new joint.dia.Link({
 	source: { id: classes.EVENTS.id },
 	target: { id: classes.USERS.id },
 	vertices: [],
@@ -100,10 +100,10 @@ var relations = [
 	'.marker-target': { d: 'M 20 0 L 0 5 L 20 10 z' }
 	},
 	labels: [
-	{ position: 60, attrs: { text: { text: 'SQL141021084756452' } }}
+	{ position: 60, attrs: { text: { text: 'SQL141027133051172' } }}
 	]
 }),	
-								];
+					];
 
 _.each(relations, function(r) { graph.addCell(r); });
 _.each(relations, function(r) { r.toBack(); });

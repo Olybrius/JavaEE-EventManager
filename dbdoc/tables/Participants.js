@@ -45,46 +45,27 @@ paper.on('cell:pointerup', function(cellView , evt) {
 var uml = joint.shapes.uml;
 															
    var classes = {  
-EVENTS: new uml.BDDTable({
-		id:'EVENTS',
+PARTICIPANTS: new uml.BDDTable({
+		id:'PARTICIPANTS',
         position: { x:450  , y: 350 },
-        size: { width: 180, height: 138 },
-        name: 'EVENTS',
+        size: { width: 180, height: 105 },
+        name: 'PARTICIPANTS',
         attributes: [
-																	'ID: INTEGER',
-																																																				],
+										'ID: INTEGER',
+																																						],
         methods: [
-										'URL: VARCHAR(30)',
-																					'USERID: INTEGER',
-														'NAME: VARCHAR(30)',
-														'STARTDATE: TIMESTAMP',
-														'ENDDATE: TIMESTAMP',
-														'ADDRESS: VARCHAR(30)',
-														'PUBLISHED: SMALLINT',
+																	'MAIL: VARCHAR(30)',
+														'PSEUDO: VARCHAR(30)',
+														'FIRSTNAME: VARCHAR(30)',
+														'COMPANY: VARCHAR(30)',
 											]
     }),
 
-	
-		
-						USERS: new uml.BDDTable({
-		id:'USERS',
-        position: { x:810.0  , y: 350.0 },
-        size: { width: 220, height: 104 },
-        name: 'USERS',
-        attributes: [
-																	'ID: INTEGER',
-																								],
-        methods: [
-										'MAIL: VARCHAR(30)',
-																					'PSEUDO: VARCHAR(30)',
-														'PASSWORD: VARCHAR(30)',
-									]
-    }),
 	  
-									
+						
 								PARTICIPATE: new uml.BDDTable({
 		id:'PARTICIPATE',
-        position: { x:90.0  , y: 349.99999999999994 },
+        position: { x:810.0  , y: 350.0 },
         size: { width: 220, height: 82 },
         name: 'PARTICIPATE',
         attributes: [
@@ -94,7 +75,7 @@ EVENTS: new uml.BDDTable({
         methods: [
 																			]
     }),
-									};
+												};
 
 _.each(classes, function(c) { graph.addCell(c); });
 
@@ -104,32 +85,20 @@ _.each(classes, function(c) { graph.addCell(c); });
 
 
 var relations = [
-	new joint.dia.Link({
-	source: { id: classes.EVENTS.id },
-	target: { id: classes.USERS.id },
-	vertices: [],
-	smooth: false,
-	attrs: {
-	'.marker-target': { d: 'M 20 0 L 0 5 L 20 10 z' }
-	},
-	labels: [
-	{ position: 60, attrs: { text: { text: 'SQL141027133051172' } }}
-	]
-}),	
-	 
-									new joint.dia.Link({
+ 
+						new joint.dia.Link({
 	source: { id: classes.PARTICIPATE.id },
-	target: { id: classes.EVENTS.id },
+	target: { id: classes.PARTICIPANTS.id },
 	vertices: [],
 	smooth: false,
 	attrs: {
 	'.marker-target': { d: 'M 20 0 L 0 5 L 20 10 z' }
 	},
 	labels: [
-	{ position: 60, attrs: { text: { text: 'SQL141027133108742' } }}
+	{ position: 60, attrs: { text: { text: 'SQL141027133108741' } }}
 	]
 }),	
-									];
+												];
 
 _.each(relations, function(r) { graph.addCell(r); });
 _.each(relations, function(r) { r.toBack(); });
@@ -137,7 +106,7 @@ _.each(relations, function(r) { r.toBack(); });
  function saveGraph(){
 	if(typeof(Storage)!=="undefined")
   	{
-		localStorage.jsonEventsGraph=(JSON.stringify(graph.toJSON()));
+		localStorage.jsonParticipantsGraph=(JSON.stringify(graph.toJSON()));
   	}
 	else
   	{
@@ -148,7 +117,7 @@ _.each(relations, function(r) { r.toBack(); });
  function loadGraph(){
 	if(typeof(Storage)!=="undefined")
   	{
-		 graph.fromJSON(JSON.parse(localStorage.jsonEventsGraph));
+		 graph.fromJSON(JSON.parse(localStorage.jsonParticipantsGraph));
   	}
 	else
   	{
