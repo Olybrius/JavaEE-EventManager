@@ -16,7 +16,7 @@ public class EventsService implements EventsServiceInterface {
 	public List<EventsEntity> getEventsByUser(int userID) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
 		EntityManager em = emf.createEntityManager();
-		final String QUERY = "SELECT * FROM EventsEntity e WHERE e.userid='"+ userID +"'";
+		final String QUERY = "SELECT e FROM EventsEntity e WHERE e.userid="+ userID ;
 		Query query = em.createQuery(QUERY);
 		@SuppressWarnings("unchecked")
 		List<EventsEntity> listEvents = query.getResultList();

@@ -25,11 +25,11 @@ public class LoginService implements LoginServiceInterface {
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
 		EntityManager em = emf.createEntityManager();
-		final String QUERY = "SELECT u.id FROM UsersEntity u WHERE u.mail='"+email+"' AND u.password='"+password+"'";
+		final String QUERY = "SELECT u FROM UsersEntity u WHERE u.mail='"+email+"' AND u.password='"+password+"'";
 		Query query = em.createQuery(QUERY);
 		@SuppressWarnings("unchecked")
-		List<Integer> list = query.getResultList();
-		if(list.size() == 1) return em.find(UsersEntity.class, list.get(0));
+		List<UsersEntity> list = query.getResultList();
+		if(list.size() == 1) return list.get(0);
 		else return null;
 		
 	}
