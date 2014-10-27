@@ -58,27 +58,27 @@ public class Register extends HttpServlet {
 		System.out.println("REGISTER : Validating fields...");
 		if (!regService.validateField(pseudo, mail, password, passwordConfirmation)){
 			System.out.println("REGISTER : Inputs not filled...");
-			request.setAttribute("registerError", "Tous les champs doivent être renseignés.");
+			request.getSession().setAttribute("registerError", "Tous les champs doivent être renseignés.");
 			response.sendRedirect("Register");
 		// If the two passwords are not the same
 		}else if (!regService.validatePassword(request.getParameter("password"), request.getParameter("passwordConfirmation"))) {
 			System.out.println("REGISTER : The two passwords are not the same...");
-			request.setAttribute("registerError", "Les deux mots de passe doivent correspondre.");
+			request.getSession().setAttribute("registerError", "Les deux mots de passe doivent correspondre.");
 			response.sendRedirect("Register");
-		// If mail already exist
+		// If mail already exists
 		}else if(!regService.checkMail(mail)){
-			System.out.println("REGISTER : The mail already exist...");
-			request.setAttribute("registerError", "L'adresse mail existe déjà.");
+			System.out.println("REGISTER : Mail already exists...");
+			request.getSession().setAttribute("registerError", "Un compte existe déjà pour l'adresse mail renseignée.");
 			response.sendRedirect("Register");
-			// If inputs are correctly filled
+		// If inputs are correctly filled
 		}else{
 			// Insert 
 			System.out.println("REGISTER : Creating user entity...");
 			UsersPersistence serviceUsers = PersistenceServiceProvider.getService(UsersPersistence.class);
 			UsersEntity user = new UsersEntity();
-			user.setName(request.getParameter("pseudo"));
-			user.setMail(request.getParameter("mail"));
-	    	user.setPassword(request.getParameter("password"));
+			user.setPseudo(pseudo);
+			user.setMail(mail);
+			user.setPassword(password);
 	    	System.out.println("REGISTER : Inserting into databse...");
 	    	serviceUsers.insert(user);
 			// Redirection
