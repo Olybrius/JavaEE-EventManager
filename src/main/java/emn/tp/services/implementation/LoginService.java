@@ -29,13 +29,9 @@ public class LoginService implements LoginServiceInterface {
 		Query query = em.createQuery(QUERY);
 		@SuppressWarnings("unchecked")
 		List<Integer> list = query.getResultList();
-		if(list.size() == 1)
-		{
-			UsersEntity user = em.find(UsersEntity.class, list.get(0));
-			return user;
-		}
-		else
-			return null;
+		if(list.size() == 1) return em.find(UsersEntity.class, list.get(0));
+		else return null;
+		
 	}
 
 	/**
