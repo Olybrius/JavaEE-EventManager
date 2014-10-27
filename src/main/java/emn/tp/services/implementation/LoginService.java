@@ -25,7 +25,7 @@ public class LoginService implements LoginServiceInterface {
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
 		EntityManager em = emf.createEntityManager();
-		final String QUERY = "SELECT u.userid FROM UsersEntity u WHERE u.mail='"+email+"' AND u.password='"+password+"'";
+		final String QUERY = "SELECT u.id FROM UsersEntity u WHERE u.mail='"+email+"' AND u.password='"+password+"'";
 		Query query = em.createQuery(QUERY);
 		@SuppressWarnings("unchecked")
 		List<Integer> list = query.getResultList();
