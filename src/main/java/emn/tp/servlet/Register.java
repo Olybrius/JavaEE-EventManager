@@ -76,7 +76,7 @@ public class Register extends HttpServlet {
 			System.out.println("REGISTER : Creating user entity...");
 			UsersPersistence serviceUsers = PersistenceServiceProvider.getService(UsersPersistence.class);
 			UsersEntity user = new UsersEntity();
-			user.setName(request.getParameter("pseudo"));
+			user.setPseudo(request.getParameter("pseudo"));
 			user.setMail(request.getParameter("mail"));
 	    	user.setPassword(request.getParameter("password"));
 	    	System.out.println("REGISTER : Inserting into databse...");

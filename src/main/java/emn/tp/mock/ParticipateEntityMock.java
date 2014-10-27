@@ -8,10 +8,10 @@ package emn.tp.mock;
 import java.util.LinkedList;
 import java.util.List;
 
-import emn.tp.bean.jpa.UsersEntity;
+import emn.tp.bean.jpa.ParticipateEntity;
 import emn.tp.mock.tool.MockValues;
 
-public class UsersEntityMock {
+public class ParticipateEntityMock {
 
 	private MockValues mockValues = new MockValues();
 	
@@ -19,10 +19,10 @@ public class UsersEntityMock {
 	 * Creates an instance with random Primary Key
 	 * @return
 	 */
-	public UsersEntity createInstance() {
+	public ParticipateEntity createInstance() {
 		// Primary Key values
 
-		return createInstance( mockValues.nextInteger() );
+		return createInstance( mockValues.nextInteger(), mockValues.nextInteger() );
 	}
 	
 	/**
@@ -30,16 +30,13 @@ public class UsersEntityMock {
 	 * @param id1
 	 * @return
 	 */
-	public UsersEntity createInstance( Integer id ) {
-		UsersEntity entity = new UsersEntity();
+	public ParticipateEntity createInstance( Integer participantid, Integer eventid ) {
+		ParticipateEntity entity = new ParticipateEntity();
 		// Init Primary Key fields
-		entity.setId( id) ;
+		entity.setParticipantid( participantid) ;
+		entity.setEventid( eventid) ;
 		// Init Data fields
-		entity.setMail( mockValues.nextString(30) ) ; // java.lang.String 
-		entity.setPseudo( mockValues.nextString(30) ) ; // java.lang.String 
-		entity.setPassword( mockValues.nextString(30) ) ; // java.lang.String 
 		// Init Link fields (if any)
-		// setListOfEvents( TODO ) ; // List<Events> 
 		return entity ;
 	}
 	
@@ -48,8 +45,8 @@ public class UsersEntityMock {
 	 * @param count number of instances to be created
 	 * @return
 	 */
-	public List<UsersEntity> createList(int count) {
-		List<UsersEntity> list = new LinkedList<UsersEntity>();		
+	public List<ParticipateEntity> createList(int count) {
+		List<ParticipateEntity> list = new LinkedList<ParticipateEntity>();		
 		for ( int i = 1 ; i <= count ; i++ ) {
 			list.add( createInstance() );
 		}
