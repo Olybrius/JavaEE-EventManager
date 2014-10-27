@@ -55,6 +55,8 @@ public class Events extends HttpServlet {
 		request.getSession().setAttribute("events", events);
 		response.sendRedirect("Events");
 		
+		//test
+		
 	}
 
 }
