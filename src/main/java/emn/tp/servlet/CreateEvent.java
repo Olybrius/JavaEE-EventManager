@@ -87,7 +87,6 @@ public class CreateEvent extends HttpServlet {
 				event.setStartdate(startDate);
 				event.setEnddate(endDate);
 				event.setPublished(publish);
-				event.setListOfParticipants(new ArrayList<ParticipantsEntity>());
 				event.setUsers((UsersEntity)request.getSession().getAttribute("user"));
 				System.out.println("CREATE EVENT : Inserting into databse...");
 				serviceEvents.insert(event);
