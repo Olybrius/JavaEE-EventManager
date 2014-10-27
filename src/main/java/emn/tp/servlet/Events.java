@@ -58,7 +58,6 @@ public class Events extends HttpServlet {
 
 		// Send the result
 		System.out.println("EVENTS : Sending the events to show [" + events.size() + "]...");
-		request.getSession().setAttribute("eventsNumber", events.size());
 		request.getSession().setAttribute("events", events);		
 		
 		// Show the JSP

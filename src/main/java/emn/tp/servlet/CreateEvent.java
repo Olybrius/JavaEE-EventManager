@@ -3,6 +3,7 @@ package emn.tp.servlet;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import emn.tp.bean.jpa.EventsEntity;
+import emn.tp.bean.jpa.ParticipantsEntity;
 import emn.tp.bean.jpa.UsersEntity;
 import emn.tp.persistence.PersistenceServiceProvider;
 import emn.tp.persistence.services.EventsPersistence;
@@ -85,6 +87,7 @@ public class CreateEvent extends HttpServlet {
 				event.setStartdate(startDate);
 				event.setEnddate(endDate);
 				event.setPublished(publish);
+				event.setListOfParticipants(new ArrayList<ParticipantsEntity>());
 				event.setUsers((UsersEntity)request.getSession().getAttribute("user"));
 				System.out.println("CREATE EVENT : Inserting into databse...");
 				serviceEvents.insert(event);

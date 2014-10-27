@@ -12,7 +12,7 @@ A data-id is generated in order to show the participants of the event clicked in
  
 <c:choose>
 
-	<c:when test="${eventsNumber != 0}">
+	<c:when test="${fn:length(events) gt 0}">
 	
 		<div class="row">
 			<div class="col-sm-offset-1 col-sm-10">
@@ -27,8 +27,8 @@ A data-id is generated in order to show the participants of the event clicked in
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach begin="0" end="${eventsNumber}" step="1" varStatus="loopCounter" items="${events}" var="event">
-							<tr data-toggle="modal" data-id="${loopCounter}" data-target="#participants">
+						<c:forEach begin="0" end="${fn:length(events)}" step="1" varStatus="loopCounter" items="${events}" var="event">
+							<tr data-toggle="modal" data-id="${loopCounter.index}" data-target="#participants">
 								<td>
 									${event.name}
 								</td>
@@ -81,20 +81,35 @@ When a row is clicked, the participants of the event clicked is shown.
 <div class="modal fade" id="participants" tabindex="-1" role="dialog" aria-labelledby="participantsTitle" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
+		
 			<div class="modal-header">
  				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
         		<h4 class="modal-title" id="participantsTitle">Participants</h4>
       		</div>
+      		
       		<div class="modal-body" id="participantsList">
-      			<div id="1" hidden="true">UN</div>
-      			<div id="2" hidden="true">DEUX</div>
+      			<c:forEach begin="0" end="${fn:length(events)}" step="1" varStatus="loopCounter" items="${events}" var="event">
+					<div id="${loopCounter.index}" hidden="true">
+						<c:choose>
+							<c:when test="${fn:length(event.listOfParticipants) gt 0}">
+								Aucun participant ne s'est inscrit à cet évènement.
+							</c:when>
+							<c:otherwise>
+								Oui.
+							</c:otherwise>
+						</c:choose>
+	
+					</div>
+				</c:forEach>
       		</div>
+      		
       		<div class="modal-footer">
 				<form id="publish" method="post" action="/Publish" style="display:inline-block">
 					<button type="button" class="btn btn-default">Publier</button>
 				</form>
       			<button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       		</div>
+      		
 		</div>
 	</div>
 </div>
@@ -114,7 +129,7 @@ When a row is clicked, the participants of the event clicked is shown.
 		    		var eventSelected = $(event.relatedTarget).closest('tr').data('id');
 		    		$('#' + eventSelected).show();
 		    		// Hide the publish button if the event is already published or hide it otherwise
-		    		if ("Oui" == $('tr[data-id='+eventSelected+'] td.isPublished').html()) $('#publish').hide();
+		    		if ("Oui" == $('tr[data-id='+eventSelected+'] td.isPublished').html().trim()) $('#publish').hide();
 		    		else $('#publish').show();
 		    	}
     		)
