@@ -41,17 +41,19 @@ public class Events extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// Event service (database work)
 		EventsServiceInterface serviceEvents = new EventsService();	
-		UsersEntity user = (UsersEntity)request.getSession().getAttribute("user");	
-		List<EventsEntity> listeEvents = serviceEvents.getEventsFromBDD(user.getUserid());
 		
-		if(listeEvents != null){
-			//TODO : Afficher les événements
-		}
-		else
-		{
-			//TODO : Message aucun évènement
-		}
+		// Get the events created by the current user
+		UsersEntity user = (UsersEntity)request.getSession().getAttribute("user");	
+		System.out.println("EVENTS : Getting the events created by the current user [" + user.getName() + " - " + user.getMail() + "]...");
+		List<EventsEntity> events = serviceEvents.getEventsFromBDD(user.getUserid());
+		
+		// Send the result
+		System.out.println("EVENTS : Sending the result to show...");
+		request.getSession().setAttribute("eventsNumber", events.size());
+		request.getSession().setAttribute("events", events);
+		response.sendRedirect("Events");
 		
 	}
 

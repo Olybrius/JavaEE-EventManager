@@ -5,9 +5,7 @@ import emn.tp.services.interfaces.RegisterServiceInterface;
 public class RegisterService implements RegisterServiceInterface {
 
 	@Override
-	public boolean validateField(String name, String mail, String passwd,
-			String passwdConf) {
-
+	public boolean validateField(String name, String mail, String passwd, String passwdConf) {
 		return (!name.isEmpty() && (!mail.isEmpty() && mail.contains("@")) && !passwd.isEmpty() && !passwdConf.isEmpty());
 	}
 

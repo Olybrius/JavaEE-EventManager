@@ -21,8 +21,8 @@ public class EventsService implements EventsServiceInterface {
 		Query query = em.createQuery(QUERY);
 		@SuppressWarnings("unchecked")
 		List<EventsEntity> listEvents = query.getResultList();
-		
 		return listEvents;
+		
 	}
 
 }

@@ -5,33 +5,78 @@
 <c:set var="createEventPage" value="" scope="page"/>
 <%@ include file="/WEB-INF/jspf/Header.jspf" %>
 
-<!-- 
-TABLE OF EVENTS
-A data-id is generated in order to show the participants of the event clicked in the modal (see below).
- -->
 
-<div class="row">
-	<div class="col-sm-offset-1 col-sm-9">
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>Nom de l'évènement</th>
-					<th>Publié</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr data-toggle="modal" data-id="1" data-target="#participants">
-					<td>Evènement test 1</td>
-					<td class="isPublished">Non</td>
-				</tr>
-				<tr data-toggle="modal" data-id="2" data-target="#participants">
-					<td>Evènement test 2</td>
-					<td class="isPublished">Oui</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</div>
+<c:choose>
+
+	<!-- 
+	TABLE OF EVENTS
+	A data-id is generated in order to show the participants of the event clicked in the modal (see below).
+	 -->
+
+	<c:when test="${eventsNumber eq 0}">
+	
+		<div class="row">
+			<div class="col-sm-offset-1 col-sm-10">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Nom de l'évènement</th>
+							<th>Lieu de l'évènement</th>
+							<th>Début de l'évènement</th>
+							<th>Fin de l'évènement</th>
+							<th>Publié</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach begin="1" end="${eventsNumber}" step="1" varStatus="loopCounter" items="${events}" var="event">
+							<tr data-toggle="modal" data-id="${loopCounter}" data-target="#participants">
+								<td>
+									${event.name}
+								</td>
+								<td>
+									${event.address}
+								</td>
+								<td>
+									<fmt:formatDate value="${event.startdate}" pattern="DD/mm/yyyy HH:mm"/>
+								</td>
+								<td>
+									<fmt:formatDate value="${event.enddate}" pattern="DD/mm/yyyy HH:mm"/>								
+								</td>
+								<td class="isPublished">
+									<c:choose>
+										<c:when test="${event.published}">
+											Oui
+										</c:when>
+										<c:otherwise>
+											Non
+										</c:otherwise>
+									</c:choose>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	</c:when>
+
+	<!-- 
+	MESSAGE
+	The current user did not create any event.
+    -->
+	
+	<c:otherwise>
+	
+		<div class="row">
+			<div class="col-sm-offset-1 col-sm-10">
+				<div class="alert alert-info" role="alert">Vous n'avez créé aucun évènement. Rendez-vous sur la <a href="CreateEvent" class="alert-link">page de création</a> !</div>
+			</div>
+		</div>
+		
+	</c:otherwise>
+	
+</c:choose>
 
 <!-- 
 MODAL FOR PARTICIPANTS
