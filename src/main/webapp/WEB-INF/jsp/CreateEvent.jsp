@@ -10,6 +10,24 @@ CREATE EVENT FORM
 -->
 
 <form class="form-horizontal" role="form" method="post" action="CreateEvent">
+	<!-- SHOW OR HIDE ERROR -->
+	<c:choose>
+		<c:when test="${not empty createEventError}">
+			<c:set var="hideError" value="" scope="page"/>
+		</c:when>
+		<c:otherwise>
+			<c:set var="hideError" value="hidden=\"true\"" scope="page"/>
+		</c:otherwise>
+	</c:choose>
+	<div class="form-group" ${hideError}>
+		<div class="col-sm-offset-1 col-sm-10">
+			<div class="alert alert-danger alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				${createEventError}
+			</div>
+		</div>
+	</div>
+	<!-- FROM -->
 	<div class="form-group">
 		<label for="name" class="col-sm-3 control-label">Nom de l'évènement</label>
 		<div class="col-sm-4">
@@ -47,7 +65,7 @@ CREATE EVENT FORM
 		<div class="col-sm-offset-3 col-sm-10">
 			<div class="checkbox">
 				<label> 
-					<input type="checkbox" name="publish">Publier l'évènement
+					<input type="checkbox" id="publish" name="publish">Publier l'évènement
 				</label>
 			</div>
 		</div>

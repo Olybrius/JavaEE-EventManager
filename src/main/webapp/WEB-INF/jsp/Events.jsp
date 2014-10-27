@@ -5,13 +5,12 @@
 <c:set var="createEventPage" value="" scope="page"/>
 <%@ include file="/WEB-INF/jspf/Header.jspf" %>
 
-
+<!-- 
+TABLE OF EVENTS
+A data-id is generated in order to show the participants of the event clicked in the modal (see below).
+ -->
+ 
 <c:choose>
-
-	<!-- 
-	TABLE OF EVENTS
-	A data-id is generated in order to show the participants of the event clicked in the modal (see below).
-	 -->
 
 	<c:when test="${eventsNumber eq 0}">
 	
@@ -37,10 +36,10 @@
 									${event.address}
 								</td>
 								<td>
-									<fmt:formatDate value="${event.startdate}" pattern="DD/mm/yyyy HH:mm"/>
+									<fmt:formatDate value="${event.startdate}" pattern="dd/MM/yyyy HH:mm"/>
 								</td>
 								<td>
-									<fmt:formatDate value="${event.enddate}" pattern="DD/mm/yyyy HH:mm"/>								
+									<fmt:formatDate value="${event.enddate}" pattern="dd/MM/yyyy HH:mm"/>								
 								</td>
 								<td class="isPublished">
 									<c:choose>
@@ -60,11 +59,6 @@
 		</div>
 		
 	</c:when>
-
-	<!-- 
-	MESSAGE
-	The current user did not create any event.
-    -->
 	
 	<c:otherwise>
 	
