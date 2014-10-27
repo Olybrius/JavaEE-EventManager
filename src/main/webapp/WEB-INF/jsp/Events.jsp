@@ -91,11 +91,11 @@ When a row is clicked, the participants of the event clicked is shown.
       			<c:forEach begin="0" end="${fn:length(events)}" step="1" varStatus="loopCounter" items="${events}" var="event">
 					<div id="${loopCounter.index}" hidden="true">
 						<c:choose>
-							<c:when test="${1 eq 2}">
-								Aucun participant ne s'est inscrit à cet évènement.
+							<c:when test="${fn:length(event.listOfParticipants) gt 0}">
+								Tableau
 							</c:when>
 							<c:otherwise>
-								Oui.
+								Aucun participant ne s'est inscrit à cet évènement.
 							</c:otherwise>
 						</c:choose>
 	

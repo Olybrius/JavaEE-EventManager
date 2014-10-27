@@ -18,6 +18,7 @@
 			<!-- Hibernate configuration -->
 			<property name="hibernate.hbm2ddl.auto"       value="none"/>
 			<property name="hibernate.show_sql"           value="true"/>
+			<property name="hibernate.default_schema" value="APP"/>
 		</properties>
 	</persistence-unit>
     
