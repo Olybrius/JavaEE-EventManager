@@ -12,7 +12,7 @@ A data-id is generated in order to show the participants of the event clicked in
  
 <c:choose>
 
-	<c:when test="${eventsNumber eq 0}">
+	<c:when test="${eventsNumber != 0}">
 	
 		<div class="row">
 			<div class="col-sm-offset-1 col-sm-10">
@@ -27,7 +27,7 @@ A data-id is generated in order to show the participants of the event clicked in
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach begin="1" end="${eventsNumber}" step="1" varStatus="loopCounter" items="${events}" var="event">
+						<c:forEach begin="0" end="${eventsNumber}" step="1" varStatus="loopCounter" items="${events}" var="event">
 							<tr data-toggle="modal" data-id="${loopCounter}" data-target="#participants">
 								<td>
 									${event.name}
@@ -43,7 +43,7 @@ A data-id is generated in order to show the participants of the event clicked in
 								</td>
 								<td class="isPublished">
 									<c:choose>
-										<c:when test="${event.published}">
+										<c:when test="${event.published==1}">
 											Oui
 										</c:when>
 										<c:otherwise>
