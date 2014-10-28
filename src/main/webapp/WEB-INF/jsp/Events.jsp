@@ -16,7 +16,7 @@ A data-id is generated in order to show the participants of the event clicked in
 	
 		<div class="row">
 			<div class="col-sm-offset-1 col-sm-10">
-				<table class="table table-hover">
+				<table id="listOfEvents" class="display">
 					<thead>
 						<tr>
 							<th>Nom de l'évènement</th>
@@ -28,7 +28,7 @@ A data-id is generated in order to show the participants of the event clicked in
 					</thead>
 					<tbody>
 						<c:forEach begin="0" end="${fn:length(events)}" step="1" varStatus="loopCounter" items="${events}" var="event">
-							<tr data-toggle="modal" data-id="${loopCounter.index}" data-target="#participants">
+							<tr <c:if test="${event.published==0}">class="warning"</c:if> data-toggle="modal" data-id="${loopCounter.index}" data-target="#participants">
 								<td>
 									${event.name}
 								</td>
@@ -115,10 +115,23 @@ When a row is clicked, the participants of the event clicked is shown.
 </div>
 
 <script>
-	// Before the participants modal is shown
     $(document).ready(
     	function(){
-    	$('#participants').on(
+    		// Initialize datatable
+	    	$('#listOfEvents').dataTable({
+	    	    "bPaginate": false,
+	    	    "bLengthChange": false,
+	    	    "bFilter": false,
+	    	    "bInfo": false,
+	    	    "bAutoWidth": false
+	    	}).ready(
+	    		function(){
+	    			$('tr.warning').css('background-color', '#fcf8e3');
+	    			$('tr.warning td').css('background-color', '#fcf8e3');
+	    		}	    	
+	    	);
+    		// Before the modal is shown
+	    	$('#participants').on(
     			'show.bs.modal', 
 		    	function(event){
 		    		// Hide every div
@@ -132,7 +145,7 @@ When a row is clicked, the participants of the event clicked is shown.
 		    		if ("Oui" == $('tr[data-id='+eventSelected+'] td.isPublished').html().trim()) $('#publish').hide();
 		    		else $('#publish').show();
 		    	}
-    		)
+	    	);
     	}
     );	
 </script>

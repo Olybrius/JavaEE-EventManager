@@ -24,7 +24,7 @@ import emn.tp.bean.jpa.UsersEntity;
 		urlPatterns = "/*",
 		initParams = {
 				// Style, javascript & fonts
-				@WebInitParam(name="freeFiles", value="css,js,eot,svg,ttf,woff"),
+				@WebInitParam(name="freeFiles", value="css,js,eot,svg,ttf,woff,png"),
 				// Non logged-in accessible servlets
 				@WebInitParam(name="beforeConnection", value="Login,Register")
 		}
