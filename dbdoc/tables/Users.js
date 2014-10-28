@@ -43,7 +43,7 @@ paper.on('cell:pointerup', function(cellView , evt) {
 /*define positionning of different beans around central bean*/
 
 var uml = joint.shapes.uml;
-															
+												
    var classes = {  
 USERS: new uml.BDDTable({
 		id:'USERS',
@@ -61,7 +61,7 @@ USERS: new uml.BDDTable({
     }),
 
 	  
-													
+										
 								EVENTS: new uml.BDDTable({
 		id:'EVENTS',
         position: { x:810.0  , y: 350.0 },
@@ -91,7 +91,7 @@ _.each(classes, function(c) { graph.addCell(c); });
 
 var relations = [
  
-													new joint.dia.Link({
+										new joint.dia.Link({
 	source: { id: classes.EVENTS.id },
 	target: { id: classes.USERS.id },
 	vertices: [],

@@ -43,7 +43,7 @@ paper.on('cell:pointerup', function(cellView , evt) {
 /*define positionning of different beans around central bean*/
 
 var uml = joint.shapes.uml;
-															
+										
    var classes = {  
 PARTICIPANTS: new uml.BDDTable({
 		id:'PARTICIPANTS',
@@ -55,27 +55,13 @@ PARTICIPANTS: new uml.BDDTable({
 																																						],
         methods: [
 																	'MAIL: VARCHAR(30)',
-														'PSEUDO: VARCHAR(30)',
+														'NAME: VARCHAR(30)',
 														'FIRSTNAME: VARCHAR(30)',
 														'COMPANY: VARCHAR(30)',
 											]
     }),
-
-	  
-						
-								PARTICIPATE: new uml.BDDTable({
-		id:'PARTICIPATE',
-        position: { x:810.0  , y: 350.0 },
-        size: { width: 220, height: 82 },
-        name: 'PARTICIPATE',
-        attributes: [
-										'PARTICIPANTID: INTEGER',
-														'EVENTID: INTEGER',
-										],
-        methods: [
-																			]
-    }),
-												};
+ 
+										};
 
 _.each(classes, function(c) { graph.addCell(c); });
 
@@ -84,24 +70,6 @@ _.each(classes, function(c) { graph.addCell(c); });
 
 
 
-var relations = [
- 
-						new joint.dia.Link({
-	source: { id: classes.PARTICIPATE.id },
-	target: { id: classes.PARTICIPANTS.id },
-	vertices: [],
-	smooth: false,
-	attrs: {
-	'.marker-target': { d: 'M 20 0 L 0 5 L 20 10 z' }
-	},
-	labels: [
-	{ position: 60, attrs: { text: { text: 'SQL141027133108741' } }}
-	]
-}),	
-												];
-
-_.each(relations, function(r) { graph.addCell(r); });
-_.each(relations, function(r) { r.toBack(); });
  
  function saveGraph(){
 	if(typeof(Storage)!=="undefined")
