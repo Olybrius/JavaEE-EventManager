@@ -43,7 +43,7 @@ paper.on('cell:pointerup', function(cellView , evt) {
 /*define positionning of different beans around central bean*/
 
 var uml = joint.shapes.uml;
-												
+															
    var classes = {  
 EVENTS: new uml.BDDTable({
 		id:'EVENTS',
@@ -81,7 +81,7 @@ EVENTS: new uml.BDDTable({
 									]
     }),
 	  
-						
+									
 								PARTICIPATE: new uml.BDDTable({
 		id:'PARTICIPATE',
         position: { x:90.0  , y: 349.99999999999994 },
@@ -113,11 +113,11 @@ var relations = [
 	'.marker-target': { d: 'M 20 0 L 0 5 L 20 10 z' }
 	},
 	labels: [
-	{ position: 60, attrs: { text: { text: 'SQL141027133051172' } }}
+	{ position: 60, attrs: { text: { text: 'SQL141028145441082' } }}
 	]
 }),	
 	 
-						new joint.dia.Link({
+									new joint.dia.Link({
 	source: { id: classes.PARTICIPATE.id },
 	target: { id: classes.EVENTS.id },
 	vertices: [],
@@ -126,7 +126,7 @@ var relations = [
 	'.marker-target': { d: 'M 20 0 L 0 5 L 20 10 z' }
 	},
 	labels: [
-	{ position: 60, attrs: { text: { text: 'SQL141027133108742' } }}
+	{ position: 60, attrs: { text: { text: 'SQL141028145443602' } }}
 	]
 }),	
 									];
