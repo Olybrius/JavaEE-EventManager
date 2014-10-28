@@ -82,17 +82,43 @@ When a row is clicked, the participants of the event clicked is shown.
 	<div class="modal-dialog">
 		<div class="modal-content">
 		
+			<!-- HEADER -->
+		
 			<div class="modal-header">
  				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
         		<h4 class="modal-title" id="participantsTitle">Participants</h4>
       		</div>
       		
+      		<!-- 
+      		BODY
+      		For each event, we create the table of participants that we hide.
+      		-->
+      		
       		<div class="modal-body" id="participantsList">
-      			<c:forEach begin="0" end="${fn:length(events)}" step="1" varStatus="loopCounter" items="${events}" var="event">
-					<div id="${loopCounter.index}" hidden="true">
+      			<c:forEach begin="0" end="${fn:length(events)}" step="1" varStatus="eventsCounter" items="${events}" var="event">
+					<div id="${eventsCounter.index}" hidden="true">
 						<c:choose>
 							<c:when test="${fn:length(event.listOfParticipants) gt 0}">
-								Tableau
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>Nom</th>
+											<th>Prénom</th>
+											<th>Entreprise</th>
+											<th>Mail</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach begin="0" end="${fn:length(event.listOfParticipants)}" step="1" varStatus="loopCounter" items="${event.listOfParticipants}" var="participant">
+											<tr>
+												<td>${participant.pseudo}</td>
+												<td>${participant.firstname}</td>
+												<td>${participant.company}</td>
+												<td>${participant.mail}</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
 							</c:when>
 							<c:otherwise>
 								Aucun participant ne s'est inscrit à cet évènement.
@@ -102,6 +128,8 @@ When a row is clicked, the participants of the event clicked is shown.
 					</div>
 				</c:forEach>
       		</div>
+      		
+      		<!-- FOOTER -->
       		
       		<div class="modal-footer">
 				<form id="publish" method="post" action="/Publish" style="display:inline-block">
@@ -127,6 +155,7 @@ When a row is clicked, the participants of the event clicked is shown.
 	    	}).ready(
 	    		function(){
 	    			$('tr.warning').css('background-color', '#fcf8e3');
+	    			$('tr.warning td').css('background-color', '#fcf8e3');
 	    			$('tr.warning td').css('background-color', '#fcf8e3');
 	    		}	    	
 	    	);
