@@ -32,8 +32,8 @@ public class CreateEventService implements CreateEventServiceInterface {
 	private boolean urlExists(String url){
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
 		EntityManager em = emf.createEntityManager();
-		final String QUERY = "SELECT u.url FROM EventsEntity u WHERE u.url='"+url+"'";
-		Query query = em.createQuery(QUERY);
+		Query query = em.createNamedQuery("EventsEntity.checkUrl");
+		query.setParameter("url", url);
 		@SuppressWarnings("unchecked")
 		List<String> list = query.getResultList();
 		return list.size()!=0;
