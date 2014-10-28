@@ -25,11 +25,11 @@ public class RegisterService implements RegisterServiceInterface {
 	public boolean checkMail(String mail) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
 		EntityManager em = emf.createEntityManager();
-		final String QUERY = "SELECT u.pseudo FROM UsersEntity u WHERE u.mail='"+mail+"'";
-		Query query = em.createQuery(QUERY);
+		Query query = em.createNamedQuery("UsersEntity.checkMail");
+		query.setParameter("email", mail);
 		@SuppressWarnings("unchecked")
 		List<String> list = query.getResultList();
-		return list.size()==0;
+		return list.size()== 0;
 	}
 	
 }
