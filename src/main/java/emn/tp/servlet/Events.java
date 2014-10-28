@@ -50,6 +50,7 @@ public class Events extends HttpServlet {
 		
 		// Event service (database work)
 		EventsServiceInterface serviceEvents = new EventsService();	
+
 		
 		// Get the events created by the current user
 		UsersEntity user = (UsersEntity)request.getSession().getAttribute("user");	
@@ -58,7 +59,7 @@ public class Events extends HttpServlet {
 
 		// Send the result
 		System.out.println("EVENTS : Sending the events to show [" + events.size() + "]...");
-		request.getSession().setAttribute("events", events);		
+		request.getSession().setAttribute("events", events);
 		
 		// Show the JSP
 		System.out.println("EVENTS : Forwarding to Events JSP...");

@@ -14,12 +14,14 @@ public class EventsService implements EventsServiceInterface {
 
 	@Override
 	public List<EventsEntity> getEventsByUser(int userID) {
+		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
 		EntityManager em = emf.createEntityManager();
-		final String QUERY = "SELECT e FROM EventsEntity e WHERE e.users.id="+ userID ;
-		Query query = em.createQuery(QUERY);
+		Query query = em.createNamedQuery("EventsEntity.getAllWithUserId");
+		query.setParameter("userid", userID);
 		@SuppressWarnings("unchecked")
 		List<EventsEntity> listEvents = query.getResultList();
+
 		return listEvents;
 	}
 

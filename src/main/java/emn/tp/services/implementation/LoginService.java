@@ -1,13 +1,10 @@
 package emn.tp.services.implementation;
 
+import java.util.HashMap;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-
 import emn.tp.bean.jpa.UsersEntity;
+import emn.tp.persistence.services.jpa.UsersPersistenceJPA;
 import emn.tp.services.interfaces.LoginServiceInterface;
 
 /**
@@ -23,12 +20,20 @@ public class LoginService implements LoginServiceInterface {
 	@Override
 	public UsersEntity getUser(String email, String password) {
 		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
+		UsersPersistenceJPA epj = new UsersPersistenceJPA();
+
+		HashMap<String, Object> recupUser = new HashMap<String, Object>();
+		recupUser.put("mail", email);
+		recupUser.put("password", password);
+		List<UsersEntity> list = epj.search(recupUser);
+
+		/*EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
 		EntityManager em = emf.createEntityManager();
 		final String QUERY = "SELECT u FROM UsersEntity u WHERE u.mail='"+email+"' AND u.password='"+password+"'";
 		Query query = em.createQuery(QUERY);
 		@SuppressWarnings("unchecked")
-		List<UsersEntity> list = query.getResultList();
+		List<UsersEntity> list = query.getResultList();*/
+		
 		if(list.size() == 1) return list.get(0);
 		else return null;
 		
