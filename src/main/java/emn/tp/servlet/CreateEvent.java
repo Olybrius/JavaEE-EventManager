@@ -81,7 +81,7 @@ public class CreateEvent extends HttpServlet {
 				EventsPersistence serviceEvents = PersistenceServiceProvider.getService(EventsPersistence.class);
 				EventsEntity event = new EventsEntity();
 				System.out.println();
-				event.setUrl(createEventService.getNewUrl());
+				//event.setUrl(createEventService.getNewUrl());
 				event.setName(name);
 				event.setAddress(address);
 				event.setStartdate(startDate);

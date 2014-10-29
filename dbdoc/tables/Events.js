@@ -48,14 +48,13 @@ var uml = joint.shapes.uml;
 EVENTS: new uml.BDDTable({
 		id:'EVENTS',
         position: { x:450  , y: 350 },
-        size: { width: 180, height: 138 },
+        size: { width: 180, height: 127 },
         name: 'EVENTS',
         attributes: [
-																	'ID: INTEGER',
+										'ID: INTEGER',
 																																																				],
         methods: [
-										'URL: VARCHAR(30)',
-																					'USERID: INTEGER',
+																	'USERID: INTEGER',
 														'NAME: VARCHAR(30)',
 														'STARTDATE: TIMESTAMP',
 														'ENDDATE: TIMESTAMP',
