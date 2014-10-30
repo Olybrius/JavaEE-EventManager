@@ -13,5 +13,7 @@ public interface EventsServiceInterface {
 	public boolean checkIdEvent(int id);
 	public boolean validateUser(int userID, int eventID);
 	public void publishEvent(int eventID);
+	public List<EventsEntity> getPublishedEvents();
+	public EventsEntity getEventsById(int eventID);
 
 }

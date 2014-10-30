@@ -1,6 +1,7 @@
 package emn.tp.services.implementation;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -53,7 +54,7 @@ public class EventsService implements EventsServiceInterface {
 		EntityManager em = emf.createEntityManager();
 		EventsEntity event = em.find(EventsEntity.class, id);
 		
-		return (event!= null);
+		return (event != null);
 	}
 
 	@Override
@@ -74,6 +75,24 @@ public class EventsService implements EventsServiceInterface {
 		EventsEntity event = epj.load(eventID);
 		event.setPublished((short)1);
 		epj.save(event);
+	}
+
+	@Override
+	public List<EventsEntity> getPublishedEvents() {
+		EventsPersistenceJPA epj = new EventsPersistenceJPA();
+		HashMap<String, Object> recupEvent = new HashMap<String, Object>();
+		recupEvent.put("published", (short) 1);
+		List<EventsEntity> listEventPublished = epj.search(recupEvent);
+		return listEventPublished;
+	}
+
+	@Override
+	public EventsEntity getEventsById(int eventID) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
+		EntityManager em = emf.createEntityManager();
+		EventsEntity event = em.find(EventsEntity.class, eventID);
+		
+		return event;
 	}
 
 }
