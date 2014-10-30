@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import emn.tp.services.implementation.UsersService;
-import emn.tp.services.interfaces.LoginServiceInterface;
+import emn.tp.services.interfaces.UsersServiceInterface;
 import emn.tp.tools.Tools;
 
 /**
@@ -43,7 +43,7 @@ public class Register extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Register service (database work)
-		LoginServiceInterface serviceLog = new UsersService();
+		UsersServiceInterface serviceLog = new UsersService();
 
 		// Get inputs
 		System.out.println("REGISTER : Getting inputs...");

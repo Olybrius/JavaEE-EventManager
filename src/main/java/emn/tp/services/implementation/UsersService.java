@@ -12,14 +12,14 @@ import emn.tp.bean.jpa.UsersEntity;
 import emn.tp.persistence.PersistenceServiceProvider;
 import emn.tp.persistence.services.UsersPersistence;
 import emn.tp.persistence.services.jpa.UsersPersistenceJPA;
-import emn.tp.services.interfaces.LoginServiceInterface;
+import emn.tp.services.interfaces.UsersServiceInterface;
 
 /**
  * @author Joris & Killian
  *
  */
 
-public class UsersService implements LoginServiceInterface {
+public class UsersService implements UsersServiceInterface {
 
 	/**
 	 * Récupère les informations de l'utilisateur.

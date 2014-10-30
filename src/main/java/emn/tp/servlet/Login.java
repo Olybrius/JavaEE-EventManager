@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import emn.tp.bean.jpa.UsersEntity;
 import emn.tp.services.implementation.UsersService;
-import emn.tp.services.interfaces.LoginServiceInterface;
+import emn.tp.services.interfaces.UsersServiceInterface;
 import emn.tp.tools.Tools;
 
 
@@ -45,7 +45,7 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// Login service (database work)
-		LoginServiceInterface logService = new UsersService();
+		UsersServiceInterface logService = new UsersService();
 		
 		// Get inputs
 		System.out.println("LOGIN : Getting inputs...");

@@ -43,39 +43,46 @@ paper.on('cell:pointerup', function(cellView , evt) {
 /*define positionning of different beans around central bean*/
 
 var uml = joint.shapes.uml;
-															
+									
    var classes = {  
 PARTICIPANTS: new uml.BDDTable({
 		id:'PARTICIPANTS',
         position: { x:450  , y: 350 },
-        size: { width: 180, height: 105 },
+        size: { width: 180, height: 116 },
         name: 'PARTICIPANTS',
         attributes: [
 										'ID: INTEGER',
-																																						],
+																																													],
         methods: [
 																	'MAIL: VARCHAR(30)',
 														'NAME: VARCHAR(30)',
 														'FIRSTNAME: VARCHAR(30)',
 														'COMPANY: VARCHAR(30)',
+														'EVENTID: INTEGER',
 											]
     }),
 
-	  
-						
-								PARTICIPATE: new uml.BDDTable({
-		id:'PARTICIPATE',
+	
+		
+						EVENTS: new uml.BDDTable({
+		id:'EVENTS',
         position: { x:810.0  , y: 350.0 },
-        size: { width: 220, height: 82 },
-        name: 'PARTICIPATE',
+        size: { width: 220, height: 137 },
+        name: 'EVENTS',
         attributes: [
-										'PARTICIPANTID: INTEGER',
-														'EVENTID: INTEGER',
-										],
+										'ID: INTEGER',
+																																																				],
         methods: [
-																			]
+																	'USERID: INTEGER',
+														'NAME: VARCHAR(30)',
+														'STARTDATE: TIMESTAMP',
+														'ENDDATE: TIMESTAMP',
+														'ADDRESS: VARCHAR(30)',
+														'PUBLISHED: SMALLINT',
+									]
     }),
-												};
+	  
+									};
 
 _.each(classes, function(c) { graph.addCell(c); });
 
@@ -85,20 +92,20 @@ _.each(classes, function(c) { graph.addCell(c); });
 
 
 var relations = [
- 
-						new joint.dia.Link({
-	source: { id: classes.PARTICIPATE.id },
-	target: { id: classes.PARTICIPANTS.id },
+	new joint.dia.Link({
+	source: { id: classes.PARTICIPANTS.id },
+	target: { id: classes.EVENTS.id },
 	vertices: [],
 	smooth: false,
 	attrs: {
 	'.marker-target': { d: 'M 20 0 L 0 5 L 20 10 z' }
 	},
 	labels: [
-	{ position: 60, attrs: { text: { text: 'SQL141028145443601' } }}
+	{ position: 60, attrs: { text: { text: 'SQL141030135438040' } }}
 	]
 }),	
-												];
+	 
+									];
 
 _.each(relations, function(r) { graph.addCell(r); });
 _.each(relations, function(r) { r.toBack(); });

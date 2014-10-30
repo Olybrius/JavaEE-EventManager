@@ -74,7 +74,7 @@ public class EventsEntity implements Serializable {
     @JoinColumn(name="USERID", referencedColumnName="ID")
     private UsersEntity users       ;
 
-    @ManyToMany(mappedBy="listOfEvents", targetEntity=ParticipantsEntity.class)
+    @OneToMany(mappedBy="events", targetEntity=ParticipantsEntity.class)
     private List<ParticipantsEntity> listOfParticipants;
 
 
