@@ -24,13 +24,21 @@
 							<th>Lieu de l'évènement</th>
 							<th>Début de l'évènement</th>
 							<th>Fin de l'évènement</th>
-							<th>Publié</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach begin="0" end="${fn:length(userEvents)}" step="1" varStatus="eventCounter" items="${userEvents}" var="event">
-							<tr <c:if test="${event.published==0}">class="warning"</c:if> data-toggle="modal" data-id="${event.id}" data-target="#participants">
+							<tr data-toggle="modal" data-id="${event.id}" data-target="#participants">
 								<td>
+									<!-- For the sort --> <label hidden="true">${event.name}</label>
+									<c:choose>
+										<c:when test="${event.published==1}">
+											<span class="label label-default participants">${fn:length(event.listOfParticipants)} participant(s)</span>
+										</c:when>
+										<c:otherwise>
+											<span class="label label-warning participants">non publié</span>
+										</c:otherwise>
+									</c:choose>
 									${event.name}
 								</td>
 								<td>
@@ -41,16 +49,6 @@
 								</td>
 								<td>
 									<fmt:formatDate value="${event.enddate}" pattern="dd/MM/yyyy HH:mm"/>								
-								</td>
-								<td class="isPublished">
-									<c:choose>
-										<c:when test="${event.published==1}">
-											Oui
-										</c:when>
-										<c:otherwise>
-											Non
-										</c:otherwise>
-									</c:choose>
 								</td>
 							</tr>
 						</c:forEach>
@@ -172,7 +170,7 @@ When a row is clicked, the participants of the event clicked is shown.
 		    		$('#eventId').attr('value', eventSelected);
 		    		$('#' + eventSelected).show();
 		    		// Hide the publish button if the event is already published or hide it otherwise
-		    		if ("Oui" == $('tr[data-id='+eventSelected+'] td.isPublished').html().trim()) $('#publish').hide();
+		    		if ($('tr[data-id='+eventSelected+'] span.participants').html().trim() != 'non publié') $('#publish').hide();
 		    		else $('#publish').show();
 		    	}
 	    	);

@@ -26,7 +26,7 @@ import emn.tp.bean.jpa.UsersEntity;
 				// Style, javascript & fonts
 				@WebInitParam(name="freeFiles", value="css,js,eot,svg,ttf,woff,png"),
 				// Non logged-in accessible servlets
-				@WebInitParam(name="beforeConnection", value="Login,Register,Subscribe")
+				@WebInitParam(name="beforeConnection", value="Login,Register")
 		}
 )
 public class SessionController implements Filter {
@@ -155,7 +155,7 @@ public class SessionController implements Filter {
 	 * @return True if the user try to access to the events, false otherwise.
 	 */
 	private boolean events(String url){
-		return Pattern.matches(".*\\/Events(?=([0-9]*)){0,1}$", url);
+		return Pattern.matches(".*\\/Events(?=([0-9]*)){0,1}$", url) || Pattern.matches(".*/Publish$", url) || Pattern.matches(".*/Participate$", url) ;
 	}
 
 }

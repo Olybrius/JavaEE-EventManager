@@ -14,15 +14,15 @@ import emn.tp.services.implementation.ParticipantsService;
 import emn.tp.services.interfaces.EventsServiceInterface;
 import emn.tp.services.interfaces.ParticipantsServiceInterface;
 
-@WebServlet("/Subscribe")
-public class Subscribe extends HttpServlet{
+@WebServlet("/Participate")
+public class Participate extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Subscribe() {
+	public Participate() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
