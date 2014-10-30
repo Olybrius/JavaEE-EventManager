@@ -94,21 +94,30 @@
 								<li class="list-group-item">
 									<form class="form-horizontal" role="form" method="post" action="Subscribe">
 										<div class="form-group">
-											<label for="mail" class="col-sm-3 control-label">Prénom</label>
+											<label for="firstName" class="col-sm-3 control-label">Prénom</label>
 											<div class="col-sm-4">
 												<input type="text" class="form-control" id="firstName" name="firstName" placeholder="Prénom" required>
 											</div>
-										</div>
-										<div class="form-group">
-											<label for="mail" class="col-sm-3 control-label">Nom</label>
-											<div class="col-sm-4">
-												<input type="text" class="form-control" id="name" name="name" placeholder="Nom" required>
+											<div id="firstNameHelp" class="col-sm-offset-3 col-sm-4 help">
+												*Champ requis.
 											</div>
 										</div>
 										<div class="form-group">
-											<label for="mail" class="col-sm-3 control-label">Entreprise</label>
+											<label for="name" class="col-sm-3 control-label">Nom</label>
+											<div class="col-sm-4">
+												<input type="text" class="form-control" id="name" name="name" placeholder="Nom" required>
+											</div>
+											<div id=nameHelp class="col-sm-offset-3 col-sm-4 help">
+												*Champ requis.
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="company" class="col-sm-3 control-label">Entreprise</label>
 											<div class="col-sm-4">
 												<input type="text" class="form-control" id="company" name="company" placeholder="Entreprise" required>
+											</div>
+											<div id="companyHelp" class="col-sm-offset-3 col-sm-4 help">
+												*Champ requis.
 											</div>
 										</div>
 										<div class="form-group">
@@ -116,11 +125,14 @@
 											<div class="col-sm-4">
 												<input type="text" class="form-control" id="mail" name="mail" placeholder="Adresse mail" required>
 											</div>
+											<div id="mailHelp" class="col-sm-offset-3 col-sm-4 help">
+												*Le mail doit être formé selon l'exemple email@example.com.
+											</div>
 										</div>
 										<div class="form-group">
 											<input type="hidden" name="eventId" id="eventId" value="${eventDisplayed.id}">
 											<div class="col-sm-offset-3 col-sm-4">
-												<button id="subscribe" type="submit" class="btn btn-default" disabled="disabled">S'enregistrer</button>
+												<button id="participate" type="submit" class="btn btn-default" disabled="disabled">Participer</button>
 											</div>
 										</div>
 									</form>
@@ -151,5 +163,56 @@
 	</c:otherwise>
 	
 </c:choose>
+
+<script>
+
+	$('#firstName').change(validator);
+	$('#name').change(validator);
+	$('#company').change(validator);
+	$('#mail').change(validator);
+	
+	function validator(){		
+		// Do we have to disable the register button ?
+		var disableButton = false ;
+		// First name test
+		var firstName = $('#firstName').val() ;
+		if (firstName.trim() == ''){
+			$('#firstNameHelp').show("slow");
+			disableButton = true ;
+		}else{
+			$('#firstNameHelp').hide("slow");
+		}
+		// Name test
+		var name = $('#name').val() ;
+		if (name.trim() == ''){
+			$('#nameHelp').show("slow");
+			disableButton = true ;
+		}else{
+			$('#nameHelp').hide("slow");
+		}
+		// Company test
+		var company = $('#company').val() ;
+		if (company.trim() == ''){
+			$('#companyHelp').show("slow");
+			disableButton = true ;
+		}else{
+			$('#companyHelp').hide("slow");
+		}
+		// Mail test
+		var mail = $('#mail').val() ;
+		var mailPatt = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$') ;
+		if (!mailPatt.test(mail)){
+			$('#mailHelp').show("slow") ;
+			disableButton = true ;
+		}else{
+			$('#mailHelp').hide("slow") ;
+		}	
+		// Disable the participate button
+		if (disableButton) $('#participate').attr('disabled', 'disabled') ; 
+		// Enable the register button
+		else $('#participate').removeAttr('disabled') ;
+	}
+	
+</script>
 
 <%@ include file="/WEB-INF/jspf/Footer.jspf" %>

@@ -33,11 +33,17 @@ CREATE EVENT FORM
 		<div class="col-sm-4">
 			<input type="text" class="form-control" id="name" name="name" placeholder="Nom de l'évènement" value="" required>
 		</div>
+		<div id="nameHelp" class="col-sm-offset-3 col-sm-4 help" hidden="true">
+			*Champ requis.
+		</div>
 	</div>
 	<div class="form-group">
 		<label for="address" class="col-sm-3 control-label">Adresse</label>
 		<div class="col-sm-4">
 			<input type="text" class="form-control" id="address" name="address" placeholder="Adresse" value="" required>
+		</div>
+		<div id="addressHelp" class="col-sm-offset-3 col-sm-4 help" hidden="true">
+			*Champ requis.
 		</div>
 	</div>
 	<div class="form-group">
@@ -91,26 +97,37 @@ CREATE EVENT FORM
 			$('#startTime').val('00:00');
 			$('#endTime').val('23:59');
 			$('#name').focus();
+			validator();
 		}
 	);
 	
-	$('#address').change(trim);
-	$('#name').change(trim);
+	$('#address').change(validator);
+	$('#name').change(validator);
 	$('#startDate').change(validator);
 	$('#startTime').change(validator);
 	$('#endDate').change(validator);
 	$('#endTime').change(validator);
 
-	// Delete white spaces before and after inputs
-	function trim(){
-		$('#address').val($('#address').val().trim());
-		$('#name').val($('#name').val().trim());
-	}
-	
 	// Check if dates are OKs
 	function validator(){		
 		// Do we have to disable the save button ?
 		var disableButton = false ;
+		// Name test
+		var name = $('#name').val() ;
+		if (name.trim() == ''){
+			$('#nameHelp').show("slow");
+			disableButton = true ;
+		}else{
+			$('#nameHelp').hide("slow");
+		}
+		// Address test
+		var address = $('#address').val() ;
+		if (address.trim() == ''){
+			$('#addressHelp').show("slow");
+			disableButton = true ;
+		}else{
+			$('#addressHelp').hide("slow");
+		}
 		// Test dates
 		var startDate = $('#startDate').val() ;
 		var endDate = $('#endDate').val() ;
@@ -122,21 +139,21 @@ CREATE EVENT FORM
 		// Good format
 		}else{
 			// The event has to finish after it begins
+			var badDates = false ;
 			if (startDate > endDate) {
+				badDates = true ;
 				disableButton = true ;
 			}else if (startDate == endDate) {
-				disableButton = startTime > endTime ;
+				badDates = startTime > endTime ;
+				disableButton = badDates || disableButton ;
 			}
+			if (badDates) $('#endDateHelp').show("slow") ;
+			else $('#endDateHelp').hide("slow") ;
 		}
 		// Disable the save button
-		if (disableButton) {
-			$('#save').attr('disabled', 'disabled') ; 
-			$('#endDateHelp').show("slow") ;
+		if (disableButton) $('#save').attr('disabled', 'disabled') ; 
 		// Enable the save button
-		}else{
-			$('#save').removeAttr('disabled') ;
-			$('#endDateHelp').hide("slow") ;
-		}
+		else $('#save').removeAttr('disabled') ;
 	}
 	
 </script>

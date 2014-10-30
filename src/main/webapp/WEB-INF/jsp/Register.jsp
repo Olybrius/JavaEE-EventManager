@@ -43,7 +43,7 @@ REGISTER FORM
 			<input type="text" class="form-control" name="mail" id="mail" placeholder="Adresse mail" value="" required>
 		</div>
 		<div id="mailHelp" class="col-sm-offset-3 col-sm-4 help">
-			*Le mail doit être formé selon le pattern email@example.com.
+			*Le mail doit être formé selon l'exemple email@example.com.
 		</div>
 	</div>
 	<div class="form-group">
@@ -71,8 +71,6 @@ REGISTER FORM
 	</div>
 </form>
 
-<%@ include file="/WEB-INF/jspf/Footer.jspf" %>
-
 <script>
 	
 	$(document).ready(
@@ -96,8 +94,7 @@ REGISTER FORM
 			$('#pseudoHelp').show("slow") ;
 			disableButton = true ;
 		}else{
-			$('#pseudoHelp').hide("slow") ;
-			disableButton = disableButton || false ;			
+			$('#pseudoHelp').hide("slow") ;		
 		}
 		// Mail test
 		var mail = $('#mail').val() ;
@@ -107,7 +104,6 @@ REGISTER FORM
 			disableButton = true ;
 		}else{
 			$('#mailHelp').hide("slow") ;
-			disableButton = disableButton || false ;
 		}	
 		// Password test
 		var password = $('#password').val() ;
@@ -117,7 +113,6 @@ REGISTER FORM
 			disableButton = true ;
 		}else{
 			$('#passwordHelp').hide("slow") ;
-			disableButton = disableButton || false ;
 		}
 		// Password confirmation test
 		var passwordConfirmation = $('#passwordConfirmation').val() ;
@@ -126,7 +121,6 @@ REGISTER FORM
 			disableButton = true ;
 		}else{
 			$('#passwordConfirmationHelp').hide("slow") ;
-			disableButton = disableButton || false ;
 		}
 		// Disable the register button
 		if (disableButton) $('#register').attr('disabled', 'disabled') ; 
@@ -135,3 +129,5 @@ REGISTER FORM
 	}
 	
 </script>
+
+<%@ include file="/WEB-INF/jspf/Footer.jspf" %>
