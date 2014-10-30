@@ -133,7 +133,8 @@ When a row is clicked, the participants of the event clicked is shown.
       		<!-- FOOTER -->
       		
       		<div class="modal-footer">
-				<form id="publish" method="get" role="form" style="display:inline-block">
+				<form id="publish" method="post" role="form" action="Publish" style="display:inline-block">
+					<input type="hidden" name="eventId" id="eventId">
 					<button type="submit" class="btn btn-default">Publier</button>
 				</form>
       			<button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
@@ -168,7 +169,7 @@ When a row is clicked, the participants of the event clicked is shown.
 		    		});
 		    		// Show participants of the even clicked
 		    		var eventSelected = $(event.relatedTarget).closest('tr').data('id');
-		    		$('form#publish').attr('action', '/Publish?event=' + eventSelected);
+		    		$('#eventId').attr('value', eventSelected);
 		    		$('#' + eventSelected).show();
 		    		// Hide the publish button if the event is already published or hide it otherwise
 		    		if ("Oui" == $('tr[data-id='+eventSelected+'] td.isPublished').html().trim()) $('#publish').hide();
