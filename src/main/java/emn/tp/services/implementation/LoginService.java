@@ -26,13 +26,6 @@ public class LoginService implements LoginServiceInterface {
 		recupUser.put("mail", email);
 		recupUser.put("password", password);
 		List<UsersEntity> list = epj.search(recupUser);
-
-		/*EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
-		EntityManager em = emf.createEntityManager();
-		final String QUERY = "SELECT u FROM UsersEntity u WHERE u.mail='"+email+"' AND u.password='"+password+"'";
-		Query query = em.createQuery(QUERY);
-		@SuppressWarnings("unchecked")
-		List<UsersEntity> list = query.getResultList();*/
 		
 		if(list.size() == 1) return list.get(0);
 		else return null;

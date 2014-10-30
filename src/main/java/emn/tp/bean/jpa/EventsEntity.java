@@ -28,7 +28,8 @@ import javax.persistence.*;
 // Define named queries here
 @NamedQueries ( {
   @NamedQuery ( name="EventsEntity.countAll", query="SELECT COUNT(x) FROM EventsEntity x" ),
-  @NamedQuery ( name="EventsEntity.getAllWithUserId", query="SELECT e FROM EventsEntity e WHERE e.users.id = :userid" )
+  @NamedQuery ( name="EventsEntity.getAllWithUserId", query="SELECT e FROM EventsEntity e WHERE e.users.id = :userid" ),
+  @NamedQuery ( name="EventsEntity.checkUserId", query="SELECT e.users.id FROM EventsEntity e WHERE e.id = :eventid")
 } )
 public class EventsEntity implements Serializable {
 
