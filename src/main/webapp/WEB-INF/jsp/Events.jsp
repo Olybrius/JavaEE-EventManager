@@ -80,7 +80,20 @@
 				<div class="row">
 					<div class="col-sm-7">
 						<div class="panel panel-default">
-							<div class="panel-heading"><strong>${eventDisplayed.name}</strong></div>
+							<div class="panel-heading">
+								<strong>${eventDisplayed.name}</strong> 
+								<c:choose>
+									<c:when test="${fn:length(eventDisplayed.listOfParticipants) eq 0}">
+										<c:set var="buttonDisabled" value="disabled=\"disabled\""/>
+									</c:when>
+									<c:otherwise>
+										<c:set var="buttonDisabled" value=""/>
+									</c:otherwise>
+								</c:choose>
+								<button type="button" class="btn btn-default" data-toggle="modal" data-target="#participants" ${buttonDisabled}>
+									${fn:length(eventDisplayed.listOfParticipants)} participant(s)
+								</button>
+							</div>
 							<div class="panel-body">
 								<strong>Créateur :</strong> ${eventDisplayed.users.pseudo} (${eventDisplayed.users.mail}) <br/>
 								<strong>Adresse :</strong> ${eventDisplayed.address} <br/>
@@ -92,7 +105,7 @@
 									<strong>Inscription</strong>
 								</li>
 								<li class="list-group-item">
-									<form class="form-horizontal" role="form" method="post" action="Subscribe">
+									<form class="form-horizontal" role="form" method="post" action="Participate">
 										<div class="form-group">
 											<label for="firstName" class="col-sm-3 control-label">Prénom</label>
 											<div class="col-sm-4">
@@ -163,6 +176,63 @@
 	</c:otherwise>
 	
 </c:choose>
+
+<!--
+MODAL FOR PARTICIPANTS
+-->
+
+<div class="modal fade" id="participants" tabindex="-1" role="dialog" aria-labelledby="participantsTitle" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		
+			<!-- HEADER -->
+		
+			<div class="modal-header">
+ 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+        		<h4 class="modal-title" id="participantsTitle">Participants</h4>
+      		</div>
+      		
+      		<!-- BODY -->
+      		
+      		<div class="modal-body" id="participantsList">
+				<c:choose>
+					<c:when test="${fn:length(eventDisplayed.listOfParticipants) gt 0}">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Nom</th>
+									<th>Prénom</th>
+									<th>Entreprise</th>
+									<th>Mail</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach begin="0" end="${fn:length(eventDisplayed.listOfParticipants)}" step="1" varStatus="participantCounterModal" items="${eventDisplayed.listOfParticipants}" var="participant">
+									<tr>
+										<td>${participant.name}</td>
+										<td>${participant.firstname}</td>
+										<td>${participant.company}</td>
+										<td>${participant.mail}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:when>
+					<c:otherwise>
+						Aucun participant ne s'est inscrit à cet évènement.
+					</c:otherwise>
+				</c:choose>
+      		</div>
+      		
+      		<!-- FOOTER -->
+      		
+      		<div class="modal-footer">
+      			<button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+      		</div>
+      		
+		</div>
+	</div>
+</div>
 
 <script>
 
