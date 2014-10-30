@@ -1,14 +1,17 @@
 package emn.tp.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import emn.tp.bean.jpa.UsersEntity;
-import emn.tp.services.implementation.LoginService;
+import emn.tp.services.implementation.UsersService;
 import emn.tp.services.interfaces.LoginServiceInterface;
+import emn.tp.tools.Tools;
 
 
 /**
@@ -42,7 +45,7 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// Login service (database work)
-		LoginServiceInterface logService = new LoginService();
+		LoginServiceInterface logService = new UsersService();
 		
 		// Get inputs
 		System.out.println("LOGIN : Getting inputs...");
@@ -51,7 +54,7 @@ public class Login extends HttpServlet {
 
 		// If inputs are filled
 		System.out.println("LOGIN : Validating fields...");
-		if(logService.validateField(email, password)){
+		if(Tools.validateFieldLogin(email, password)){
 			// Try to get a user by the mail and the password written
 			System.out.println("LOGIN : Getting user by mail and password...");
 			UsersEntity user = logService.getUser(email, password);

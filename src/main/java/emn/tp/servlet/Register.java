@@ -8,11 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import emn.tp.bean.jpa.UsersEntity;
-import emn.tp.persistence.PersistenceServiceProvider;
-import emn.tp.persistence.services.UsersPersistence;
-import emn.tp.services.implementation.RegisterService;
-import emn.tp.services.interfaces.RegisterServiceInterface;
+import emn.tp.services.implementation.UsersService;
+import emn.tp.services.interfaces.LoginServiceInterface;
+import emn.tp.tools.Tools;
 
 /**
  * Servlet implementation class Register
@@ -45,7 +43,7 @@ public class Register extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Register service (database work)
-		RegisterServiceInterface regService = new RegisterService();
+		LoginServiceInterface serviceLog = new UsersService();
 
 		// Get inputs
 		System.out.println("REGISTER : Getting inputs...");
@@ -56,31 +54,24 @@ public class Register extends HttpServlet {
 		
 		// If they are not all filled
 		System.out.println("REGISTER : Validating fields...");
-		if (!regService.validateField(pseudo, mail, password, passwordConfirmation)){
+		if (!Tools.validateFieldRegister(pseudo, mail, password, passwordConfirmation)){
 			System.out.println("REGISTER : Inputs not filled...");
 			request.getSession().setAttribute("registerError", "Tous les champs doivent être renseignés.");
 			response.sendRedirect("Register");
 		// If the two passwords are not the same
-		}else if (!regService.validatePassword(request.getParameter("password"), request.getParameter("passwordConfirmation"))) {
+		}else if (!Tools.validatePassword(request.getParameter("password"), request.getParameter("passwordConfirmation"))) {
 			System.out.println("REGISTER : The two passwords are not the same...");
 			request.getSession().setAttribute("registerError", "Les deux mots de passe doivent correspondre.");
 			response.sendRedirect("Register");
 		// If mail already exists
-		}else if(!regService.checkMail(mail)){
+		}else if(!serviceLog.checkMail(mail)){
 			System.out.println("REGISTER : Mail already exists...");
 			request.getSession().setAttribute("registerError", "Un compte existe déjà pour l'adresse mail renseignée.");
 			response.sendRedirect("Register");
 		// If inputs are correctly filled
 		}else{
 			// Insert 
-			System.out.println("REGISTER : Creating user entity...");
-			UsersPersistence serviceUsers = PersistenceServiceProvider.getService(UsersPersistence.class);
-			UsersEntity user = new UsersEntity();
-			user.setPseudo(pseudo);
-			user.setMail(mail);
-			user.setPassword(password);
-	    	System.out.println("REGISTER : Inserting into databse...");
-	    	serviceUsers.insert(user);
+			serviceLog.register(pseudo, mail, passwordConfirmation);
 			// Redirection
 			response.sendRedirect("Login");
 		}

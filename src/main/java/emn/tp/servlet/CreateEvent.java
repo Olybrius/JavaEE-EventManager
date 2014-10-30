@@ -11,12 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import emn.tp.bean.jpa.EventsEntity;
 import emn.tp.bean.jpa.UsersEntity;
-import emn.tp.persistence.PersistenceServiceProvider;
-import emn.tp.persistence.services.EventsPersistence;
-import emn.tp.services.implementation.CreateEventService;
-import emn.tp.services.interfaces.CreateEventServiceInterface;
+import emn.tp.services.implementation.EventsService;
+import emn.tp.services.interfaces.EventsServiceInterface;
+import emn.tp.tools.Tools;
 
 /**
  * Servlet implementation class CreateEvent
@@ -49,7 +47,7 @@ public class CreateEvent extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Create event service (database work)
-		CreateEventServiceInterface createEventService = new CreateEventService();
+		EventsServiceInterface serviceEvents = new EventsService();
 		
 		// Get inputs
 		System.out.println("CREATE EVENTS : Getting inputs...");
@@ -68,26 +66,14 @@ public class CreateEvent extends HttpServlet {
 			Date endDate = sdf.parse(stringEndDate);
 			System.out.println("CREATE EVENTS : Validating fields...");
 			// If inputs are not well filled
-			if(!createEventService.validateField(name, address, startDate, endDate)){
+			if(!Tools.validateFieldEvent(name, address, startDate, endDate)){
 				System.out.println("CREATE EVENTS : Fields not well filled...");
 				request.getSession().setAttribute("createEventError", "Tous les champs sont requis et la date de début doit précéder la date de fin de l'évènement.");
 				response.sendRedirect("CreateEvent");
 			// If inputs are well filled
 			}else{		
 				// Insert
-				System.out.println("CREATE EVENT : Creating event entity...");
-				EventsPersistence serviceEvents = PersistenceServiceProvider.getService(EventsPersistence.class);
-				EventsEntity event = new EventsEntity();
-				System.out.println();
-				//event.setUrl(createEventService.getNewUrl());
-				event.setName(name);
-				event.setAddress(address);
-				event.setStartdate(startDate);
-				event.setEnddate(endDate);
-				event.setPublished(publish);
-				event.setUsers((UsersEntity)request.getSession().getAttribute("user"));
-				System.out.println("CREATE EVENT : Inserting into databse...");
-				serviceEvents.insert(event);
+				serviceEvents.createEvent(name, address, startDate, endDate, publish, (UsersEntity)request.getSession().getAttribute("user"));
 				// Redirection
 				response.sendRedirect("MyEvents");
 			}
