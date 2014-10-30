@@ -13,14 +13,14 @@
 	    <!-- Menu -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="${userEventsPage}"><a href="${pageContext.request.contextPath}/MyEvents">Mes évènements</a></li>
-			 	<li class="${createEventPage}"><a href="${pageContext.request.contextPath}/CreateEvent">Créer un évènement</a></li>
-			 	<li class="${eventsPage}"><a href="${pageContext.request.contextPath}/Events">Tous les évènements</a></li>
+				<li class="${userEventsPage}"><a href="MyEvents">Mes évènements</a></li>
+			 	<li class="${createEventPage}"><a href="CreateEvent">Créer un évènement</a></li>
+			 	<li class="${eventsPage}"><a href="Events">Tous les évènements</a></li>
 			</ul>	 
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">${user.pseudo} (${user.mail})<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="${pageContext.request.contextPath}/Disconnect">
+						<li><a href="Disconnect">
 							<span class="glyphicon glyphicon-log-out"></span> Se déconnecter
 						</a></li>
 					</ul>

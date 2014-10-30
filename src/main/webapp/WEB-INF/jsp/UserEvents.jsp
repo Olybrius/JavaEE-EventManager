@@ -5,16 +5,16 @@
 <c:set var="createEventPage" value="" scope="page"/>
 <c:set var="eventsPage" value="" scope="page"/>
 <%@ include file="/WEB-INF/jspf/Header.jspf" %>
-
-<!-- 
-TABLE OF EVENTS
-A data-id is generated in order to show the participants of the event clicked in the modal (see below).
- -->
  
 <c:choose>
 
 	<c:when test="${fn:length(userEvents) gt 0}">
 	
+		<!-- 
+		TABLE OF EVENTS
+		A data-id is generated in order to show the participants of the event clicked in the modal (see below).
+		 -->
+		 
 		<div class="row">
 			<div class="col-sm-offset-1 col-sm-10">
 				<table id="listOfEvents" class="display">
@@ -62,6 +62,10 @@ A data-id is generated in order to show the participants of the event clicked in
 	</c:when>
 	
 	<c:otherwise>
+	
+		<!-- 
+		NO EVENT TO SHOW
+		 -->
 	
 		<div class="row">
 			<div class="col-sm-offset-1 col-sm-10">
