@@ -94,5 +94,4 @@ public class EventsService implements EventsServiceInterface {
 		
 		return event;
 	}
-
 }

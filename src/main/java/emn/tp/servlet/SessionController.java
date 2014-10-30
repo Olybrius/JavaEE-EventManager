@@ -26,7 +26,7 @@ import emn.tp.bean.jpa.UsersEntity;
 				// Style, javascript & fonts
 				@WebInitParam(name="freeFiles", value="css,js,eot,svg,ttf,woff,png"),
 				// Non logged-in accessible servlets
-				@WebInitParam(name="beforeConnection", value="Login,Register")
+				@WebInitParam(name="beforeConnection", value="Login,Register,Subscribe")
 		}
 )
 public class SessionController implements Filter {

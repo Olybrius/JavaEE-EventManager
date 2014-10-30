@@ -116,7 +116,7 @@ When a row is clicked, the participants of the event clicked is shown.
 									<tbody>
 										<c:forEach begin="0" end="${fn:length(event.listOfParticipants)}" step="1" varStatus="participantCounterModal" items="${event.listOfParticipants}" var="participant">
 											<tr>
-												<td>${participant.pseudo}</td>
+												<td>${participant.name}</td>
 												<td>${participant.firstname}</td>
 												<td>${participant.company}</td>
 												<td>${participant.mail}</td>
