@@ -47,42 +47,63 @@ public class Events extends HttpServlet {
 	 */
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String id = request.getParameter("id");
-
 		// Event service (database work)
 		EventsServiceInterface serviceEvents = new EventsService();	
 
+		// Get input
+		String id = request.getParameter("id");
+		
 		// Get all the events that are in the database
-		System.out.println("EVENTS : GET Published Events");
+		System.out.println("EVENTS : Getting published events...");
 		List<EventsEntity> eventsPublished = serviceEvents.getPublishedEvents();
 
+		// If there is no event published
+		if (eventsPublished.size() == 0) {
+		
+			System.out.println("EVENTS : No event published...");
+			request.getSession().setAttribute("eventsError", "Aucun évènement n'est disponible pour le moment. Revenez un peu plus tard !");
+			
+		// If there are some events published
+		}else{
+			
+			// If an id is passed
+			if(id != null){
+				try{
+					// Parse the id
+					System.out.println("EVENTS : Parsing the id...");
+					int idEvents = Integer.parseInt(id);
+					// Getting the event
+					System.out.println("EVENTS : Getting the event by id...");
+					EventsEntity event = serviceEvents.getEventsById(idEvents);
+					if(event == null){
+						System.out.println("EVENTS : Event not found...");
+						request.getSession().setAttribute("eventsError", "L'évènement auquel vous voulez accéder n'existe malheureusement pas.");
+						request.getSession().removeAttribute("eventDisplayed");
+					}else{
+						System.out.println("EVENTS : Event found, sending it...");
+						request.getSession().setAttribute("eventDisplayed", event);
+					}
+				}catch(NumberFormatException e){	
+					// Error due to the id which is not a number
+					System.out.println("EVENTS : Id parse error...");
+					request.getSession().setAttribute("eventsError", "Un problème est survenu quant à l'évènement sélectionné.");	
+				}
+			// If no id is passed
+			}else{
+				System.out.println("EVENTS : No id passed...");
+				request.getSession().removeAttribute("eventDisplayed");
+			}
+		}
+
 		// Send the result
-		System.out.println("EVENTS : Sending the events published to show [" + eventsPublished.size() + "]...");
+		System.out.println("EVENTS : Sending the events which are published [" + eventsPublished.size() + "]...");
 		request.getSession().setAttribute("events", eventsPublished);
-
-		if(id != null){
-
-			int idEvents = Integer.parseInt(id);
-			if(!serviceEvents.checkIdEvent(idEvents)){
-				System.out.println("EVENTS : Event does not exist");
-			}
-			else{
-				System.out.println("EVENTS : Event with id");
-				EventsEntity event = serviceEvents.getEventsById(idEvents);
-				request.getSession().setAttribute("eventDisplayed", event);
-			}
-		}
-		else if(eventsPublished.size() != 0){
-			System.out.println("EVENTS : First event in the list");
-			request.getSession().setAttribute("eventDisplayed", eventsPublished.get(0));
-		}
-		else{
-			System.out.println("EVENTS : No events published");
-		}
 
 		// Show the JSP
 		System.out.println("EVENTS : Forwarding to Events JSP...");
 		request.getRequestDispatcher("/WEB-INF/jsp/Events.jsp").forward(request, response);
+		System.out.println("EVENTS : Removing eventsError session variable...");
+		request.getSession().removeAttribute("eventsError");
 
 	}
 }
