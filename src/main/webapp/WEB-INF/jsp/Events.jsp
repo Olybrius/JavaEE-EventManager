@@ -154,7 +154,6 @@ When a row is clicked, the participants of the event clicked is shown.
 	    	    "bAutoWidth": false
 	    	}).ready(
 	    		function(){
-	    			$('tr.warning').css('background-color', '#fcf8e3');
 	    			$('tr.warning td').css('background-color', '#fcf8e3');
 	    		}	    	
 	    	);
