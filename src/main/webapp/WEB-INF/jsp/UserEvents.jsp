@@ -13,7 +13,7 @@ A data-id is generated in order to show the participants of the event clicked in
  
 <c:choose>
 
-	<c:when test="${fn:length(events) gt 0}">
+	<c:when test="${fn:length(userEvents) gt 0}">
 	
 		<div class="row">
 			<div class="col-sm-offset-1 col-sm-10">
@@ -28,8 +28,8 @@ A data-id is generated in order to show the participants of the event clicked in
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach begin="0" end="${fn:length(userEvents)}" step="1" varStatus="loopCounter" items="${userEvents}" var="event">
-							<tr <c:if test="${event.published==0}">class="warning"</c:if> data-toggle="modal" data-id="${loopCounter.index}" data-target="#participants">
+						<c:forEach begin="0" end="${fn:length(userEvents)}" step="1" varStatus="eventCounter" items="${userEvents}" var="event">
+							<tr <c:if test="${event.published==0}">class="warning"</c:if> data-toggle="modal" data-id="${event.id}" data-target="#participants">
 								<td>
 									${event.name}
 								</td>
@@ -96,8 +96,8 @@ When a row is clicked, the participants of the event clicked is shown.
       		-->
       		
       		<div class="modal-body" id="participantsList">
-      			<c:forEach begin="0" end="${fn:length(userEvents)}" step="1" varStatus="eventsCounter" items="${userEvents}" var="event">
-					<div id="${eventsCounter.index}" hidden="true">
+      			<c:forEach begin="0" end="${fn:length(userEvents)}" step="1" varStatus="eventCounterModal" items="${userEvents}" var="event">
+					<div id="${event.id}" hidden="true">
 						<c:choose>
 							<c:when test="${fn:length(event.listOfParticipants) gt 0}">
 								<table class="table table-striped">
@@ -110,7 +110,7 @@ When a row is clicked, the participants of the event clicked is shown.
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach begin="0" end="${fn:length(event.listOfParticipants)}" step="1" varStatus="loopCounter" items="${event.listOfParticipants}" var="participant">
+										<c:forEach begin="0" end="${fn:length(event.listOfParticipants)}" step="1" varStatus="participantCounterModal" items="${event.listOfParticipants}" var="participant">
 											<tr>
 												<td>${participant.pseudo}</td>
 												<td>${participant.firstname}</td>
@@ -133,8 +133,8 @@ When a row is clicked, the participants of the event clicked is shown.
       		<!-- FOOTER -->
       		
       		<div class="modal-footer">
-				<form id="publish" method="get" style="display:inline-block">
-					<button type="button" class="btn btn-default">Publier</button>
+				<form id="publish" method="get" role="form" style="display:inline-block">
+					<button type="submit" class="btn btn-default">Publier</button>
 				</form>
       			<button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       		</div>

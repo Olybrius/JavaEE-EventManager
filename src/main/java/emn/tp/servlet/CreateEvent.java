@@ -89,7 +89,7 @@ public class CreateEvent extends HttpServlet {
 				System.out.println("CREATE EVENT : Inserting into databse...");
 				serviceEvents.insert(event);
 				// Redirection
-				response.sendRedirect("Events");
+				response.sendRedirect("MyEvents");
 			}
 			
 		} catch (ParseException e) {

@@ -13,10 +13,10 @@
 <body>
 
 <c:choose>
-	<c:when test="${content eq true}">
-		<%@ include file="/WEB-INF/jspf/NavAfterConnect.jspf" %>
+	<c:when test="${content eq false}">
+		<%@ include file="/WEB-INF/jspf/NavBeforeConnect.jspf" %>
 	</c:when>
 	<c:otherwise>
-		<%@ include file="/WEB-INF/jspf/NavBeforeConnect.jspf" %>
+		<%@ include file="/WEB-INF/jspf/NavAfterConnect.jspf" %>
 	</c:otherwise>
 </c:choose>

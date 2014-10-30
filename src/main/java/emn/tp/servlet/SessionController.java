@@ -58,8 +58,8 @@ public class SessionController implements Filter {
 		String url = ((HttpServletRequest)request).getRequestURI() ;
 		System.out.println("SESSION CONTROLLER : Testing current URL [" + url + "]...");
 		
-		// If we try to load a "free file", we can chain
-		if (this.freeFile(url)) {	
+		// If we try to load a "free file" or the events, we can chain
+		if (this.freeFile(url) || this.events(url)) {	
 			System.out.println("SESSION CONTROLLER : Free file...");
 			chain.doFilter(request, response);
 			
@@ -112,7 +112,7 @@ public class SessionController implements Filter {
 		while (parseFiles.hasMoreTokens()) {
 			freeFiles.add(".*\\." + parseFiles.nextToken() + "(;jsessionid.*){0,1}$");
 		}
-		// Servlets allowed
+		// Servlets before connection
 		while (parseServlets.hasMoreTokens()) {
 			beforeConnection.add(".*\\/" + parseServlets.nextToken() + "$");
 		}
@@ -148,6 +148,14 @@ public class SessionController implements Filter {
 			}
 		}
 		return isBeforeConnection ;		
+	}
+	
+	/**
+	 * @param url
+	 * @return True if the user try to access to the events, false otherwise.
+	 */
+	private boolean events(String url){
+		return Pattern.matches(".*\\/Events(?=([0-9]*)){0,1}$", url);
 	}
 
 }
