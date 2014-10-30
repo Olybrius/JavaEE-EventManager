@@ -54,11 +54,11 @@ PARTICIPANTS: new uml.BDDTable({
 										'ID: INTEGER',
 																																													],
         methods: [
-																	'MAIL: VARCHAR(30)',
-														'NAME: VARCHAR(30)',
+																	'NAME: VARCHAR(30)',
 														'FIRSTNAME: VARCHAR(30)',
 														'COMPANY: VARCHAR(30)',
 														'EVENTID: INTEGER',
+														'MAIL: VARCHAR(30)',
 											]
     }),
 

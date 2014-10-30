@@ -13,16 +13,9 @@ import emn.tp.persistence.services.*;
 public class EventsServiceTest {
 	
 	private static EventsServiceTest eventsServiceTest;
-	
 	private EventsEntity event;
-	
-	
 	List<EventsEntity> listeEvent = new ArrayList<EventsEntity>();
-	
-	
 	EventsPersistence eventPersistence = PersistenceServiceProvider.getService(EventsPersistence.class);
-	
-	
 
 	@Before
 	public void setUp(){

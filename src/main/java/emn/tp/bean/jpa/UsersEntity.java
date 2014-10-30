@@ -26,113 +26,123 @@ import javax.persistence.*;
 @Table(name="USERS", schema="APP" )
 // Define named queries here
 @NamedQueries ( {
-  @NamedQuery ( name="UsersEntity.countAll", query="SELECT COUNT(x) FROM UsersEntity x" ),
-  @NamedQuery ( name="UsersEntity.checkMail", query="SELECT u.pseudo FROM UsersEntity u WHERE u.mail= :email" )
+	@NamedQuery ( name="UsersEntity.countAll", query="SELECT COUNT(x) FROM UsersEntity x" ),
+	@NamedQuery ( name="UsersEntity.checkMail", query="SELECT u.pseudo FROM UsersEntity u WHERE u.mail= :email" )
 } )
 public class UsersEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
-    // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="ID", nullable=false)
-    private Integer    id           ;
-
-
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS 
-    //----------------------------------------------------------------------    
-    @Column(name="MAIL", nullable=false, length=30)
-    private String     mail         ;
-
-    @Column(name="PSEUDO", nullable=false, length=30)
-    private String     pseudo       ;
-
-    @Column(name="PASSWORD", nullable=false, length=30)
-    private String     password     ;
+	//----------------------------------------------------------------------
+	// ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
+	//----------------------------------------------------------------------
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="ID", nullable=false)
+	private Integer    id           ;
 
 
+	//----------------------------------------------------------------------
+	// ENTITY DATA FIELDS 
+	//----------------------------------------------------------------------    
+	@Column(name="MAIL", nullable=false, length=30)
+	private String     mail         ;
 
-    //----------------------------------------------------------------------
-    // ENTITY LINKS ( RELATIONSHIP )
-    //----------------------------------------------------------------------
-    @OneToMany(mappedBy="users", targetEntity=EventsEntity.class)
-    private List<EventsEntity> listOfEvents;
+	@Column(name="PSEUDO", nullable=false, length=30)
+	private String     pseudo       ;
+
+	@Column(name="PASSWORD", nullable=false, length=30)
+	private String     password     ;
 
 
-    //----------------------------------------------------------------------
-    // CONSTRUCTOR(S)
-    //----------------------------------------------------------------------
-    public UsersEntity() {
+
+	//----------------------------------------------------------------------
+	// ENTITY LINKS ( RELATIONSHIP )
+	//----------------------------------------------------------------------
+	@OneToMany(mappedBy="users", targetEntity=EventsEntity.class)
+	private List<EventsEntity> listOfEvents;
+
+
+	//----------------------------------------------------------------------
+	// CONSTRUCTOR(S)
+	//----------------------------------------------------------------------
+	public UsersEntity() {
 		super();
-    }
-    
-    //----------------------------------------------------------------------
-    // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setId( Integer id ) {
-        this.id = id ;
-    }
-    public Integer getId() {
-        return this.id;
-    }
+	}
 
-    //----------------------------------------------------------------------
-    // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    //--- DATABASE MAPPING : MAIL ( VARCHAR ) 
-    public void setMail( String mail ) {
-        this.mail = mail;
-    }
-    public String getMail() {
-        return this.mail;
-    }
+	//----------------------------------------------------------------------
+	// GETTER & SETTER FOR THE KEY FIELD
+	//----------------------------------------------------------------------
+	public void setId( Integer id ) {
+		this.id = id ;
+	}
+	public Integer getId() {
+		return this.id;
+	}
 
-    //--- DATABASE MAPPING : PSEUDO ( VARCHAR ) 
-    public void setPseudo( String pseudo ) {
-        this.pseudo = pseudo;
-    }
-    public String getPseudo() {
-        return this.pseudo;
-    }
+	//----------------------------------------------------------------------
+	// GETTERS & SETTERS FOR FIELDS
+	//----------------------------------------------------------------------
+	//--- DATABASE MAPPING : MAIL ( VARCHAR ) 
+	public void setMail( String mail ) {
+		this.mail = mail;
+	}
+	public String getMail() {
+		return this.mail;
+	}
 
-    //--- DATABASE MAPPING : PASSWORD ( VARCHAR ) 
-    public void setPassword( String password ) {
-        this.password = password;
-    }
-    public String getPassword() {
-        return this.password;
-    }
+	//--- DATABASE MAPPING : PSEUDO ( VARCHAR ) 
+	public void setPseudo( String pseudo ) {
+		this.pseudo = pseudo;
+	}
+	public String getPseudo() {
+		return this.pseudo;
+	}
 
-
-    //----------------------------------------------------------------------
-    // GETTERS & SETTERS FOR LINKS
-    //----------------------------------------------------------------------
-    public void setListOfEvents( List<EventsEntity> listOfEvents ) {
-        this.listOfEvents = listOfEvents;
-    }
-    public List<EventsEntity> getListOfEvents() {
-        return this.listOfEvents;
-    }
+	//--- DATABASE MAPPING : PASSWORD ( VARCHAR ) 
+	public void setPassword( String password ) {
+		this.password = password;
+	}
+	public String getPassword() {
+		return this.password;
+	}
 
 
-    //----------------------------------------------------------------------
-    // toString METHOD
-    //----------------------------------------------------------------------
-    public String toString() { 
-        StringBuffer sb = new StringBuffer(); 
-        sb.append("["); 
-        sb.append(id);
-        sb.append("]:"); 
-        sb.append(mail);
-        sb.append("|");
-        sb.append(pseudo);
-        sb.append("|");
-        sb.append(password);
-        return sb.toString(); 
-    } 
+	//----------------------------------------------------------------------
+	// GETTERS & SETTERS FOR LINKS
+	//----------------------------------------------------------------------
+	public void setListOfEvents( List<EventsEntity> listOfEvents ) {
+		this.listOfEvents = listOfEvents;
+	}
+	public List<EventsEntity> getListOfEvents() {
+		return this.listOfEvents;
+	}
 
+
+	//----------------------------------------------------------------------
+	// toString METHOD
+	//----------------------------------------------------------------------
+	public String toString() { 
+		StringBuffer sb = new StringBuffer(); 
+		sb.append("["); 
+		sb.append(id);
+		sb.append("]:"); 
+		sb.append(mail);
+		sb.append("|");
+		sb.append(pseudo);
+		sb.append("|");
+		sb.append(password);
+		return sb.toString(); 
+	} 
+
+	//-----------------------------------------------------------------------
+	// equals METHOD
+	//-----------------------------------------------------------------------
+	public boolean equals(Object obj){
+		if (obj instanceof UsersEntity){
+			UsersEntity user = (UsersEntity)obj;
+			return (this.id.equals(user.id) && this.mail.equals(user.getMail()));
+		}
+		return false;
+	}
 }

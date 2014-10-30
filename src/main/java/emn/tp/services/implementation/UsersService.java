@@ -28,7 +28,6 @@ public class UsersService implements UsersServiceInterface {
 	public UsersEntity getUser(String email, String password) {
 		
 		UsersPersistenceJPA epj = new UsersPersistenceJPA();
-
 		HashMap<String, Object> recupUser = new HashMap<String, Object>();
 		recupUser.put("mail", email);
 		recupUser.put("password", password);
