@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import emn.tp.bean.jpa.EventsEntity;
+import emn.tp.persistence.services.jpa.EventsPersistenceJPA;
 import emn.tp.services.interfaces.PublishServiceInterface;
 
 public class PublishService implements PublishServiceInterface {
@@ -33,6 +34,14 @@ public class PublishService implements PublishServiceInterface {
 		List<Integer> userid = query.getResultList();
 		
 		return (userID == (userid.get(0)));
+	}
+
+	@Override
+	public void publishEvent(int eventID) {
+		EventsPersistenceJPA epj = new EventsPersistenceJPA();
+		EventsEntity event = epj.load(eventID);
+		event.setPublished((short)1);
+		epj.save(event);
 	}
 
 }
