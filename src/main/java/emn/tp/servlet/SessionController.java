@@ -24,15 +24,18 @@ import emn.tp.bean.jpa.UsersEntity;
 		urlPatterns = "/*",
 		initParams = {
 				// Style, javascript & fonts
-				@WebInitParam(name="freeFiles", value="css,js,eot,svg,ttf,woff,png"),
+				@WebInitParam(name="freeFiles", value="css|js|eot|svg|ttf|woff|png"),
 				// Non logged-in accessible servlets
-				@WebInitParam(name="beforeConnection", value="Login,Register")
+				@WebInitParam(name="beforeConnection", value="Login|Register"),
+				// Always accessible
+				@WebInitParam(name="freeServlets", value="Publish|Participate|Events")
 		}
 )
 public class SessionController implements Filter {
 
 	private ArrayList<String> freeFiles ;
 	private ArrayList<String> beforeConnection ;
+	private ArrayList<String> freeServlets ;
 	
     /**
      * Default constructor. 
@@ -58,9 +61,9 @@ public class SessionController implements Filter {
 		String url = ((HttpServletRequest)request).getRequestURI() ;
 		System.out.println("SESSION CONTROLLER : Testing current URL [" + url + "]...");
 		
-		// If we try to load a "free file" or the events, we can chain
-		if (this.freeFile(url) || this.events(url)) {	
-			System.out.println("SESSION CONTROLLER : Free file...");
+		// If we try to load a "free file" or a servlet always accessible
+		if (this.freeFile(url) || this.freeServlet(url)) {	
+			System.out.println("SESSION CONTROLLER : Free file or servlet...");
 			chain.doFilter(request, response);
 			
 		// If we try to load a servlet accessible only before a connection
@@ -103,21 +106,28 @@ public class SessionController implements Filter {
 	public void init(FilterConfig fConfig) throws ServletException {
 		// Init parameters
 		String files = fConfig.getInitParameter("freeFiles") ;
-		String servlets = fConfig.getInitParameter("beforeConnection") ;
-		StringTokenizer parseFiles = new StringTokenizer(files, ",");
-		StringTokenizer parseServlets = new StringTokenizer(servlets, ",");
+		String before = fConfig.getInitParameter("beforeConnection") ;
+		String servlets = fConfig.getInitParameter("freeServlets") ;
+		StringTokenizer parseFiles = new StringTokenizer(files, "|");
+		StringTokenizer parseBefore = new StringTokenizer(before, "|");
+		StringTokenizer parseServlet = new StringTokenizer(servlets, "|");
 		this.freeFiles = new ArrayList<String>();
 		this.beforeConnection = new ArrayList<String>();
+		this.freeServlets = new ArrayList<String>();
 		// Type of files allowed (jsessionid is concat at the session creation)
 		while (parseFiles.hasMoreTokens()) {
 			freeFiles.add(".*\\." + parseFiles.nextToken() + "(;jsessionid.*){0,1}$");
 		}
 		// Servlets before connection
-		while (parseServlets.hasMoreTokens()) {
-			beforeConnection.add(".*\\/" + parseServlets.nextToken() + "$");
+		while (parseBefore.hasMoreTokens()) {
+			beforeConnection.add(".*\\/" + parseBefore.nextToken() + "$");
 		}
 		// "/" is allowed too
 		beforeConnection.add(".*" + fConfig.getServletContext().getContextPath() + "\\/$");
+		// Servlets always accessible
+		while (parseServlet.hasMoreTokens()) {
+			freeServlets.add(".*\\/" + parseServlet.nextToken() + "$");
+		}
 	}
 
 	/**
@@ -149,6 +159,21 @@ public class SessionController implements Filter {
 		}
 		return isBeforeConnection ;		
 	}
+	
+	/**
+	 * @param url
+	 * @return True if "url" finishes by one of the servlets in alwaysAccessible, false otherwise.
+	 */
+	private boolean freeServlet(String url){
+		boolean isBeforeConnection = false ;
+		for (String currentServlet : this.freeServlets){
+			if (Pattern.matches(currentServlet, url)) {
+				isBeforeConnection = true ;
+				break ;
+			}
+		}
+		return isBeforeConnection ;		
+	}	
 	
 	/**
 	 * @param url
