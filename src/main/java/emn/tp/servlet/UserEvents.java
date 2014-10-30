@@ -17,14 +17,14 @@ import emn.tp.services.interfaces.EventsServiceInterface;
 /**
  * Servlet implementation class Events
  */
-@WebServlet("/Events")
-public class Events extends HttpServlet {
+@WebServlet("/MyEvents")
+public class UserEvents extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Events() {
+    public UserEvents() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -51,7 +51,6 @@ public class Events extends HttpServlet {
 		// Event service (database work)
 		EventsServiceInterface serviceEvents = new EventsService();	
 
-		
 		// Get the events created by the current user
 		UsersEntity user = (UsersEntity)request.getSession().getAttribute("user");	
 		System.out.println("EVENTS : Getting the events created by the current user [" + user.getPseudo() + " - " + user.getMail() + "]...");
@@ -59,11 +58,11 @@ public class Events extends HttpServlet {
 
 		// Send the result
 		System.out.println("EVENTS : Sending the events to show [" + events.size() + "]...");
-		request.getSession().setAttribute("events", events);
+		request.getSession().setAttribute("userEvents", events);
 		
 		// Show the JSP
-		System.out.println("EVENTS : Forwarding to Events JSP...");
-		request.getRequestDispatcher("/WEB-INF/jsp/Events.jsp").forward(request, response);
+		System.out.println("EVENTS : Forwarding to UserEvents JSP...");
+		request.getRequestDispatcher("/WEB-INF/jsp/UserEvents.jsp").forward(request, response);
 		
 	}
 

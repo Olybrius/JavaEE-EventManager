@@ -1,8 +1,8 @@
 <%@ include file="/WEB-INF/jspf/Prolog.jspf" %>
 <c:set var="title" value="Inscription" scope="page"/>
 <c:set var="content" value="false" scope="page"/>
-<c:set var="connectionPage" value="" scope="page"/>
-<c:set var="inscriptionPage" value="active" scope="page"/>
+<c:set var="loginPage" value="" scope="page"/>
+<c:set var="registerPage" value="active" scope="page"/>
 <%@ include file="/WEB-INF/jspf/Header.jspf" %>
 
 <!-- 
@@ -43,7 +43,7 @@ REGISTER FORM
 			<input type="text" class="form-control" name="mail" id="mail" placeholder="Adresse mail" value="" required>
 		</div>
 		<div id="mailHelp" class="col-sm-offset-3 col-sm-10 help">
-			*Le mail doit être formé selon le pattern mail@domaine.ex.
+			*Le mail doit être formé selon le pattern email@example.com.
 		</div>
 	</div>
 	<div class="form-group">

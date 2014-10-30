@@ -32,8 +32,8 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("LOGIN : Forwarding to Login JSP...");
 		request.getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(request, response);
-		System.out.println("LOGIN : Removing loginError session variable...");
-		request.getSession().removeAttribute("loginError");
+		System.out.println("LOGIN : Invalidating session...");
+		request.getSession().invalidate();
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class Login extends HttpServlet {
 			if(user != null){
 				System.out.println("LOGIN : User found... redirecting...");
 				request.getSession().setAttribute("user", user);
-				response.sendRedirect("Events");
+				response.sendRedirect("MyEvents");
 			// If no user is found
 			}else{
 				System.out.println("LOGIN : Bad mail or password...");

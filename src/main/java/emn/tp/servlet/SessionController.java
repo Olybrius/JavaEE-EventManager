@@ -71,7 +71,7 @@ public class SessionController implements Filter {
 			// If it exists, we need to redirect to the events of the current user
 			if (user != null){
 				System.out.println("SESSION CONTROLLER : There is a session, redirecting to Events...");
-				request.getRequestDispatcher("/Events").forward(request, response);
+				request.getRequestDispatcher("/MyEvents").forward(request, response);
 			// Otherwise, we can chain
 			}else{
 				System.out.println("SESSION CONTROLLER : There is no session, chain processing...");

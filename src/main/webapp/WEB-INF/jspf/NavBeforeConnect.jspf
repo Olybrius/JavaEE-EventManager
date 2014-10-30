@@ -12,8 +12,9 @@
 	    <!-- Menu -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="${connectionPage}"><a href="${pageContext.request.contextPath}/Login">Connexion</a></li>
-			 	<li class="${inscriptionPage}"><a href="${pageContext.request.contextPath}/Register">Inscription</a></li>
+				<li class="${loginPage}"><a href="${pageContext.request.contextPath}/Login">Connexion</a></li>
+			 	<li class="${registerPage}"><a href="${pageContext.request.contextPath}/Register">Inscription</a></li>
+			 	<li class="${eventsPage}"><a href="${pageContext.request.contextPath}/Events">Evènements</a></li>
 			 </ul>	    
 	    </div>
 	</div>

@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jspf/Prolog.jspf" %>
 <c:set var="title" value="Vos évènements" scope="page"/>
 <c:set var="content" value="true" scope="page"/>
-<c:set var="eventPage" value="" scope="page"/>
+<c:set var="userEventsPage" value="" scope="page"/>
 <c:set var="createEventPage" value="active" scope="page"/>
 <%@ include file="/WEB-INF/jspf/Header.jspf" %>
 

@@ -1,0 +1,182 @@
+<%@ include file="/WEB-INF/jspf/Prolog.jspf" %>
+<c:set var="title" value="Mes évènements" scope="page"/>
+<c:set var="content" value="true" scope="page"/>
+<c:set var="userEventsPage" value="active" scope="page"/>
+<c:set var="createEventPage" value="" scope="page"/>
+<c:set var="eventsPage" value="" scope="page"/>
+<%@ include file="/WEB-INF/jspf/Header.jspf" %>
+
+<!-- 
+TABLE OF EVENTS
+A data-id is generated in order to show the participants of the event clicked in the modal (see below).
+ -->
+ 
+<c:choose>
+
+	<c:when test="${fn:length(events) gt 0}">
+	
+		<div class="row">
+			<div class="col-sm-offset-1 col-sm-10">
+				<table id="listOfEvents" class="display">
+					<thead>
+						<tr>
+							<th>Nom de l'évènement</th>
+							<th>Lieu de l'évènement</th>
+							<th>Début de l'évènement</th>
+							<th>Fin de l'évènement</th>
+							<th>Publié</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach begin="0" end="${fn:length(userEvents)}" step="1" varStatus="loopCounter" items="${userEvents}" var="event">
+							<tr <c:if test="${event.published==0}">class="warning"</c:if> data-toggle="modal" data-id="${loopCounter.index}" data-target="#participants">
+								<td>
+									${event.name}
+								</td>
+								<td>
+									${event.address}
+								</td>
+								<td>
+									<fmt:formatDate value="${event.startdate}" pattern="dd/MM/yyyy HH:mm"/>
+								</td>
+								<td>
+									<fmt:formatDate value="${event.enddate}" pattern="dd/MM/yyyy HH:mm"/>								
+								</td>
+								<td class="isPublished">
+									<c:choose>
+										<c:when test="${event.published==1}">
+											Oui
+										</c:when>
+										<c:otherwise>
+											Non
+										</c:otherwise>
+									</c:choose>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	</c:when>
+	
+	<c:otherwise>
+	
+		<div class="row">
+			<div class="col-sm-offset-1 col-sm-10">
+				<div class="alert alert-info" role="alert">Vous n'avez créé aucun évènement. Rendez-vous sur la <a href="CreateEvent" class="alert-link">page de création</a> !</div>
+			</div>
+		</div>
+		
+	</c:otherwise>
+	
+</c:choose>
+
+<!-- 
+MODAL FOR PARTICIPANTS
+All the participants of all the events are loaded and hidden.
+When a row is clicked, the participants of the event clicked is shown.
+-->
+
+<div class="modal fade" id="participants" tabindex="-1" role="dialog" aria-labelledby="participantsTitle" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		
+			<!-- HEADER -->
+		
+			<div class="modal-header">
+ 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+        		<h4 class="modal-title" id="participantsTitle">Participants</h4>
+      		</div>
+      		
+      		<!-- 
+      		BODY
+      		For each event, we create the table of participants that we hide.
+      		-->
+      		
+      		<div class="modal-body" id="participantsList">
+      			<c:forEach begin="0" end="${fn:length(userEvents)}" step="1" varStatus="eventsCounter" items="${userEvents}" var="event">
+					<div id="${eventsCounter.index}" hidden="true">
+						<c:choose>
+							<c:when test="${fn:length(event.listOfParticipants) gt 0}">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>Nom</th>
+											<th>Prénom</th>
+											<th>Entreprise</th>
+											<th>Mail</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach begin="0" end="${fn:length(event.listOfParticipants)}" step="1" varStatus="loopCounter" items="${event.listOfParticipants}" var="participant">
+											<tr>
+												<td>${participant.pseudo}</td>
+												<td>${participant.firstname}</td>
+												<td>${participant.company}</td>
+												<td>${participant.mail}</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</c:when>
+							<c:otherwise>
+								Aucun participant ne s'est inscrit à cet évènement.
+							</c:otherwise>
+						</c:choose>
+	
+					</div>
+				</c:forEach>
+      		</div>
+      		
+      		<!-- FOOTER -->
+      		
+      		<div class="modal-footer">
+				<form id="publish" method="get" style="display:inline-block">
+					<button type="button" class="btn btn-default">Publier</button>
+				</form>
+      			<button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+      		</div>
+      		
+		</div>
+	</div>
+</div>
+
+<script>
+    $(document).ready(
+    	function(){
+    		// Initialize datatable
+	    	$('#listOfEvents').dataTable({
+	    	    "bPaginate": false,
+	    	    "bLengthChange": false,
+	    	    "bFilter": false,
+	    	    "bInfo": false,
+	    	    "bAutoWidth": false
+	    	}).ready(
+	    		function(){
+	    			$('tr.warning td').css('background-color', '#fcf8e3');
+	    		}	    	
+	    	);
+    		// Before the modal is shown
+	    	$('#participants').on(
+    			'show.bs.modal', 
+		    	function(event){
+		    		// Hide every div
+		    		$('#participantsList').children('div').each(function(){
+		    			$(this).hide();
+		    		});
+		    		// Show participants of the even clicked
+		    		var eventSelected = $(event.relatedTarget).closest('tr').data('id');
+		    		$('form#publish').attr('action', '/Publish?event=' + eventSelected);
+		    		$('#' + eventSelected).show();
+		    		// Hide the publish button if the event is already published or hide it otherwise
+		    		if ("Oui" == $('tr[data-id='+eventSelected+'] td.isPublished').html().trim()) $('#publish').hide();
+		    		else $('#publish').show();
+		    	}
+	    	);
+    	}
+    );	
+</script>
+
+<%@ include file="/WEB-INF/jspf/Footer.jspf" %>
