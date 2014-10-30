@@ -45,28 +45,44 @@ public class Participate extends HttpServlet{
 	 * process
 	 */
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("SUBSCRIBE : initialisation");
+		
+		// Services (database work)
+		ParticipantsServiceInterface servicePart = new ParticipantsService();
+		EventsServiceInterface serviceEvents = new EventsService();
+		
+		// Get inputs
+		System.out.println("PARTICIPATE : Getting inputs...");
 		int eventID = Integer.parseInt(request.getParameter("eventId"));
 		String mail = request.getParameter("mail");
 		String firstName = request.getParameter("firstName");
 		String name = request.getParameter("name");
 		String company = request.getParameter("company");
-
-		ParticipantsServiceInterface servicePart = new ParticipantsService();
-		EventsServiceInterface serviceEvents = new EventsService();
-		EventsEntity event = serviceEvents.getEventsById(eventID);
 		
-		System.out.println("SUBSCRIBE : initialisation");
+		// TODO : validate
+		
+		// Get the event by id
+		System.out.println("PARTICIPATE : Getting the event by id...");
+		EventsEntity event = serviceEvents.getEventsById(eventID);
+		// If an event is found and published
 		if(event != null && event.getPublished().equals((short)1)){
+			// If the user already participates to this event
 			if(servicePart.participate(mail, eventID)){
-				System.out.println("SUBSCRIBE : Participant already subscribe");
-			}
-			else{
-				System.out.println("SUBSCRIBE : Subscription ...");
+				System.out.println("PARTICIPATE : The participant already participates to this event...");
+				request.getSession().setAttribute("eventsError", "L'adresse mail renseignée est déjà inscrite sur cet évènement.");
+			// Otherwise
+			}else{
+				System.out.println("PARTICIPATE : Inserting the participant...");
 				servicePart.subscribeParticipant(mail, firstName, name, company, event);
-				response.sendRedirect("Events");
 			}
+		// Otherwise
+		}else{
+			System.out.println("PARTICIPATE : The event does not exist or not published...");
+			request.getSession().setAttribute("eventsError", "L'évènement auquel vous avez essayé de vous inscrire n'existe pas ou n'est pas publié.");
 		}
+		
+		// Redirection
+		System.out.println("PARTICIPATE : Redirecting to Events servlet...");
+		response.sendRedirect("Events?id=" + request.getParameter("eventId"));
 
 	}
 }

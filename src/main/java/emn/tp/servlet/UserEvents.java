@@ -63,6 +63,8 @@ public class UserEvents extends HttpServlet {
 		// Show the JSP
 		System.out.println("USER EVENTS : Forwarding to UserEvents JSP...");
 		request.getRequestDispatcher("/WEB-INF/jsp/UserEvents.jsp").forward(request, response);
+		System.out.println("USER EVENTS : Removing publishError session variable...");
+		request.getSession().removeAttribute("publishError");
 		
 	}
 
