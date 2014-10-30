@@ -33,7 +33,7 @@ REGISTER FORM
 		<div class="col-sm-4">
 			<input type="text" class="form-control" name="pseudo" id="pseudo" placeholder="Pseudo" value="" required>
 		</div>
-		<div id="pseudoHelp" class="col-sm-offset-3 col-sm-10 help">
+		<div id="pseudoHelp" class="col-sm-offset-3 col-sm-4 help">
 			*Le pseudo doit contenir entre 4 et 16 lettres et chiffres.
 		</div>	
 	</div>
@@ -42,7 +42,7 @@ REGISTER FORM
 		<div class="col-sm-4">
 			<input type="text" class="form-control" name="mail" id="mail" placeholder="Adresse mail" value="" required>
 		</div>
-		<div id="mailHelp" class="col-sm-offset-3 col-sm-10 help">
+		<div id="mailHelp" class="col-sm-offset-3 col-sm-4 help">
 			*Le mail doit être formé selon le pattern email@example.com.
 		</div>
 	</div>
@@ -51,7 +51,7 @@ REGISTER FORM
 		<div class="col-sm-4">
 			<input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe" value="" required>
 		</div>
-		<div id="passwordHelp" class="col-sm-offset-3 col-sm-10 help">
+		<div id="passwordHelp" class="col-sm-offset-3 col-sm-4 help">
 			*Le mot de passe doit contenir entre 4 et 16 lettres et chiffres.
 		</div>
 	</div>
@@ -60,12 +60,12 @@ REGISTER FORM
 		<div class="col-sm-4">
 			<input type="password" class="form-control" name="passwordConfirmation" id="passwordConfirmation" placeholder="Confirmation du mot de passe" required>
 		</div>
-		<div id="passwordConfirmationHelp" class="col-sm-offset-3 col-sm-10 help">
+		<div id="passwordConfirmationHelp" class="col-sm-offset-3 col-sm-4 help">
 			*Les deux mots de passent doivent être identiques.
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-sm-offset-3 col-sm-10">
+		<div class="col-sm-offset-3 col-sm-4">
 			<button id="register" type="submit" class="btn btn-default" disabled="disabled">S'inscrire</button>
 		</div>
 	</div>

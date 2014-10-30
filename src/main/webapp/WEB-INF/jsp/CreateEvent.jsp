@@ -57,12 +57,12 @@ CREATE EVENT FORM
 		<div class="col-sm-2">
 			<input type="time" class="form-control" id="endTime" name="endTime" required>
 		</div>
-		<div id="endDateHelp" class="col-sm-offset-3 col-sm-10 help" hidden="true">
+		<div id="endDateHelp" class="col-sm-offset-3 col-sm-4 help" hidden="true">
 			*La fin de l'évènement doit survenir après son début.
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-sm-offset-3 col-sm-10">
+		<div class="col-sm-offset-3 col-sm-4">
 			<div class="checkbox">
 				<label> 
 					<input type="checkbox" id="publish" name="publish">Publier l'évènement
@@ -71,7 +71,7 @@ CREATE EVENT FORM
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-sm-offset-3 col-sm-10">
+		<div class="col-sm-offset-3 col-sm-4">
 			<button id="save" type="submit" class="btn btn-default">Enregister</button>
 		</div>
 	</div>
