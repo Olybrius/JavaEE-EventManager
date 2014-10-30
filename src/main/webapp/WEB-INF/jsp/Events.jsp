@@ -28,13 +28,13 @@
 				<c:forEach begin="0" end="${fn:length(events)}" step="1" varStatus="eventCounter" items="${events}" var="event">
 					<c:choose>
 						<c:when test="${event.id eq eventDisplayed.id}">
-							<c:set var="class" value="active" scope="page"/>
+							<c:set var="eventClass" value="active" scope="page"/>
 						</c:when>
 						<c:otherwise>
-							<c:set var="class" value="" scope="page"/>
+							<c:set var="eventClass" value="" scope="page"/>
 						</c:otherwise>
 					</c:choose>
-					<li role="presentation" class="${class}"><a href="Events?id=${event.id}">${event.name}</a></li>
+					<li role="presentation" class="${eventClass}"><a href="Events?id=${event.id}">${event.name}</a></li>
 				</c:forEach>
 			</ul>
 		</div>
@@ -46,10 +46,10 @@
 		<div class="row">
 			<div class="col-sm-7">
 				<div class="panel panel-default">
-					<div class="panel-heading"><strong>eventDisplayed.name</strong></div>
+					<div class="panel-heading"><strong>${eventDisplayed.name}</strong></div>
 					<div class="panel-body">
-						<strong>Créateur :</strong> eventDisplayed.users.name <br/>
-						<strong>Adresse :</strong> eventDisplayed.address <br/>
+						<strong>Créateur :</strong> ${eventDisplayed.users.name} <br/>
+						<strong>Adresse :</strong> ${eventDisplayed.address} <br/>
 						<strong>Début :</strong> <fmt:formatDate value="${eventDisplayed.startdate}" pattern="dd/MM/yyyy HH:mm"/> <br/>
 						<strong>Fin :</strong> <fmt:formatDate value="${eventDisplayed.enddate}" pattern="dd/MM/yyyy HH:mm"/> <br/>
 					</div>
@@ -84,7 +84,7 @@
 									</div>
 								</div>
 								<input type="hidden" name="eventId" id="eventId" value="${eventDisplayed.id}">
-								
+								<button id="subscribe" type="submit" class="btn btn-default" disabled="disabled">S'enregistrer</button>
 							</form>
 						</li>
 					</ul>
