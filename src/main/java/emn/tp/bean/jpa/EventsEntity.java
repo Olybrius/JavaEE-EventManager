@@ -177,4 +177,16 @@ public class EventsEntity implements Serializable {
         return sb.toString(); 
     } 
 
+  //-----------------------------------------------------------------------
+  	// equals METHOD
+  	//-----------------------------------------------------------------------
+  	public boolean equals(Object obj){
+  		if (obj instanceof EventsEntity){
+  			EventsEntity event = (EventsEntity)obj;
+  			return (this.id.equals(event.id) && this.name.equals(event.name) && this.address.equals(event.address)
+  					&& this.startdate.equals(event.startdate) && this.enddate.equals(event.enddate) 
+  					&& this.published.equals(event.published) && this.users.equals(event.users));
+  		}
+  		return false;
+  	}
 }

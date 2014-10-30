@@ -141,7 +141,8 @@ public class UsersEntity implements Serializable {
 	public boolean equals(Object obj){
 		if (obj instanceof UsersEntity){
 			UsersEntity user = (UsersEntity)obj;
-			return (this.id.equals(user.id) && this.mail.equals(user.getMail()));
+			return (this.id.equals(user.id) && this.mail.equals(user.getMail()) 
+					&& this.password.equals(user.password) && this.pseudo.equals(user.pseudo));
 		}
 		return false;
 	}

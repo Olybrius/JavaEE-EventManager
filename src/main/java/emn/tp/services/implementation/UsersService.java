@@ -46,7 +46,7 @@ public class UsersService implements UsersServiceInterface {
 		query.setParameter("email", mail);
 		@SuppressWarnings("unchecked")
 		List<String> list = query.getResultList();
-		return list.size()== 0;
+		return list.size() == 0;
 	}
 
 	@Override
