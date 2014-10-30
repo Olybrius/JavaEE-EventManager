@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import emn.tp.bean.jpa.EventsEntity;
 import emn.tp.services.implementation.EventsService;
@@ -46,7 +47,9 @@ public class Events extends HttpServlet {
 	 * process
 	 */
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		HttpSession session = request.getSession();
+		
 		// Event service (database work)
 		EventsServiceInterface serviceEvents = new EventsService();	
 
@@ -61,7 +64,7 @@ public class Events extends HttpServlet {
 		if (eventsPublished.size() == 0) {
 		
 			System.out.println("EVENTS : No event published...");
-			request.getSession().setAttribute("eventsError", "Aucun évènement n'est disponible pour le moment. Revenez un peu plus tard !");
+			session.setAttribute("eventsError", "Aucun évènement n'est disponible pour le moment. Revenez un peu plus tard !");
 			
 		// If there are some events published
 		}else{
@@ -77,33 +80,33 @@ public class Events extends HttpServlet {
 					EventsEntity event = serviceEvents.getEventById(idEvents);
 					if(event == null){
 						System.out.println("EVENTS : Event not found...");
-						request.getSession().setAttribute("eventsError", "L'évènement auquel vous voulez accéder n'existe malheureusement pas.");
-						request.getSession().removeAttribute("eventDisplayed");
+						session.setAttribute("eventsError", "L'évènement auquel vous voulez accéder n'existe malheureusement pas.");
+						session.removeAttribute("eventDisplayed");
 					}else{
 						System.out.println("EVENTS : Event found, sending it...");
-						request.getSession().setAttribute("eventDisplayed", event);
+						session.setAttribute("eventDisplayed", event);
 					}
 				}catch(NumberFormatException e){	
 					// Error due to the id which is not a number
 					System.out.println("EVENTS : Id parse error...");
-					request.getSession().setAttribute("eventsError", "Un problème est survenu quant à l'évènement sélectionné.");	
+					session.setAttribute("eventsError", "Un problème est survenu quant à l'évènement sélectionné.");	
 				}
 			// If no id is passed
 			}else{
 				System.out.println("EVENTS : No id passed...");
-				request.getSession().removeAttribute("eventDisplayed");
+				session.removeAttribute("eventDisplayed");
 			}
 		}
 
 		// Send the result
 		System.out.println("EVENTS : Sending the events which are published [" + eventsPublished.size() + "]...");
-		request.getSession().setAttribute("events", eventsPublished);
+		session.setAttribute("events", eventsPublished);
 
 		// Show the JSP
 		System.out.println("EVENTS : Forwarding to Events JSP...");
 		request.getRequestDispatcher("/WEB-INF/jsp/Events.jsp").forward(request, response);
 		System.out.println("EVENTS : Removing eventsError session variable...");
-		request.getSession().removeAttribute("eventsError");
+		session.removeAttribute("eventsError");
 
 	}
 }

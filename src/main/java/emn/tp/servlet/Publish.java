@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import emn.tp.bean.jpa.UsersEntity;
 import emn.tp.services.implementation.EventsService;
@@ -46,22 +47,24 @@ public class Publish extends HttpServlet {
 	 */
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		
 		// Event service (database work)
 		EventsServiceInterface serviceEvents = new EventsService();
 		
 		// Get input
 		System.out.println("PUBLISH : Getting and parsing id...");
 		int eventID = Integer.parseInt(request.getParameter("eventId"));
-		UsersEntity user = (UsersEntity) request.getSession().getAttribute("user");
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
 
 		// Tests
 		System.out.println("PUBLISH : Checking the event id and if the user created the event...");
 		if(!serviceEvents.eventExists(eventID)){
 			System.out.println("PUBLISH : Event does not exist...");
-			request.getSession().setAttribute("publishError", "L'évènement que vous avez tenté de publier n'existe pas.");
+			session.setAttribute("publishError", "L'évènement que vous avez tenté de publier n'existe pas.");
 		}else if(!serviceEvents.userCreatedEvent(user.getId(), eventID)){
 			System.out.println("PUBLISH : The user did not create the event...");
-			request.getSession().setAttribute("publishError", "Vous n'avez pas créé l'évènement que vous avez tenté de publier.");
+			session.setAttribute("publishError", "Vous n'avez pas créé l'évènement que vous avez tenté de publier.");
 		}else{		
 			System.out.println("PUBLISH : Event is published ...");
 			serviceEvents.publishEvent(eventID);

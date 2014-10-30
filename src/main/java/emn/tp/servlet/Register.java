@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import emn.tp.services.implementation.UsersService;
 import emn.tp.services.interfaces.UsersServiceInterface;
@@ -42,6 +43,8 @@ public class Register extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();
+		
 		// Register service (database work)
 		UsersServiceInterface serviceLog = new UsersService();
 
@@ -56,17 +59,17 @@ public class Register extends HttpServlet {
 		System.out.println("REGISTER : Validating fields...");
 		if (!Tools.validateFieldRegister(pseudo, mail, password, passwordConfirmation)){
 			System.out.println("REGISTER : Inputs not filled...");
-			request.getSession().setAttribute("registerError", "Tous les champs doivent être renseignés.");
+			session.setAttribute("registerError", "Tous les champs doivent être renseignés.");
 			response.sendRedirect("Register");
 		// If the two passwords are not the same
 		}else if (!Tools.validatePassword(request.getParameter("password"), request.getParameter("passwordConfirmation"))) {
 			System.out.println("REGISTER : The two passwords are not the same...");
-			request.getSession().setAttribute("registerError", "Les deux mots de passe doivent correspondre.");
+			session.setAttribute("registerError", "Les deux mots de passe doivent correspondre.");
 			response.sendRedirect("Register");
 		// If mail already exists
 		}else if(!serviceLog.mailExists(mail)){
 			System.out.println("REGISTER : Mail already exists...");
-			request.getSession().setAttribute("registerError", "Un compte existe déjà pour l'adresse mail renseignée.");
+			session.setAttribute("registerError", "Un compte existe déjà pour l'adresse mail renseignée.");
 			response.sendRedirect("Register");
 		// If inputs are correctly filled
 		}else{

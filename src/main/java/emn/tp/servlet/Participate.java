@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import emn.tp.bean.jpa.EventsEntity;
 import emn.tp.services.implementation.EventsService;
@@ -46,6 +47,8 @@ public class Participate extends HttpServlet{
 	 */
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();
+		
 		// Services (database work)
 		ParticipantsServiceInterface servicePart = new ParticipantsService();
 		EventsServiceInterface serviceEvents = new EventsService();
@@ -68,7 +71,7 @@ public class Participate extends HttpServlet{
 			// If the user already participates to this event
 			if(servicePart.mailParticipatesToEvent(mail, eventID)){
 				System.out.println("PARTICIPATE : The participant already participates to this event...");
-				request.getSession().setAttribute("eventsError", "L'adresse mail renseignée est déjà inscrite sur cet évènement.");
+				session.setAttribute("eventsError", "L'adresse mail renseignée est déjà inscrite sur cet évènement.");
 			// Otherwise
 			}else{
 				System.out.println("PARTICIPATE : Inserting the participant...");
@@ -77,7 +80,7 @@ public class Participate extends HttpServlet{
 		// Otherwise
 		}else{
 			System.out.println("PARTICIPATE : The event does not exist or not published...");
-			request.getSession().setAttribute("eventsError", "L'évènement auquel vous avez essayé de vous inscrire n'existe pas ou n'est pas publié.");
+			session.setAttribute("eventsError", "L'évènement auquel vous avez essayé de vous inscrire n'existe pas ou n'est pas publié.");
 		}
 		
 		// Redirection

@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import emn.tp.bean.jpa.UsersEntity;
 import emn.tp.services.implementation.UsersService;
@@ -33,10 +34,11 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		System.out.println("LOGIN : Forwarding to Login JSP...");
 		request.getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(request, response);
 		System.out.println("LOGIN : Invalidating session...");
-		request.getSession().invalidate();
+		session.invalidate();
 	}
 
 	/**
@@ -44,6 +46,8 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		
 		// Login service (database work)
 		UsersServiceInterface logService = new UsersService();
 		
@@ -61,18 +65,18 @@ public class Login extends HttpServlet {
 			// If a user is found
 			if(user != null){
 				System.out.println("LOGIN : User found... redirecting...");
-				request.getSession().setAttribute("user", user);
+				session.setAttribute("user", user);
 				response.sendRedirect("MyEvents");
 			// If no user is found
 			}else{
 				System.out.println("LOGIN : Bad mail or password...");
-				request.getSession().setAttribute("loginError", "Identifiant et/ou mot de passe incorrect(s).");
+				session.setAttribute("loginError", "Identifiant et/ou mot de passe incorrect(s).");
 				response.sendRedirect("Login");
 			}
 		// If not all inputs are filled
 		}else{
 			System.out.println("LOGIN : Inputs not filled...");
-			request.getSession().setAttribute("loginError", "Tous les champs doivent être renseignés.");
+			session.setAttribute("loginError", "Tous les champs doivent être renseignés.");
 			response.sendRedirect("Login");
 		}
 

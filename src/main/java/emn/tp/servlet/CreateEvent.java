@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import emn.tp.bean.jpa.UsersEntity;
 import emn.tp.services.implementation.EventsService;
@@ -35,16 +36,19 @@ public class CreateEvent extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		System.out.println("CREATE EVENT : Forwarding to CreateEvent JSP...");
 		request.getRequestDispatcher("/WEB-INF/jsp/CreateEvent.jsp").forward(request, response);
 		System.out.println("CREATE EVENT : Removing createEventError session variable...");
-		request.getSession().removeAttribute("createEventError");
+		session.removeAttribute("createEventError");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
 		
 		// Create event service (database work)
 		EventsServiceInterface serviceEvents = new EventsService();
@@ -68,12 +72,12 @@ public class CreateEvent extends HttpServlet {
 			// If inputs are not well filled
 			if(!Tools.validateFieldEvent(name, address, startDate, endDate)){
 				System.out.println("CREATE EVENTS : Fields not well filled...");
-				request.getSession().setAttribute("createEventError", "Tous les champs sont requis et la date de début doit précéder la date de fin de l'évènement.");
+				session.setAttribute("createEventError", "Tous les champs sont requis et la date de début doit précéder la date de fin de l'évènement.");
 				response.sendRedirect("CreateEvent");
 			// If inputs are well filled
 			}else{		
 				// Insert
-				serviceEvents.createEvent(name, address, startDate, endDate, publish, (UsersEntity)request.getSession().getAttribute("user"));
+				serviceEvents.createEvent(name, address, startDate, endDate, publish, (UsersEntity)session.getAttribute("user"));
 				// Redirection
 				response.sendRedirect("MyEvents");
 			}
@@ -81,7 +85,7 @@ public class CreateEvent extends HttpServlet {
 		} catch (ParseException e) {
 			
 			System.out.println("CREATE EVENTS : Error during the parse...");
-			request.getSession().setAttribute("createEventError", "Une erreur est survenue durant le découpage des dates.");
+			session.setAttribute("createEventError", "Une erreur est survenue durant le découpage des dates.");
 			response.sendRedirect("CreateEvent");
 		
 		}

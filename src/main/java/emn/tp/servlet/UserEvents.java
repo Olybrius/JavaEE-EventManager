@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import emn.tp.bean.jpa.EventsEntity;
 import emn.tp.bean.jpa.UsersEntity;
@@ -48,11 +49,13 @@ public class UserEvents extends HttpServlet {
 	 */
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();
+		
 		// Event service (database work)
 		EventsServiceInterface serviceEvents = new EventsService();	
 
 		// Get the events created by the current user
-		UsersEntity user = (UsersEntity)request.getSession().getAttribute("user");	
+		UsersEntity user = (UsersEntity)session.getAttribute("user");	
 		System.out.println("USER EVENTS : Getting the events created by the current user [" + user.getPseudo() + " - " + user.getMail() + "]...");
 		List<EventsEntity> events = serviceEvents.getEventsByUser(user.getId());
 

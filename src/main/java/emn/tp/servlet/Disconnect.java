@@ -1,11 +1,13 @@
 package emn.tp.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Disconnect
@@ -40,8 +42,9 @@ public class Disconnect extends HttpServlet {
 	 * process
 	 */
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		System.out.println("DISCONNECT : Invalidating session...");
-		request.getSession().invalidate() ;
+		session.invalidate() ;
 		response.sendRedirect("Login") ;		
 	}
 	
