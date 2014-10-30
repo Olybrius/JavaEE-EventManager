@@ -39,7 +39,7 @@ public class UsersService implements UsersServiceInterface {
 	}
 
 	@Override
-	public boolean checkMail(String mail) {
+	public boolean mailExists(String mail) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
 		EntityManager em = emf.createEntityManager();
 		Query query = em.createNamedQuery("UsersEntity.checkMail");

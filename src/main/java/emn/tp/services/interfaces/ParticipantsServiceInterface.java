@@ -4,7 +4,7 @@ import emn.tp.bean.jpa.EventsEntity;
 
 public interface ParticipantsServiceInterface {
 	
-	public boolean participate(String mail, int eventID);
-	public void subscribeParticipant(String mail, String firstName, String name, String company, EventsEntity event);
+	public boolean mailParticipatesToEvent(String mail, int eventID);
+	public void participate(String mail, String firstName, String name, String company, EventsEntity event);
 
 }

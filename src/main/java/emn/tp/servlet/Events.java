@@ -74,7 +74,7 @@ public class Events extends HttpServlet {
 					int idEvents = Integer.parseInt(id);
 					// Getting the event
 					System.out.println("EVENTS : Getting the event by id...");
-					EventsEntity event = serviceEvents.getEventsById(idEvents);
+					EventsEntity event = serviceEvents.getEventById(idEvents);
 					if(event == null){
 						System.out.println("EVENTS : Event not found...");
 						request.getSession().setAttribute("eventsError", "L'évènement auquel vous voulez accéder n'existe malheureusement pas.");

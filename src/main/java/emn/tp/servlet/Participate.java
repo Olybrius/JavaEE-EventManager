@@ -62,17 +62,17 @@ public class Participate extends HttpServlet{
 		
 		// Get the event by id
 		System.out.println("PARTICIPATE : Getting the event by id...");
-		EventsEntity event = serviceEvents.getEventsById(eventID);
+		EventsEntity event = serviceEvents.getEventById(eventID);
 		// If an event is found and published
 		if(event != null && event.getPublished().equals((short)1)){
 			// If the user already participates to this event
-			if(servicePart.participate(mail, eventID)){
+			if(servicePart.mailParticipatesToEvent(mail, eventID)){
 				System.out.println("PARTICIPATE : The participant already participates to this event...");
 				request.getSession().setAttribute("eventsError", "L'adresse mail renseignée est déjà inscrite sur cet évènement.");
 			// Otherwise
 			}else{
 				System.out.println("PARTICIPATE : Inserting the participant...");
-				servicePart.subscribeParticipant(mail, firstName, name, company, event);
+				servicePart.participate(mail, firstName, name, company, event);
 			}
 		// Otherwise
 		}else{

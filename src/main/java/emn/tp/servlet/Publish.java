@@ -56,10 +56,10 @@ public class Publish extends HttpServlet {
 
 		// Tests
 		System.out.println("PUBLISH : Checking the event id and if the user created the event...");
-		if(!serviceEvents.checkIdEvent(eventID)){
+		if(!serviceEvents.eventExists(eventID)){
 			System.out.println("PUBLISH : Event does not exist...");
 			request.getSession().setAttribute("publishError", "L'évènement que vous avez tenté de publier n'existe pas.");
-		}else if(!serviceEvents.validateUser(user.getId(), eventID)){
+		}else if(!serviceEvents.userCreatedEvent(user.getId(), eventID)){
 			System.out.println("PUBLISH : The user did not create the event...");
 			request.getSession().setAttribute("publishError", "Vous n'avez pas créé l'évènement que vous avez tenté de publier.");
 		}else{		

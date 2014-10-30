@@ -16,7 +16,7 @@ import emn.tp.services.interfaces.ParticipantsServiceInterface;
 public class ParticipantsService implements ParticipantsServiceInterface{
 
 	@Override
-	public boolean participate(String mail, int eventID) {
+	public boolean mailParticipatesToEvent(String mail, int eventID) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
 		EntityManager em = emf.createEntityManager();
 		Query query = em.createNamedQuery("ParticipantsEntity.participateOrNot");
@@ -29,7 +29,7 @@ public class ParticipantsService implements ParticipantsServiceInterface{
 	}
 
 	@Override
-	public void subscribeParticipant(String mail, String firstName,
+	public void participate(String mail, String firstName,
 			String name, String company, EventsEntity event) {
 		
 		System.out.println("SUBSCRIBE : Creating participant entity...");

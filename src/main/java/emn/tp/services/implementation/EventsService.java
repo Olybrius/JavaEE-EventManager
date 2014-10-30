@@ -49,7 +49,7 @@ public class EventsService implements EventsServiceInterface {
 	}
 
 	@Override
-	public boolean checkIdEvent(int id) {
+	public boolean eventExists(int id) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
 		EntityManager em = emf.createEntityManager();
 		EventsEntity event = em.find(EventsEntity.class, id);
@@ -58,7 +58,7 @@ public class EventsService implements EventsServiceInterface {
 	}
 
 	@Override
-	public boolean validateUser(int userID, int eventID) {
+	public boolean userCreatedEvent(int userID, int eventID) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
 		EntityManager em = emf.createEntityManager();
 		Query query = em.createNamedQuery("EventsEntity.checkUserId");
@@ -87,7 +87,7 @@ public class EventsService implements EventsServiceInterface {
 	}
 
 	@Override
-	public EventsEntity getEventsById(int eventID) {
+	public EventsEntity getEventById(int eventID) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit1");
 		EntityManager em = emf.createEntityManager();
 		EventsEntity event = em.find(EventsEntity.class, eventID);

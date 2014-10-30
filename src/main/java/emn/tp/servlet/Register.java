@@ -64,7 +64,7 @@ public class Register extends HttpServlet {
 			request.getSession().setAttribute("registerError", "Les deux mots de passe doivent correspondre.");
 			response.sendRedirect("Register");
 		// If mail already exists
-		}else if(!serviceLog.checkMail(mail)){
+		}else if(!serviceLog.mailExists(mail)){
 			System.out.println("REGISTER : Mail already exists...");
 			request.getSession().setAttribute("registerError", "Un compte existe déjà pour l'adresse mail renseignée.");
 			response.sendRedirect("Register");
