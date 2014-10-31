@@ -23,5 +23,10 @@ public class Tools {
 	public static boolean validateFieldLogin(String email, String passwd) {
 		return ((email != null && !email.isEmpty()) && passwd != null && !passwd.isEmpty()) ;
 	}
+	
+	public static boolean validateFieldParticipant(String firstName, String name, String mail, String company){
+		return ((firstName != null && !firstName.isEmpty() && (name != null && !name.isEmpty()) 
+				&& (mail != null && !mail.isEmpty()) && (company != null && !company.isEmpty())));
+	}
 
 }

@@ -179,6 +179,7 @@ public class SessionController implements Filter {
 	 * @param url
 	 * @return True if the user try to access to the events, false otherwise.
 	 */
+	@SuppressWarnings("unused")
 	private boolean events(String url){
 		return Pattern.matches(".*\\/Events(?=([0-9]*)){0,1}$", url) || Pattern.matches(".*/Publish$", url) || Pattern.matches(".*/Participate$", url) ;
 	}

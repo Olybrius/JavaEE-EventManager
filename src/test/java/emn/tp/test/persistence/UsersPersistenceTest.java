@@ -40,8 +40,8 @@ public class UsersPersistenceTest
 		UsersEntityMock mock = new UsersEntityMock();
 		
 		// TODO : set primary key values here 
-		process( service, mock, 0  );
-		// process( service, mock, ... );
+		process( service, mock, 5 );
+		//process( service, mock, ...mock );
 	}
 
 	private void process(UsersPersistence service, UsersEntityMock mock, Integer id ) {
