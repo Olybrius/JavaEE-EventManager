@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import emn.tp.bean.jpa.UsersEntity;
 import emn.tp.services.implementation.EventsService;
 import emn.tp.services.interfaces.EventsServiceInterface;
@@ -24,6 +27,7 @@ import emn.tp.tools.Tools;
 @WebServlet("/CreateEvent")
 public class CreateEvent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LogManager.getLogger(CreateEvent.class);
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -38,9 +42,9 @@ public class CreateEvent extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		System.out.println("CREATE EVENT : Forwarding to CreateEvent JSP...");
+		logger.debug("CREATE EVENT : Forwarding to CreateEvent JSP...");
 		request.getRequestDispatcher("/WEB-INF/jsp/CreateEvent.jsp").forward(request, response);
-		System.out.println("CREATE EVENT : Removing createEventError session variable...");
+		logger.debug("CREATE EVENT : Removing createEventError session variable...");
 		session.removeAttribute("createEventError");
 	}
 
@@ -55,7 +59,7 @@ public class CreateEvent extends HttpServlet {
 		EventsServiceInterface serviceEvents = new EventsService();
 		
 		// Get inputs
-		System.out.println("CREATE EVENTS : Getting inputs...");
+		logger.debug("CREATE EVENTS : Getting inputs...");
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
 		String stringStartDate = request.getParameter("startDate") + " " + request.getParameter("startTime");
@@ -66,13 +70,13 @@ public class CreateEvent extends HttpServlet {
 		try {
 			
 			// Parse dates
-			System.out.println("CREATE EVENTS : Parsing dates [" + stringStartDate + " & " + stringEndDate + "...");
+			logger.debug("CREATE EVENTS : Parsing dates [" + stringStartDate + " & " + stringEndDate + "...");
 			Date startDate = sdf.parse(stringStartDate);
 			Date endDate = sdf.parse(stringEndDate);
-			System.out.println("CREATE EVENTS : Validating fields...");
+			logger.debug("CREATE EVENTS : Validating fields...");
 			// If inputs are not well filled
 			if(!Tools.validateFieldEvent(name, address, startDate, endDate)){
-				System.out.println("CREATE EVENTS : Fields not well filled...");
+				logger.debug("CREATE EVENTS : Fields not well filled...");
 				session.setAttribute("createEventError", "Tous les champs sont requis et la date de début doit précéder la date de fin de l'évènement.");
 				response.sendRedirect("CreateEvent");
 			// If inputs are well filled
@@ -85,7 +89,7 @@ public class CreateEvent extends HttpServlet {
 			
 		} catch (ParseException e) {
 			
-			System.out.println("CREATE EVENTS : Error during the parse...");
+			logger.debug("CREATE EVENTS : Error during the parse...");
 			session.setAttribute("createEventError", "Une erreur est survenue durant le découpage des dates.");
 			response.sendRedirect("CreateEvent");
 		

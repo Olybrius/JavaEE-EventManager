@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 /**
  * Servlet relatif à la déconnexion d'un utilisateur.
  * @author Joris & Killian
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/Disconnect")
 public class Disconnect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LogManager.getLogger(Disconnect.class);
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -44,7 +48,7 @@ public class Disconnect extends HttpServlet {
 	 */
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		System.out.println("DISCONNECT : Invalidating session...");
+		logger.debug("DISCONNECT : Invalidating session...");
 		session.invalidate() ;
 		response.sendRedirect("Login") ;		
 	}

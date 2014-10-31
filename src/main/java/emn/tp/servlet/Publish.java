@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import emn.tp.bean.jpa.UsersEntity;
 import emn.tp.services.implementation.EventsService;
 import emn.tp.services.interfaces.EventsServiceInterface;
@@ -19,6 +22,7 @@ import emn.tp.services.interfaces.EventsServiceInterface;
 @WebServlet({"/Publish"})
 public class Publish extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LogManager.getLogger(Publish.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -53,20 +57,20 @@ public class Publish extends HttpServlet {
 		EventsServiceInterface serviceEvents = new EventsService();
 		
 		// Get input
-		System.out.println("PUBLISH : Getting and parsing id...");
+		logger.debug("PUBLISH : Getting and parsing id...");
 		int eventID = Integer.parseInt(request.getParameter("eventId"));
 		UsersEntity user = (UsersEntity) session.getAttribute("user");
 
 		// Tests
-		System.out.println("PUBLISH : Checking the event id and if the user created the event...");
+		logger.debug("PUBLISH : Checking the event id and if the user created the event...");
 		if(!serviceEvents.eventExists(eventID)){
-			System.out.println("PUBLISH : Event does not exist...");
+			logger.debug("PUBLISH : Event does not exist...");
 			session.setAttribute("publishError", "L'évènement que vous avez tenté de publier n'existe pas.");
 		}else if(!serviceEvents.userCreatedEvent(user.getId(), eventID)){
-			System.out.println("PUBLISH : The user did not create the event...");
+			logger.debug("PUBLISH : The user did not create the event...");
 			session.setAttribute("publishError", "Vous n'avez pas créé l'évènement que vous avez tenté de publier.");
 		}else{		
-			System.out.println("PUBLISH : Event is published ...");
+			logger.debug("PUBLISH : Event is published ...");
 			serviceEvents.publishEvent(eventID);
 			response.sendRedirect("MyEvents");
 		}

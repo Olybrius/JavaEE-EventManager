@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import emn.tp.bean.jpa.EventsEntity;
 import emn.tp.bean.jpa.UsersEntity;
 import emn.tp.services.implementation.EventsService;
@@ -21,6 +24,7 @@ import emn.tp.services.interfaces.EventsServiceInterface;
 @WebServlet("/MyEvents")
 public class UserEvents extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LogManager.getLogger(UserEvents.class);
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -56,17 +60,17 @@ public class UserEvents extends HttpServlet {
 
 		// Get the events created by the current user
 		UsersEntity user = (UsersEntity)session.getAttribute("user");	
-		System.out.println("USER EVENTS : Getting the events created by the current user [" + user.getPseudo() + " - " + user.getMail() + "]...");
+		logger.debug("USER EVENTS : Getting the events created by the current user [" + user.getPseudo() + " - " + user.getMail() + "]...");
 		List<EventsEntity> events = serviceEvents.getEventsByUser(user.getId());
 
 		// Send the result
-		System.out.println("USER EVENTS : Sending the events to show [" + events.size() + "]...");
+		logger.debug("USER EVENTS : Sending the events to show [" + events.size() + "]...");
 		request.getSession().setAttribute("userEvents", events);
 		
 		// Show the JSP
-		System.out.println("USER EVENTS : Forwarding to UserEvents JSP...");
+		logger.debug("USER EVENTS : Forwarding to UserEvents JSP...");
 		request.getRequestDispatcher("/WEB-INF/jsp/UserEvents.jsp").forward(request, response);
-		System.out.println("USER EVENTS : Removing publishError session variable...");
+		logger.debug("USER EVENTS : Removing publishError session variable...");
 		request.getSession().removeAttribute("publishError");
 		
 	}

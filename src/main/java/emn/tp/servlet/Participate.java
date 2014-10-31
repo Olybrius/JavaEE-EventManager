@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import emn.tp.bean.jpa.EventsEntity;
 import emn.tp.services.implementation.EventsService;
 import emn.tp.services.implementation.ParticipantsService;
@@ -23,8 +26,8 @@ import emn.tp.tools.Tools;
 
 @WebServlet("/Participate")
 public class Participate extends HttpServlet{
-
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LogManager.getLogger(Participate.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -60,7 +63,7 @@ public class Participate extends HttpServlet{
 		EventsServiceInterface serviceEvents = new EventsService();
 
 		// Get inputs
-		System.out.println("PARTICIPATE : Getting inputs...");
+		logger.debug("PARTICIPATE : Getting inputs...");
 		int eventID = Integer.parseInt(request.getParameter("eventId"));
 		String mail = request.getParameter("mail");
 		String firstName = request.getParameter("firstName");
@@ -71,32 +74,34 @@ public class Participate extends HttpServlet{
 		if(Tools.validateFieldParticipant(firstName, name, mail, company)){
 
 			// Get the event by id
-			System.out.println("PARTICIPATE : Getting the event by id...");
+			logger.debug("PARTICIPATE : Getting the event by id...");
 			EventsEntity event = serviceEvents.getEventById(eventID);
 			// If an event is found and published
 			if(event != null && event.getPublished().equals((short)1)){
 				// If the user already participates to this event
 				if(servicePart.mailParticipatesToEvent(mail, eventID)){
-					System.out.println("PARTICIPATE : The participant already participates to this event...");
+					logger.debug("PARTICIPATE : The participant already participates to this event...");
 					session.setAttribute("eventsError", "L'adresse mail renseignée est déjà inscrite sur cet évènement.");
 					// Otherwise
 				}else{
-					System.out.println("PARTICIPATE : Inserting the participant...");
+					logger.debug("PARTICIPATE : Inserting the participant...");
 					servicePart.participate(mail, firstName, name, company, event);
 				}
 				// Otherwise
 			}else{
-				System.out.println("PARTICIPATE : The event does not exist or not published...");
+				logger.debug("PARTICIPATE : The event does not exist or not published...");
 				session.setAttribute("eventsError", "L'évènement auquel vous avez essayé de vous inscrire n'existe pas ou n'est pas publié.");
 			}
 
 			// Redirection
-			System.out.println("PARTICIPATE : Redirecting to Events servlet...");
+			logger.debug("PARTICIPATE : Redirecting to Events servlet...");
 			response.sendRedirect("Events?id=" + request.getParameter("eventId"));
 		}
+		
 		else{
 			session.setAttribute("eventsError", "Les informations renseignés sont incorrectes.");
 			response.sendRedirect("Events?id=" + request.getParameter("eventId"));
 		}
+		
 	}
 }

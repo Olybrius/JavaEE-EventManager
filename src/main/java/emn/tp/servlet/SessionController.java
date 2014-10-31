@@ -15,6 +15,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import emn.tp.bean.jpa.UsersEntity;
 
 /**
@@ -32,6 +35,7 @@ import emn.tp.bean.jpa.UsersEntity;
 		}
 )
 public class SessionController implements Filter {
+	private static final Logger logger = LogManager.getLogger(SessionController.class);
 
 	private ArrayList<String> freeFiles ;
 	private ArrayList<String> beforeConnection ;
@@ -57,43 +61,43 @@ public class SessionController implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
 		// Get the current url
-		System.out.println("SESSION CONTROLLER : Getting current URL...");
+		logger.debug("SESSION CONTROLLER : Getting current URL...");
 		String url = ((HttpServletRequest)request).getRequestURI() ;
-		System.out.println("SESSION CONTROLLER : Testing current URL [" + url + "]...");
+		logger.debug("SESSION CONTROLLER : Testing current URL [" + url + "]...");
 		
 		// If we try to load a "free file" or a servlet always accessible
 		if (this.freeFile(url) || this.freeServlet(url)) {	
-			System.out.println("SESSION CONTROLLER : Free file or servlet...");
+			logger.debug("SESSION CONTROLLER : Free file or servlet...");
 			chain.doFilter(request, response);
 			
 		// If we try to load a servlet accessible only before a connection
 		}else if (this.beforeConnection(url)){
 			// Get the current user session
-			System.out.println("SESSION CONTROLLER : Servlet accessible before connection, testing the existence of a session...");
+			logger.debug("SESSION CONTROLLER : Servlet accessible before connection, testing the existence of a session...");
 			UsersEntity user = (UsersEntity) ((HttpServletRequest)request).getSession().getAttribute("user");
 			// If it exists, we need to redirect to the events of the current user
 			if (user != null){
-				System.out.println("SESSION CONTROLLER : There is a session, redirecting to Events...");
+				logger.debug("SESSION CONTROLLER : There is a session, redirecting to Events...");
 				request.getRequestDispatcher("/MyEvents").forward(request, response);
 			// Otherwise, we can chain
 			}else{
-				System.out.println("SESSION CONTROLLER : There is no session, chain processing...");
+				logger.debug("SESSION CONTROLLER : There is no session, chain processing...");
 				chain.doFilter(request, response);
 			}
 			
 		// Otherwise
 		}else{
 			// Get the current user session
-			System.out.println("SESSION CONTROLLER : Getting session variables...");
+			logger.debug("SESSION CONTROLLER : Getting session variables...");
 			UsersEntity user = (UsersEntity) ((HttpServletRequest)request).getSession().getAttribute("user");
 			String loginError = (String) ((HttpServletRequest)request).getSession().getAttribute("loginError");
 			// If it exists, we can chain
 			if (user != null || loginError != null) {
-				System.out.println("SESSION CONTROLLER : Session variable exists, chain processing...");
+				logger.debug("SESSION CONTROLLER : Session variable exists, chain processing...");
 				chain.doFilter(request, response);
 			// Otherwise, we redirect on the "login" page
 			}else{
-				System.out.println("SESSION CONTROLLER : Session variable does not exist, redirecting to Login...");
+				logger.debug("SESSION CONTROLLER : Session variable does not exist, redirecting to Login...");
 				request.getRequestDispatcher("/Login").forward(request, response);
 			}
 		}

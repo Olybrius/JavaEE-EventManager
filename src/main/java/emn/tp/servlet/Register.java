@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import emn.tp.services.implementation.UsersService;
 import emn.tp.services.interfaces.UsersServiceInterface;
 import emn.tp.tools.Tools;
@@ -19,6 +22,7 @@ import emn.tp.tools.Tools;
 @WebServlet({"/Register"})
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LogManager.getLogger(Register.class);
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -32,9 +36,9 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("REGISTER : Forwarding to Register JSP...");
+		logger.debug("REGISTER : Forwarding to Register JSP...");
 		request.getRequestDispatcher("/WEB-INF/jsp/Register.jsp").forward(request, response);
-		System.out.println("REGISTER : Removing registerError session variable...");
+		logger.debug("REGISTER : Removing registerError session variable...");
 		request.getSession().removeAttribute("registerError");
 	}
 
@@ -49,26 +53,26 @@ public class Register extends HttpServlet {
 		UsersServiceInterface serviceLog = new UsersService();
 
 		// Get inputs
-		System.out.println("REGISTER : Getting inputs...");
+		logger.debug("REGISTER : Getting inputs...");
 		String pseudo = request.getParameter("pseudo") ;
 		String mail = request.getParameter("mail") ;
 		String password = request.getParameter("password") ;
 		String passwordConfirmation = request.getParameter("passwordConfirmation") ;
 		
 		// If they are not all filled
-		System.out.println("REGISTER : Validating fields...");
+		logger.debug("REGISTER : Validating fields...");
 		if (!Tools.validateFieldRegister(pseudo, mail, password, passwordConfirmation)){
-			System.out.println("REGISTER : Inputs not filled...");
+			logger.debug("REGISTER : Inputs not filled...");
 			session.setAttribute("registerError", "Tous les champs doivent être renseignés.");
 			response.sendRedirect("Register");
 		// If the two passwords are not the same
 		}else if (!Tools.validatePassword(request.getParameter("password"), request.getParameter("passwordConfirmation"))) {
-			System.out.println("REGISTER : The two passwords are not the same...");
+			logger.debug("REGISTER : The two passwords are not the same...");
 			session.setAttribute("registerError", "Les deux mots de passe doivent correspondre.");
 			response.sendRedirect("Register");
 		// If mail already exists
 		}else if(!serviceLog.mailExists(mail)){
-			System.out.println("REGISTER : Mail already exists...");
+			logger.debug("REGISTER : Mail already exists...");
 			session.setAttribute("registerError", "Un compte existe déjà pour l'adresse mail renseignée.");
 			response.sendRedirect("Register");
 		// If inputs are correctly filled
