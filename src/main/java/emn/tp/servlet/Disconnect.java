@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Disconnect
+ * Servlet relatif à la déconnexion d'un utilisateur.
+ * @author Joris & Killian
  */
 @WebServlet("/Disconnect")
 public class Disconnect extends HttpServlet {

@@ -1,0 +1,15 @@
+emn.tp.bean.jpa
+emn.tp.mock
+emn.tp.mock.tool
+emn.tp.persistence
+emn.tp.persistence.commons.fake
+emn.tp.persistence.commons.jpa
+emn.tp.persistence.services
+emn.tp.persistence.services.fake
+emn.tp.persistence.services.jpa
+emn.tp.services.implementation
+emn.tp.services.interfaces
+emn.tp.servlet
+emn.tp.test.persistence
+emn.tp.test.services
+emn.tp.tools

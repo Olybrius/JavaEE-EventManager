@@ -16,6 +16,13 @@ import emn.tp.persistence.services.EventsPersistence;
 import emn.tp.persistence.services.jpa.EventsPersistenceJPA;
 import emn.tp.services.interfaces.EventsServiceInterface;
 
+/**
+ * Classe implémentant les méthodes de l'interface EventsServiceInterface. 
+ * 
+ * @author Joris & Killian
+ *
+ */
+
 public class EventsService implements EventsServiceInterface {
 
 	@Override

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import emn.tp.bean.jpa.UsersEntity;
 
 /**
- * Servlet Filter implementation class Controller
+ * Servlet Filter permet le contrôle d'accès aux diverses pages. 
  */
 @WebFilter(
 		urlPatterns = "/*",

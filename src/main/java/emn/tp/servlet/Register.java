@@ -14,7 +14,7 @@ import emn.tp.services.interfaces.UsersServiceInterface;
 import emn.tp.tools.Tools;
 
 /**
- * Servlet implementation class Register
+ * Servlet relatif à l'inscription d'un utilisateur.
  */
 @WebServlet({"/Register"})
 public class Register extends HttpServlet {

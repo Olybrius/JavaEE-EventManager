@@ -15,7 +15,8 @@ import emn.tp.services.implementation.EventsService;
 import emn.tp.services.interfaces.EventsServiceInterface;
 
 /**
- * Servlet implementation class Disconnect
+ * Servlet relatif aux évènements publiés.
+ * @author Joris & Killian
  */
 @WebServlet("/Events")
 public class Events extends HttpServlet {

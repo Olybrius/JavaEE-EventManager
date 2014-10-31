@@ -18,7 +18,8 @@ import emn.tp.services.interfaces.EventsServiceInterface;
 import emn.tp.tools.Tools;
 
 /**
- * Servlet implementation class CreateEvent
+ * Servlet relatif à la création des évènements.
+ * @author Joris & Killian
  */
 @WebServlet("/CreateEvent")
 public class CreateEvent extends HttpServlet {

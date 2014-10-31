@@ -16,6 +16,11 @@ import emn.tp.services.interfaces.EventsServiceInterface;
 import emn.tp.services.interfaces.ParticipantsServiceInterface;
 import emn.tp.tools.Tools;
 
+/**
+ * Servlet relatif à la gestion des participants à un évènement.
+ * @author Joris & Killian
+ */
+
 @WebServlet("/Participate")
 public class Participate extends HttpServlet{
 

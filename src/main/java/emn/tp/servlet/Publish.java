@@ -14,7 +14,7 @@ import emn.tp.services.implementation.EventsService;
 import emn.tp.services.interfaces.EventsServiceInterface;
 
 /**
- * Servlet implementation class Publish
+ * Servlet relatif à la publication d'un évènement.
  */
 @WebServlet({"/Publish"})
 public class Publish extends HttpServlet {

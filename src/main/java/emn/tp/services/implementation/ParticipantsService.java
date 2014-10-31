@@ -13,6 +13,10 @@ import emn.tp.persistence.PersistenceServiceProvider;
 import emn.tp.persistence.services.ParticipantsPersistence;
 import emn.tp.services.interfaces.ParticipantsServiceInterface;
 
+/**
+ * @author Joris & Killian
+ *
+ */
 public class ParticipantsService implements ParticipantsServiceInterface{
 
 	@Override

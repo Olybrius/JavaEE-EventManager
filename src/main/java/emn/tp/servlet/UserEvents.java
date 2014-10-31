@@ -16,7 +16,7 @@ import emn.tp.services.implementation.EventsService;
 import emn.tp.services.interfaces.EventsServiceInterface;
 
 /**
- * Servlet implementation class Events
+ * Servlet reltif aux évènements créés par un utilisateur.
  */
 @WebServlet("/MyEvents")
 public class UserEvents extends HttpServlet {

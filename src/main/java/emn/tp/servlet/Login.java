@@ -16,7 +16,8 @@ import emn.tp.tools.Tools;
 
 
 /**
- * Servlet implementation class Connexion
+ * Servlet relatif à l'authentification de l'utilisateur.
+ * @author Joris & Killian
  */
 @WebServlet({"/", "/Login"})
 public class Login extends HttpServlet {
